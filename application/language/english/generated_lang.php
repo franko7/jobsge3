@@ -18,3 +18,6 @@ $lang['aboutUs'] = "aboutUs";
 $lang['contact'] = "contact";
 $lang['ourSocials'] = "ourSocials";
 $lang['usefulLinks'] = "usefulLinks";
+$lang['confDelAccount'] = "confDelAccount";
+$lang['deleteAccount'] = "deleteAccount";
+$lang['signOut'] = "signOut";

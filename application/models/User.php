@@ -34,64 +34,14 @@ class user extends CI_Model
 		return $this->db->select('*')->from('users')->where('role !=', 1)->limit($limit, $start)->get()->result();
 	}
 
-
-
-
-
-
-
-
-
-
-	
-
-	public function getJoinedUserData($userid)
+	public function updatePassword($id, $password)
 	{
-		$this->db->select("users.id, users.username, users.name, users.email, users.phone, users.avatar_url, 
-		companies.id AS cid, companies.user_id AS u_id, companies.name AS cname, companies.email AS cemail, companies.phone AS cphone")
-			->from('users')
-			->where('users.id', $userid)
-			->join('companies', 'users.id = companies.user_id', 'left');
-		return $this->db->get()->row();
+		$this->db->where('id', $id);
+		return $this->db->update('users', array('password' => $password));
 	}
 
-	
-
-	public function setRecoveryString($email, $recstr)
-	{
-		return $this->db->update('users', array('recoverystring' => $recstr), array('email' => $email));
+	public function deleteUser($id){
+		return $this->db->where('id', $id)->delete('users');
 	}
 
-	public function hasRecoveryString($userid, $recstr)
-	{
-		return $this->db->select('*')->from('users')->where('id', $userid)->where('recoverystring', $recstr)->count_all_results();
-	}
-
-	public function resetPassword($userid, $recstr, $hpwd)
-	{
-		return $this->db->update(
-			'users',
-			array('recoverystring' => '', 'password' => $hpwd), //set
-			array('id' => $userid, 'recoverystring' => $recstr) //where
-		);
-	}
-
-	public function updateUserData($userid, $username, $name, $email, $phone)
-	{
-		$this->db->where('id', $userid);
-		return $this->db->update('users', array('username' => $username, 'name' => $name, 'email' => $email, 'phone' => $phone));
-	}
-
-	public function updateUserLogoData($userid, $filename)
-	{
-		$this->db->where('id', $userid);
-		return $this->db->update('users', array('avatar_url' => $filename));
-	}
-
-	public function updatePassword($userid, $password)
-	{
-		$this->db->set('password', $password);
-		$this->db->where('id', $userid);
-		return $this->db->update('users');
-	}
 }

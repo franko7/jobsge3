@@ -51,6 +51,11 @@ $lang['createAccount'] = "Зарегистрироваться";
 $lang['resetPassword'] = "Сброс пароля";
 $lang['IAgree']         = "Я согласен";
 $lang['signOut'] = "Выйти";
+$lang['changePassword']= "Change Password";
+$lang['changePassword']= "Измени пароль";
+$lang['oldPassword']= "Старый пароль";
+$lang['newPassword']= "Новый пароль";
+$lang['updPassword']= "Обновить пароль";
 
 // Profile
 $lang['AddNewApp'] = "Добавить новое объявление";
@@ -65,6 +70,7 @@ $lang['phone'] = "Телефон";
 $lang['website'] = "Веб-сайт";
 $lang['zipCode'] = "Почтовый индекс";
 $lang['address'] = "Адрес";
+$lang['location'] = "Mестонахождение";
 $lang['shortDescription'] = "Краткое описание";
 $lang['longDescription'] = "Длинное описание";
 $lang['shortTxtEng'] = "Краткий текст на Английском языке";
@@ -74,3 +80,17 @@ $lang['largeTxtRus'] = "Большой текст на Русском языке
 $lang['images'] = "Изображений";
 $lang['payWithPP'] = "Оплата с PayPal";
 $lang['addApplication'] = "Добавить объявление";
+$lang['myApplications'] = "Мои объявлении";
+$lang['deleteAccount'] = "Удалить аккаунт";
+
+//Tables
+$lang['title'] = "Названые";
+$lang['expiryDate'] = "Дата срока";
+$lang['status'] = "Статус";
+$lang['actions'] = "Действия";
+
+// Dialogs
+$lang['confirmDeleteJob'] = "Вы действительно хотите удалить ";
+$lang['confDelAccount'] = "Вы действительно хотите удалить Аккаунт";
+$lang['delete'] = "Удалить";
+$lang['close'] = "Закрыть";

@@ -82,18 +82,25 @@
          <!-- Images -->
          <li class="nav-item">
             <a href="<?php echo base_url('admin/editimages');?>" class="nav-link <?php echo $pageN==9?'active':'';?>" class="nav-link">
-               <i class="fas fa-key"></i>
+               <i class="fas fa-images"></i>
                <p class="ml-1"> Images </p>
             </a>
          </li>
+         <!-- Socials -->
          <li class="nav-item">
-            <a href="<?php echo base_url('admin/changepassword');?>" class="nav-link <?php echo $pageN==10?'active':'';?>" class="nav-link">
+            <a href="<?php echo base_url('admin/socials');?>" class="nav-link <?php echo $pageN==10?'active':'';?>" class="nav-link">
+               <i class="fab fa-facebook-square"></i>
+               <p class="ml-1"> Socials </p>
+            </a>
+         </li>
+         <li class="nav-item">
+            <a href="<?php echo base_url('admin/changepassword');?>" class="nav-link <?php echo $pageN==20?'active':'';?>" class="nav-link">
                <i class="fas fa-key"></i>
                <p class="ml-1"> Change password </p>
             </a>
          </li>
          <li class="nav-item">
-            <a href="<?php echo base_url('auth/logout');?>" class="nav-link <?php echo $pageN==11?'active':'';?>" class="nav-link">
+            <a href="<?php echo base_url('auth/logout');?>" class="nav-link <?php echo $pageN==21?'active':'';?>" class="nav-link">
                <i class="fas fa-sign-out-alt"></i>
                <p class="ml-1"> Logout </p>
             </a>

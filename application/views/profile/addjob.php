@@ -30,14 +30,14 @@
                            <div class="row m-b30">                        
                               <div class="<?php echo (validation_errors() && $this->input->post('hjobtype')==1)?'col-lg-12':'col-lg-6 col-md-6';?>" id="fullnamewrapper"><!-- firstname -->
                                  <div class="form-group">
-                                    <label>Full name</label>
-                                    <input type="text" name="fullname" class="form-control" placeholder="Full name" value="<?php echo set_value('fullname') ? set_value('fullname') : $this->session->userdata('full_name');?>">
+                                    <label> <?php echo lang('fullname')?> </label>
+                                    <input type="text" name="fullname" class="form-control" placeholder="<?php echo lang('fullname')?>" value="<?php echo set_value('fullname') ? set_value('fullname') : $this->session->userdata('full_name');?>">
                                     <small style="color:red"><?php echo form_error('fullname'); ?></small>
                                  </div>
                               </div>
                               <div class="<?php echo (validation_errors() && $this->input->post('hjobtype')==1)?'displaynone':'col-lg-6 col-md-6';?>" id="jobtypewrapper"><!-- job type -->
                                  <div class="form-group">
-                                    <label>Job type</label>
+                                    <label> <?php echo lang('jobType')?> </label>
                                     <select name="jobtype" id="jobtype">
                                        <?php foreach($jobTypes as $jobType): ?>
                                           <?php if($jobType->id > 1): ?>
@@ -102,7 +102,7 @@
                               </div>
                               <div class="col-lg-6 col-md-6"><!-- location -->
                                  <div class="form-group">
-                                    <label>Location</label>
+                                    <label> <?php echo lang('location')?> </label>
                                     <select name="location" data-live-search="true">
                                        <?php foreach($locations as $location): ?>
                                           <option value="<?php echo $location->id;?>"> <?php echo $location->location;?> </option>

@@ -5,24 +5,40 @@
       <div class="row mb-2">
          <div class="col-sm-6">
          <h1 class="m-0">Edit Application</h1>
-         </div><!-- /.col -->
+         </div>
          <div class="col-sm-6">
          <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="<?php echo base_url('admin/dashboard');?>">Dashboard</a></li>
             <li class="breadcrumb-item active">Edit Application</li>
          </ol>
-         </div><!-- /.col -->
-      </div><!-- /.row -->
-   </div><!-- /.container-fluid -->
+         </div>
+      </div>
+   </div>
 </div>
-<!-- /.content-header -->
 
-<!-- Main content -->
 <section class="content">
    <div class="container-fluid">
       <div class="col-md-12">
          <div class="card card-danger">
             <div class="card-body">
+
+               <?php if ($this->session->flashdata('fileDelete')):?>
+                  <div class="alert alert-<?php echo $this->session->flashdata('fileDelete')['status']?'success':'danger';?> alert-dismissible fade show" role="alert">
+                  <strong><?php echo $this->session->flashdata('fileDelete')['message'];?></strong>
+                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                     </button>
+                  </div>
+               <?php endif; ?>
+               <?php if ($this->session->flashdata('editJobResult')):?>
+                  <div class="alert alert-<?php echo $this->session->flashdata('editJobResult')['status']?'success':'danger';?> alert-dismissible fade show" role="alert">
+                  <strong><?php echo $this->session->flashdata('editJobResult')['message'];?></strong>
+                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                     </button>
+                  </div>
+               <?php endif; ?>
+
                <?php echo form_open('admin/editjob/'.$currentJob->id);?>
                   <div class="row">
                      <div class="col-sm-12 col-md-6 mb-3">
@@ -75,25 +91,21 @@
                         <small style="color:red"><?php echo form_error('subcategory'); ?></small>
                      </div>
 
-                     <div class="col-sm-12 col-md-6 mb-3">
+                     <div class="col-sm-12 col-md-6 mb-3"><!-- Company -->
                         <label>Company</label>
                         <input type="text" name="company" class="form-control" placeholder="Company" value="<?php echo isset($currentJob->company)?$currentJob->company:'';?>">
                         <small style="color:red"><?php echo form_error('company'); ?></small>
                      </div>
-
-                     <div class="col-sm-12 col-md-6 mb-3">
+                     <div class="col-sm-12 col-md-6 mb-3"><!-- Phone -->
                         <label>Phone</label>
                         <input type="text" name="phone" class="form-control" placeholder="Phone number" value="<?php echo $currentJob->phone;?>">
                         <small style="color:red"><?php echo form_error('phone'); ?></small>
                      </div>
-
-                     <div class="col-sm-12 col-md-6 mb-3">
+                     <div class="col-sm-12 col-md-6 mb-3"><!-- Email -->
                         <label>Email</label>
                         <input type="text" name="email" class="form-control" placeholder="Email" value="<?php echo $currentJob->email;?>">
                         <small style="color:red"><?php echo form_error('email'); ?></small>
-                     </div>
-
-
+                     </div>                     
                      <div class="col-sm-12 col-md-6 mb-3"><!-- website -->
                         <label>Website</label>
                         <input type="text" name="website" class="form-control" placeholder="Website" value="<?php echo $currentJob->website;?>">
@@ -125,7 +137,7 @@
 
                      <div class="col-lg-12 mb-3"><!-- short text en -->
                         <div class="form-group">
-                           <label>Short text</label>
+                           <label>Short description</label>
                            <div class="col-lg-12" style="padding:0">
                               <ul class="nav nav-tabs" id="myTab" role="tablist">
                                  <li class="nav-item">
@@ -137,11 +149,11 @@
                               </ul>
                               <div class="tab-content" id="myTabContent">
                                  <div class="tab-pane fade show active" id="smtxen" role="tabpanel" aria-labelledby="smtxen-tab">
-                                    <input type="text" name="shorttexten" class="form-control" placeholder="Short text in English" value="<?php echo $currentJob->shorttext_en;?>">
+                                    <input type="text" name="shorttexten" class="form-control" placeholder="Short description English" value="<?php echo $currentJob->shorttext_en;?>">
                                     <small style="color:red"><?php echo form_error('shorttexten'); ?></small>
                                  </div>
                                  <div class="tab-pane fade" id="smtxru" role="tabpanel" aria-labelledby="smtxru-tab">
-                                    <input type="text" name="shorttextru" class="form-control" placeholder="Short text in Russian" value="<?php echo $currentJob->shorttext_ru;?>">
+                                    <input type="text" name="shorttextru" class="form-control" placeholder="Short description Russian" value="<?php echo $currentJob->shorttext_ru;?>">
                                     <small style="color:red"><?php echo form_error('shorttextru'); ?></small>
                                  </div>
                               </div>
@@ -151,7 +163,7 @@
 
                      <div class="col-lg-12 mb-3"><!-- Large text -->
                         <div class="form-group">
-                           <label>Long text</label>
+                           <label>Long description</label>
                            <div class="col-lg-12" style="padding:0">
                               <ul class="nav nav-tabs" id="myTab" role="tablist">
                                  <li class="nav-item">
@@ -163,20 +175,32 @@
                               </ul>
                               <div class="tab-content" id="myTabContent">
                                  <div class="tab-pane fade show active" id="lgtxen" role="tabpanel" aria-labelledby="lgtxen-tab">
-                                    <textarea rows="6" name="largetexten" class="form-control notlbr" placeholder="Large text in English"> <?php echo $currentJob->largetext_en;?> </textarea>
+                                    <textarea rows="6" name="largetexten" class="form-control notlbr" placeholder="Large description English"> <?php echo $currentJob->largetext_en;?> </textarea>
                                     <small style="color:red"><?php echo form_error('largetexten'); ?></small>
                                  </div>
                                  <div class="tab-pane fade" id="lgtxru" role="tabpanel" aria-labelledby="lgtxru-tab">
-                                    <textarea rows="6" name="largetextru" class="form-control notlbr" placeholder="Large text in Russian"> <?php echo $currentJob->largetext_ru;?> </textarea>
+                                    <textarea rows="6" name="largetextru" class="form-control notlbr" placeholder="Large description Russian"> <?php echo $currentJob->largetext_ru;?> </textarea>
                                     <small style="color:red"><?php echo form_error('largetextru'); ?></small>
                                  </div>
                               </div>
                            </div>                              
                         </div>
-                     </div>
-                     <div>
-                        <button type="submit" class="btn btn-primary"> Save </button>
-                     </div>
+                     </div>                     
+                  </div>
+                  <div class="d-flex mb-4">
+                     <?php for($i=1; $i<=5; $i++):?>
+                        <?php if($currentJob->{'imgfilename'.$i}):?>
+                           <div class="jobimage">
+                              <img src="<?php echo $bgPath.$currentJob->{'imgfilename'.$i};?>">
+                              <div class="popup">
+                                 <a href="<?php echo base_url('admin/deleteimage/'.$currentJob->id.'/'.$i);?>">Delete image</a>
+                              </div>
+                           </div>
+                        <?php endif;?>
+                     <?php endfor;?>
+                  </div>
+                  <div>
+                     <button type="submit" class="btn btn-primary"> Save </button>
                   </div>
                <?php echo form_close();?>
             </div>            

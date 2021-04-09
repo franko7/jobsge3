@@ -18,7 +18,6 @@ class Profile extends CI_Controller {
       $this->data['images'] = $this->image->getImageNames();
       $this->data['uploadFolder'] = $this->config->item('uploadFolder');
       $this->data['bgPath'] = base_url($this->config->item('bgImagesUploadConfig')['upload_path']);
-      $this->data['pageN'] = 1; 
    }
 
 	public function index()
@@ -36,7 +35,7 @@ class Profile extends CI_Controller {
       $this->data['categories'] = $this->category->getCategories();
       
       $config = $this->config->item('profilePaginationConfig');
-      $config['base_url'] = base_url() . 'profile/myjobs';
+      $config['base_url'] = site_url('profile/myjobs');
       $config['total_rows'] =  $this->job->getMyJobsCount($this->session->userdata('user_id'));
       $this->pagination->initialize($config);
       $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
@@ -380,16 +379,19 @@ class Profile extends CI_Controller {
                         $this->session->set_flashdata('sentRenewalResult', array('status' => false, 'message' => "error sending job for renewal"));
                      }
                   }
-               }
-
-               
-            }
-            
+               }               
+            }            
             $this->load->view('profile/renewjob', $this->data);
          }
       }else{
          return redirect('profile');
       }     
+   }
+
+   public function deleteprofile(){
+      $id = $this->session->userdata('user_id');
+      $this->job->deleteUser($id);
+      return redirect('/');     
    }
 
 
@@ -400,14 +402,12 @@ class Profile extends CI_Controller {
 
    public function changepassword_process()
 	{
-     $this->form_validation->set_rules('oldpassword', 'Old Password', 'required');
+      $this->form_validation->set_rules('oldpassword', 'Old Password', 'required');
 		$this->form_validation->set_rules('newpassword', 'New Password', 'required|min_length[6]|max_length[32]');
 		$this->form_validation->set_rules('confpassword', 'Confirm Password', 'required|min_length[6]|max_length[32]|matches[newpassword]');
-
 		if ($this->form_validation->run()) {
 			$this->load->model('user');
 			$userdata = $this->user->getUserdataById($this->session->userdata('user_id'));
-
 			if ($userdata && password_verify($this->input->post('oldpassword'), $userdata->password)){
 				if($this->user->updatePassword($this->session->userdata('user_id'), password_hash($this->input->post('newpassword'), PASSWORD_BCRYPT))){
 					$this->session->set_flashdata('profPwdChng', array('status' => true, 'message' => "Password updated successfully"));

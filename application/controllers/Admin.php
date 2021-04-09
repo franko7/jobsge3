@@ -33,7 +33,7 @@ class Admin extends CI_Controller {
       $config['base_url'] = base_url('admin/users');
       $config['total_rows'] =  $this->user->getNonAdminUsersCount();
       $this->pagination->initialize($config);
-      $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+      $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
        
       $data['links'] = $this->pagination->create_links();
       $data['page'] = $page;
@@ -153,19 +153,40 @@ class Admin extends CI_Controller {
                 
                //if data saved set message
                if($jobid){           
-                  $this->session->set_flashdata('addJobResult', array('status' => true, 'message' => "job added successfully"));
+                  $this->session->set_flashdata('editJobResult', array('status' => true, 'message' => "Job updated successfully"));
                }else{
-                  $this->session->set_flashdata('addJobResult', array('status' => false, 'message' => "error adding job"));
+                  $this->session->set_flashdata('editJobResult', array('status' => false, 'message' => "Could not update job"));
                }
             }
          }
-         $data['currentJob'] = $this->job->getJobById($id);   
+         $data['currentJob'] = $this->job->getJobById($id);
          $data['subcategories'] = $this->subcategory->getSubcategoriesByCategoryId($data['currentJob']->category_id);
+         $data['bgPath'] = base_url($this->config->item('fileUploadConfig')['upload_path']);
          $this->load->view('admin/editjob', $data);
       }else{
-         return redirect('profile');
+         return redirect('admin/jobs');
+      }      
+   }
+
+
+   public function deleteimage($jobid, $imageid){
+      if($jobid && filter_var($jobid, FILTER_VALIDATE_INT) && $imageid && filter_var($imageid, FILTER_VALIDATE_INT) && $imageid<6){
+         $this->load->model('job');
+         $currentJob = $this->job->getJobById($jobid);
+         if($this->job->clearImage($jobid, $imageid)){
+            $uploadFolder = $this->config->item('uploadFolder');
+            $filename = $currentJob->{'imgfilename'.$imageid};
+            //echo $uploadFolder . $filename;exit;
+            unlink(base_url($uploadFolder . $filename));
+            $this->session->set_flashdata('fileDelete', array('status' => true, 'message' => "File deleted successfully"));
+            return redirect('admin/editjob/'.$jobid);
+         }else{
+            $this->session->set_flashdata('fileDelete', array('status' => false, 'message' => "Could not delete file"));
+         }
+
+      }else{
+         return redirect('admin/jobs');
       }
-      
    }
 
 
@@ -495,8 +516,69 @@ class Admin extends CI_Controller {
    }
 
 
-   
-   
+   public function socials()
+	{
+      $data['pageN'] = 10;
+      $this->load->model('social');
+      if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST'){
+         $this->form_validation->set_rules('facebook', 'Facebook lin', 'trim|max_length[200]|valid_url');
+         $this->form_validation->set_rules('instagram', 'Instagram link', 'trim|max_length[200]|valid_url');
+         $this->form_validation->set_rules('linkedin', 'Location', 'trim|max_length[200]|valid_url');
+         $this->form_validation->set_rules('google', 'Location', 'trim|max_length[200]|valid_url');
+         $this->form_validation->set_rules('twitter', 'Location', 'trim|max_length[200]|valid_url');
+         //if validation passed save data to db
+         if ($this->form_validation->run()) {
+            //if data saved set flash message
+            if($this->social->updateSocials(
+               strlen($this->input->post('facebook', true))?$this->input->post('facebook', true):null,
+               strlen($this->input->post('instagram', true))?$this->input->post('instagram', true):null,
+               strlen($this->input->post('linkedin', true))?$this->input->post('linkedin', true):null,
+               strlen($this->input->post('google', true))?$this->input->post('google', true):null,
+               strlen($this->input->post('twitter', true))?$this->input->post('twitter', true):null)){
+                  $this->session->set_flashdata('socialResult', array('status' => true, 'message' => "Social links updated successfully"));
+                  return redirect('admin/socials');
+            }else{
+               $this->session->set_flashdata('socialResult', array('status' => false, 'message' => "Error updating social links"));
+            }
+         }
+      }
+      $data['socials'] = $this->social->getSocials();
+      $this->load->view('admin/socials', $data);    
+   }
+
+
+   public function changepassword()
+	{
+      $data['pageN'] = 20;
+		$this->load->view('admin/changepassword', $data);
+	}
+
+   public function changepassword_process()
+	{
+		$this->form_validation->set_rules('oldPassword', 'Old Password', 'required');
+		$this->form_validation->set_rules('newPassword', 'New Password', 'required|min_length[6]|max_length[32]');
+		$this->form_validation->set_rules('confPassword', 'Confirm Password', 'required|min_length[6]|max_length[32]|matches[newPassword]');
+
+		if ($this->form_validation->run()) {
+			$this->load->model('user');
+			$userdata = $this->user->getUserdataById($this->session->userdata('user_id'));
+         
+			if ($userdata && password_verify($this->input->post('oldPassword'), $userdata->password)){
+				if($this->user->updatePassword($this->session->userdata('user_id'), password_hash($this->input->post('newPassword'), PASSWORD_BCRYPT))){
+					$this->session->set_flashdata('pwdChng', array('status' => true, 'message' => "Password updated successfully"));
+               return redirect('admin/changepassword');
+				}else{
+				   $this->session->set_flashdata('pwdChng', array('status' => false, 'message' => "Could not update password"));
+            }
+			}else{
+            $this->session->set_flashdata('pwdChng', array('status' => false, 'message' => "Invalid old password."));
+			}
+		}
+      return redirect('admin/changepassword');
+	}
+
+
+      
    private function subCategoryValidation(){
       $this->form_validation->set_rules('category', 'Category', 'required|integer');
       $this->form_validation->set_rules('subcategory_en', 'Subcategory English', 'trim|required|xss_clean|min_length[2]|max_length[200]|is_unique[subcategories.subcategory_en]');
@@ -782,37 +864,7 @@ class Admin extends CI_Controller {
 
 
 
-
-
-
-
-
-   public function changepassword()
-	{      
-		$this->load->view('profile/changepassword');
-	}
-
-   public function changepassword_process()
-	{
-		$this->form_validation->set_rules('oldpassword', 'Old Password', 'required');
-		$this->form_validation->set_rules('newpassword', 'New Password', 'required|min_length[6]|max_length[32]');
-		$this->form_validation->set_rules('confpassword', 'Confirm Password', 'required|min_length[6]|max_length[32]|matches[newpassword]');
-
-		if ($this->form_validation->run()) {
-			$this->load->model('user');
-			$userdata = $this->user->getUserdataById($this->session->userdata('user_id'));
-
-			if ($userdata && password_verify($this->input->post('oldpassword'), $userdata->password)){
-				if($this->user->updatePassword($this->session->userdata('user_id'), password_hash($this->input->post('newpassword'), PASSWORD_BCRYPT))){
-					$this->session->set_flashdata('pwdchng', array('status' => true, 'message' => "pwdupdsucc"));
-				}
-			}
-			else{
-				$this->session->set_flashdata('pwdchng', array('status' => false, 'message' => "involdpwd"));
-			}
-		}
-		$this->changepassword();
-	}
+   
 
    public function getSubcategories()
 	{

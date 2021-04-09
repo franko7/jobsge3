@@ -19,6 +19,12 @@ class job extends CI_Model
 		return $this->db->update('jobs', $files);
 	}
 
+	public function clearImage($jobid, $fileid)
+	{
+		$this->db->where('id', $jobid);
+		return $this->db->update('jobs', array('imgfilename'.$fileid => null));
+	}
+
 	public function editJob($id, $jobtype, $fullname, $phone, $email, $website, $company, $location, $address, $zip, $category, $subcategory,   
 		$shorttexten, $shorttextru, $largetexten, $largetextru, $slug, $submitedrenewal, $status)
 	{
@@ -195,24 +201,6 @@ class job extends CI_Model
 	}
 	public function getActiveJobsByKeywordLocation($keyword, $locationid, $limit, $start)
 	{
-		// $this->db->select('J.id, J.user_id, J.job_type, J.fullname, J.phone, J.email, J.website, J.location_id, J.address, J.zipcode, J.category_id, J.subcategory_id,
-		// J.slug, J.shorttext_en, J.shorttext_ru, J.largetext_en, J.largetext_ru, J.imgfilename1, J.imgfilename2, J.imgfilename3, J.imgfilename4, J.imgfilename5, 
-		// J.submitedrenewal, J.created_at, J.expiring_at, J.isinitial, J.status, C.category_en, C.category_ru, SC.subcategory_en, SC.subcategory_ru, L.location');
-		// $this->db->from('jobs AS J');
-		// $this->db->group_start();
-		// 	$locationid==0 ? $this->db->where('J.location_id >', $locationid) : $this->db->where('J.location_id', $locationid);
-		// 	$this->db->where('J.status', 1);
-		// 	$this->db->where('J.expiring_at >', time());
-		// 	$this->db->group_start();
-		// 		$this->db->like('J.shorttext_en', $keyword)->or_like('J.shorttext_ru', $keyword)->or_like('J.largetext_en', $keyword)->or_like('J.largetext_ru', $keyword);
-		// 	$this->db->group_end();
-		// $this->db->group_end();
-		// $this->db->join('categories AS C', 'J.category_id = C.id');
-		// $this->db->join('subcategories AS SC', 'J.subcategory_id = SC.id');
-		// $this->db->join('locations AS L', 'J.location_id = L.id');	
-		// $this->db->limit($limit, $start);
-		// return $this->db->get()->result();
-
 		$this->db->select('J.id, J.user_id, J.job_type, J.fullname, J.phone, J.email, J.website, J.location_id, J.address, J.zipcode, J.category_id, J.subcategory_id,
 		J.slug, J.shorttext_en, J.shorttext_ru, J.largetext_en, J.largetext_ru, J.imgfilename1, J.imgfilename2, J.imgfilename3, J.imgfilename4, J.imgfilename5, 
 		J.submitedrenewal, J.created_at, J.expiring_at, J.isinitial, J.status, C.category_en, C.category_ru, SC.subcategory_en, SC.subcategory_ru, L.location, 
@@ -240,7 +228,7 @@ class job extends CI_Model
 		return $this->db->select('*')->from('jobs')->count_all_results();
 	}
 
-	public function getAllJobs(){//$limit, $start
+	public function getAllJobs(){//$limit, $start  //for admin panel
 		$this->db->select('J.id, J.user_id, J.job_type, J.fullname, J.phone, J.email, J.website, J.location_id, J.address, J.zipcode, J.category_id, J.subcategory_id,
 		J.slug, J.shorttext_en, J.shorttext_ru, J.largetext_en, J.largetext_ru, J.imgfilename1, J.imgfilename2, J.imgfilename3, J.imgfilename4, J.imgfilename5, 
 		J.submitedrenewal, J.created_at, J.expiring_at, J.isinitial, J.status, C.category_en, C.category_ru, SC.subcategory_en, SC.subcategory_ru, L.location, 

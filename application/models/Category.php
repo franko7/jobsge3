@@ -36,8 +36,6 @@ class category extends CI_Model
 		return $this->db->update('categories', array('filename' => $filename));
 	}
 
-	
-
 	public function getCategorySubcategory()
 	{
 		$categories = $this->db->get('categories')->result_array();

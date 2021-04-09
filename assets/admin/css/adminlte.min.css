@@ -42,7 +42,7 @@ textarea.notlbr{
    border-top-left-radius: 0;
 }
 
-
+/* category */
 .category-table .table td, .category-table .table th {
    padding: .5rem;
 }
@@ -63,6 +63,35 @@ textarea.notlbr{
    background-color: #fbfaf8;
 }
 
+/* edit job */
+.jobimage{
+   height:120px;
+   margin-right: 10px;
+   position:relative;
+}
+.jobimage img{
+   height:100%
+}
+.popup {
+   display: none;
+   position: absolute;
+   background-color: #f1f1f1;
+   width: 100%;
+   bottom: 0px;
+   z-index: 1;
+   opacity: .85;
+} 
+.popup a {
+   color: red;
+   font-weight: 500;
+   padding: 4px 10px;
+   text-decoration: none;
+   display: block;
+} 
+.popup a:hover {background-color: #ccc} 
+.jobimage:hover .popup {
+   display: block;
+}
 
 /*  bootstrap datatable  */
 #appsTable_wrapper>div:nth-child(2){

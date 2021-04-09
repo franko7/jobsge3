@@ -66,13 +66,13 @@
                   <div class="header-nav navbar-collapse collapse justify-content-start" id="navbarNavDropdown">
                      <ul class="nav navbar-nav">
                         <li>
-                           <a href="<?php echo site_url();?>"> <?php echo lang('home')?> </a>                           
+                           <a href="<?php echo site_url($this->lang->lang());?>" class="site-button"> <?php echo lang('home')?> </a>                           
                         </li>
                         <li>
-                           <a href="<?php echo site_url('about');?>"> <?php echo lang('aboutUs')?> </a>                           
+                           <a href="<?php echo site_url('about');?>" class="site-button"> <?php echo lang('aboutUs')?> </a>                           
                         </li>
                         <li>
-                           <a href="<?php echo site_url('contact');?>"> <?php echo lang('contact')?> </a>                           
+                           <a href="<?php echo site_url('contact');?>" class="site-button"> <?php echo lang('contact')?> </a>                           
                         </li>
                         <li class="ml-auto">
                            <a href="<?php echo site_url('profile/addjob');?>" title="Add application" class="site-button"><i class="fas fa-file-medical"></i> <?php echo lang('addApplication')?> </a>
@@ -89,8 +89,8 @@
                               <a href="<?php echo site_url('auth/login');?>" title="Log in" class="site-button"><i class="fa fa-lock"></i> <?php echo lang('login')?> </a>
                            </li>
                         <?php endif; ?>
-                        <li><?php echo anchor($this->lang->switch_uri('en'),'EN');?></li>
-                        <li><?php echo anchor($this->lang->switch_uri('ru'),'RU');?></li>
+                        <li class="lang"><?php echo anchor($this->lang->switch_uri('en'),'EN');?></li>
+                        <li class="lang"><?php echo anchor($this->lang->switch_uri('ru'),'RU');?></li>
                      </ul>			
                   </div>
                </div>

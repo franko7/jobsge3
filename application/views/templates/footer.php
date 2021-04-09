@@ -5,9 +5,8 @@
          <div class="container">
             <div class="row">
                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
-                  <div class="widget">
-                     
-                     <h5 class="m-b30 text-white"> <?php echo lang('ourSocials')?> </h5>
+                  <div class="widget">                     
+                     <h5 class="mb-4 text-white"> <?php echo lang('ourSocials')?> </h5>
                      <ul class="list-inline mb-4">
                         <li><a href="javascript:void(0);" class="site-button white facebook circle "><i class="fab fa-facebook-f"></i></a></li>
                         <li><a href="javascript:void(0);" class="site-button white google-plus circle "><i class="fab fa-google-plus-g"></i></a></li>
@@ -19,26 +18,14 @@
                </div>
                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-8 col-12">
                   <div class="widget border-0">
-                     <h5 class="mb-3 text-white"> <?php echo lang('usefulLinks')?> </h5>
-                     <ul class="list-2 mb-0">
+                     <h5 class="mb-4 text-white"> <?php echo lang('usefulLinks')?> </h5>
+                     <ul class="list-2 mb-0 d-flex">
                         <li><a href="<?php echo base_url();?>"> <?php echo lang('home')?> </a></li>
                         <li><a href="<?php echo base_url('about');?>"> <?php echo lang('aboutUs')?> </a></li>
                         <li><a href="<?php echo base_url('contact');?>"> <?php echo lang('contact')?> </a></li>
                      </ul>
                   </div>
-               </div>
-               <!-- <div class="col-xl-2 col-lg-3 col-md-4 col-sm-4 col-12">
-                  <div class="widget border-0">
-                     <h5 class="m-b30 text-white">Find Jobs</h5>
-                     <ul class="list-2 w10 list-line">
-                        <li><a href="javascript:void(0);">US Jobs</a></li>
-                        <li><a href="javascript:void(0);">Canada Jobs</a></li>
-                        <li><a href="javascript:void(0);">UK Jobs</a></li>
-                        <li><a href="javascript:void(0);">Emplois en Fnce</a></li>
-                        <li><a href="javascript:void(0);">Jobs in Deuts</a></li>
-                     </ul>
-                  </div>
-               </div> -->
+               </div>               
             </div>
          </div>
       </div>      

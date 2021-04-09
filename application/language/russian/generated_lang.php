@@ -26,3 +26,6 @@ $lang['aboutUs'] = "aboutUs";
 $lang['contact'] = "contact";
 $lang['ourSocials'] = "ourSocials";
 $lang['usefulLinks'] = "usefulLinks";
+$lang['location'] = "location";
+$lang['signOut'] = "signOut";
+$lang['deleteAccount'] = "deleteAccount";

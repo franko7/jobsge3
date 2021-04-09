@@ -3,7 +3,7 @@
 <!-- Content -->
 <div class="page-content bg-white">
    <!-- inner page banner -->
-   <div class="dez-bnr-inr overlay-black-middle" style="background-image:url(images/banner/bnr1.jpg);">
+   <div class="dez-bnr-inr overlay-black-middle" style="background-image:url(<?php echo $bgPath . $images[1]->filename;?>);">
       <div class="container">
          <div class="dez-bnr-inr-entry">
             <h1 class="text-white"><?php echo lang('browseJobsList')?></h1>
@@ -70,11 +70,11 @@
                      <?php if(!$jobs):?> <?php echo lang('noJobsWereFound')?> <?php endif;?>
                      <?php foreach($jobs as $job): ?>
                      <li>
-                        <div class="post-bx" style="border-left: 5px solid <?php echo $job->job_type==3?'#FFD700':($job->job_type==2?'#C0C0C0':'#e1e7ff');?>">
-                           <div class="d-flex m-b30">
+                        <div class="post-bx">
+                           <div class="d-flex m-b20">
                               <div class="job-post-company">
                                  <a href="javascript:void(0);">
-                                    <span>
+                                    <span class="mt-4">
                                        <img alt="" src="<?php echo base_url($uploadFolder.$job->imgfilename1);?>" alt="<?php echo $job->shorttext_en;?>"/>
                                     </span>
                                  </a>
@@ -123,6 +123,11 @@
                                  <a href="<?php echo site_url('jobs/job/'.$job->id.'/'.$job->slug);?>"><span><?php echo lang('details')?></span></a>
                               </div>
                            </div>
+                           <?php if($job->job_type==3):?>
+                              <div class="job-badge job-badge-gold"><span>Gold</span></div>
+                           <?php elseif($job->job_type==2):?>
+                              <div class="job-badge job-badge-silver"><span>Silver</span></div>
+                           <?php endif; ?>
                         </div>
                      </li>
                      <?php endforeach; ?>

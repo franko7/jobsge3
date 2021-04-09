@@ -24,7 +24,7 @@
                      <div class="col-lg-5 ">
                         <div class="form-group">
                            <select name="location" id="location" data-live-search="true" class="selectpicker">
-                              <option value="0">Select Location</option>
+                              <option value="0"><?php echo lang('selectLocation')?></option>
                               <?php foreach($locations as $location): ?>
                                  <option value="<?php echo $location->id;?>"> <?php echo $location->location;?> </option>
                               <?php endforeach;?>

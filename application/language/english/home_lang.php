@@ -7,7 +7,6 @@ $lang['aboutUs'] = "About Us";
 $lang['contact'] = "Contact";
 $lang['ourSocials'] = "Our social pages";
 $lang['usefulLinks'] = "Useful links";
-$lang['ourSocials'] = "Our social pages";
 
 // Home
 $lang['searchMoreThen'] = "Search Between More Then";
@@ -52,7 +51,11 @@ $lang['createAccount'] = "Create Account";
 $lang['resetPassword'] = "Reset Password";
 $lang['IAgree']         = "I agree";
 $lang['termsConditions'] = "terms and conditions";
-$lang['signOut'] = "Sign out";
+$lang['signOut'] = "Log out";
+$lang['changePassword']= "Change Password";
+$lang['oldPassword']= "Old Password";
+$lang['newPassword']= "New Password";
+$lang['updPassword']= "Update Password";
 
 // Profile
 $lang['AddNewApp'] = "Add new application";
@@ -67,6 +70,7 @@ $lang['phone'] = "Phone";
 $lang['website'] = "Website";
 $lang['zipCode'] = "Zip Code";
 $lang['address'] = "Address";
+$lang['location'] = "Location";
 $lang['shortDescription'] = "Short description";
 $lang['longDescription'] = "Long description";
 $lang['shortTxtEng'] = "Short text in English";
@@ -76,3 +80,19 @@ $lang['largeTxtRus'] = "Large text in Russian";
 $lang['images'] = "Images";
 $lang['payWithPP'] = "Pay with paypal";
 $lang['addApplication'] = "Add Application";
+$lang['myApplications'] = "My Applications";
+$lang['deleteAccount'] = "Delete Account";
+
+//Tables
+$lang['title'] = "Title";
+$lang['expiryDate'] = "Expiry Date";
+$lang['status'] = "Status";
+$lang['actions'] = "Actions";				
+
+// Dialogs
+$lang['confirmDeleteJob'] = "Do you really want to delete ";
+$lang['confDelAccount'] = "Do you really want to delete Account";
+$lang['delete'] = "Delete";
+$lang['close'] = "Close";
+
+

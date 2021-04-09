@@ -2867,7 +2867,7 @@ blockquote:before {
     width: 140px;
     height: 80px;
     position: relative;
-    z-index: 9;
+    /* z-index: 9; *//*fr*/
     transition:all 0.5s;
     -moz-transition:all 0.5s;
     -webkit-transition:all 0.5s;
@@ -3450,12 +3450,10 @@ blockquote:before {
         display: block;
         padding: 4px 0;
     }
-    .header-nav .nav > li > a {
-        padding: ;
-    }
-    .header-nav .nav i {
+    /*fr*/
+    /* .header-nav .nav i {
         margin-top: 6px;
-    }
+    } */
     .header-nav .nav > li.demos .mega-menu.left{
         width:100%;
         max-width:100%;
@@ -3516,9 +3514,10 @@ blockquote:before {
         border-top: 1px solid #E9E9E9;
         display:block;
     }
-    .header-nav .nav i {
+    /*fr*/
+    /* .header-nav .nav i {
         float: right;
-    }
+    } */
     .header-nav .nav > li > a:hover,
     .header-nav .nav > li > a:active,
     .header-nav .nav > li > a:focus {

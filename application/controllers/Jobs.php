@@ -28,7 +28,7 @@ class Jobs extends CI_Controller {
          $config['base_url'] = base_url() . 'jobs/category/'.$id.'/'.$slug;
          $config["total_rows"] = $total_rows;
          $this->pagination->initialize($config);
-         $page = ($this->uri->segment(5)) ? $this->uri->segment(5) : 0;
+         $page = ($this->uri->segment(6)) ? $this->uri->segment(6) : 0; // Needs to be changed to 5 on production
          $this->data['page'] = $page;
          $this->data['jobs'] = $this->job->getActiveJobsByCategoryId($id, $config["per_page"], $page);
          $this->data['links'] = $this->pagination->create_links();
@@ -47,7 +47,7 @@ class Jobs extends CI_Controller {
          $config['base_url'] = base_url() . 'jobs/subcategory/'.$id.'/'.$slug;
          $config["total_rows"] = $total_rows;
          $this->pagination->initialize($config);
-         $page = ($this->uri->segment(5)) ? $this->uri->segment(5) : 0;
+         $page = ($this->uri->segment(6)) ? $this->uri->segment(6) : 0; // Needs to be changed to 5 on production
          $this->data['page'] = $page;
          $this->data['jobs'] = $this->job->getActiveJobsBySubcategoryId($id, $config["per_page"], $page);
          $this->data['links'] = $this->pagination->create_links();
@@ -66,7 +66,7 @@ class Jobs extends CI_Controller {
          $config['base_url'] = base_url() . 'jobs/location/'.$id.'/'.$slug;
          $config["total_rows"] = $total_rows;
          $this->pagination->initialize($config);
-         $page = ($this->uri->segment(5)) ? $this->uri->segment(5) : 0;
+         $page = ($this->uri->segment(6)) ? $this->uri->segment(6) : 0; // Needs to be changed to 5 on production
          $this->data['page'] = $page;
          $this->data['jobs'] = $this->job->getActiveJobsByLocationId($id, $config["per_page"], $page);
          $this->data['links'] = $this->pagination->create_links();

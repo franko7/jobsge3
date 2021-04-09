@@ -2,7 +2,7 @@
 
 <div class="page-content bg-white">
    <!-- Banner -->
-   <div class="dez-bnr-inr overlay-black-middle" style="background-image:url(images/banner/bnr1.jpg);">
+   <div class="dez-bnr-inr overlay-black-middle" style="background-image:url(<?php echo $bgPath . $images[1]->filename;?>);">
       <div class="container">
          <div class="dez-bnr-inr-entry">
             <h1 class="text-white"> <?php echo lang('jobDetails')?> </h1>
@@ -26,13 +26,13 @@
                <div class="col-lg-4">
                   <div class="sticky-top">
                      <div class="row">
-                        <div class="col-lg-12 col-md-6">
+                        <div class="col-lg-12 col-md-6 mb-4">
                            <div class="m-b30">
-                           <img src="<?php echo base_url($uploadFolder).$jobDetails->imgfilename1;?>" alt="<?php echo $jobDetails->shorttext_en;?>">
+                              <img src="<?php echo base_url($uploadFolder).$jobDetails->imgfilename1;?>" alt="<?php echo $jobDetails->shorttext_en;?>">
                            </div>
                         </div>
-                        <div class="col-lg-12 col-md-6 pt-4">
-                        <img src="<?php echo base_url('assets/uploads/covers/banner.png');?>">
+                        <div class="col-lg-12 col-md-6">
+                           <img src="<?php echo base_url($uploadFolder.'covers/banner.png');?>">
                         </div>
                      </div>
                   </div>

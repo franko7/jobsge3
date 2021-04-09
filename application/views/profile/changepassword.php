@@ -14,7 +14,9 @@
             <div class="col-xl-9 col-lg-8 m-b30">
                <div class="job-bx submit-job">
                   <div class="job-bx-title clearfix">
-                     <h5 class="font-weight-700 pull-left text-uppercase">Change password</h5>
+                     <h5 class="font-weight-700 pull-left text-uppercase">
+                        <?php echo lang('changePassword')?>
+                     </h5>
                   </div>
                   <?php if ($this->session->flashdata('profPwdChng')):?>
                      <div class="alert alert-<?php echo $this->session->flashdata('profPwdChng')['status']?'success':'danger';?> alert-dismissible fade show" role="alert">
@@ -28,27 +30,27 @@
                      <div class="row m-b30">                        
                         <div class="col-lg-12"><!-- firstname -->
                            <div class="form-group">
-                              <label>Old password</label>
-                              <input type="password" name="oldpassword" class="form-control" placeholder="Old password">
+                              <label> <?php echo lang('oldPassword')?> </label>
+                              <input type="password" name="oldpassword" class="form-control" placeholder="<?php echo lang('oldPassword')?>">
                               <small style="color:red"><?php echo form_error('oldpassword'); ?></small>
                            </div>
                         </div>
                         <div class="col-lg-12"><!-- lastname -->
                            <div class="form-group">
-                              <label>New password</label>
-                              <input type="password" name="newpassword" class="form-control" placeholder="New password">
+                              <label> <?php echo lang('newPassword')?> </label>
+                              <input type="password" name="newpassword" class="form-control" placeholder="<?php echo lang('newPassword')?>">
                               <small style="color:red"><?php echo form_error('newpassword'); ?></small>
                            </div>
                         </div>
                         <div class="col-lg-12"><!-- lastname -->
                            <div class="form-group">
-                              <label>Confirm password</label>
-                              <input type="password" name="confpassword" class="form-control" placeholder="Confirm password">
+                              <label> <?php echo lang('confPassword')?> </label>
+                              <input type="password" name="confpassword" class="form-control" placeholder="<?php echo lang('confPassword')?>">
                               <small style="color:red"><?php echo form_error('confpassword'); ?></small>
                            </div>
                         </div>
                      </div>
-                     <button type="submit" class="site-button m-b30">Update Password</button>
+                     <button type="submit" class="site-button m-b30"> <?php echo lang('updPassword')?> </button>
                   <?php echo form_close();?>
                </div>
             </div>

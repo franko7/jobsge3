@@ -14,7 +14,9 @@
                <div class="col-xl-9 col-lg-8 m-b30">
                   <div class="job-bx table-job-bx clearfix">
                      <div class="job-bx-title clearfix">
-                        <h5 class="font-weight-700 pull-left text-uppercase">My applications</h5>
+                        <h5 class="font-weight-700 pull-left text-uppercase">
+                           <?php echo lang('myApplications')?>
+                        </h5>
                      </div>
                      <!-- add job message -->
                      <?php if ($this->session->flashdata('addJobResult')):?>
@@ -40,11 +42,11 @@
                            <thead>
                               <tr>
                                  <th>#</th>
-                                 <th>Title</th>
-                                 <th>Category</th>
-                                 <th>Expiry Date</th>
-                                 <th>Status</th>
-                                 <th>Actions</th>
+                                 <th><?php echo lang('title')?></th>
+                                 <th><?php echo lang('category')?></th>
+                                 <th><?php echo lang('expiryDate')?></th>
+                                 <th><?php echo lang('status')?></th>
+                                 <th><?php echo lang('actions')?></th>
                               </tr>
                            </thead>
                            <tbody>
@@ -78,10 +80,10 @@
                                           <div class="modal-dialog" role="document">
                                              <div class="modal-content">
                                                 <div class="modal-body">
-                                                   <p>Do you really want to delete "<?php echo $myjob->shorttext_en;?>"?</p>
+                                                   <p><?php echo lang('confirmDeleteJob')?> "<?php echo $myjob->shorttext_en;?>"?</p>
                                                 </div>
                                                 <div class="modal-footer">
-                                                   <a href="<?php echo base_url('profile/deletejob/').$myjob->id;?>" class="btn btn-danger">Delete</a>
+                                                   <a href="<?php echo site_url('profile/deletejob/').$myjob->id;?>" class="btn btn-danger">Delete</a>
                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                 </div>
                                              </div>
