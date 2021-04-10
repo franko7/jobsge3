@@ -271,6 +271,7 @@
    $(document).ready(function(){
       $('#category').change(function(){
          getSubcategories($('#category').val());
+         
       });
       $('#jobtype').change(function(){
          $('#hjobtype').val($('#jobtype').val());
@@ -313,7 +314,7 @@
 
    function getSubcategories(categoryid){
       $.ajax({
-         url:'<?=base_url()?>profile/getSubcategories',
+         url:'<?=site_url("profile/getSubcategories")?>',
          method: 'post',
          data: {csrf_token: $('input[name=csrf_token]').val(), categoryid: categoryid},
          dataType: 'json',
@@ -333,7 +334,7 @@
 
    function getInitialPrice(jobType){
       $.ajax({
-         url:'<?=base_url()?>profile/getInitialFeeByType',
+         url:'<?=site_url("profile/getInitialFeeByType")?>',
          method: 'post',
          data: {csrf_token: $('input[name=csrf_token]').val(), jobtype: jobType},
          dataType: 'json',

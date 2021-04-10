@@ -424,26 +424,23 @@ class Profile extends CI_Controller {
 
    public function getSubcategories()
 	{
-      $postData = $this->input->post();
+      //$postData = $this->input->post();    
       $this->load->model('subcategory');
-      $data['subcategories'] = $this->subcategory->getSubcategoriesByCategoryId($postData['categoryid']);
+      $data['subcategories'] = $this->subcategory->getSubcategoriesByCategoryId($_POST['categoryid']);//$postData['categoryid']
       $data['token']= $this->security->get_csrf_hash();
       echo json_encode($data);
 	}
 
    public function getInitialFeeByType()
 	{
-      $postData = $this->input->post();
+      // $postData = $this->input->post();
       $this->load->model('jobtype');
-      $data['jobtype'] = $this->jobtype->getJobTypeById($postData['jobtype']);
+      $data['jobtype'] = $this->jobtype->getJobTypeById($_POST['jobtype']);//$postData['jobtype']
       $data['token']= $this->security->get_csrf_hash();
       echo json_encode($data);
 	}
 
    
-
-
-
 
    private function setStatus($myjob){
       if ($myjob->expiring_at >= time() && $myjob->status)  // if job not expired an status is 1
@@ -453,6 +450,7 @@ class Profile extends CI_Controller {
       else
          return 3;      
    }
+   
 
    private function setActivePassed($myjob, $initialPeriod, $renewalPeriod){
       // calculates percentage of active status

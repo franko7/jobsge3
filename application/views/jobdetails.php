@@ -63,7 +63,7 @@
                         <?php echo $jobDetails->{'largetext_'.$this->lang->lang()} ? $jobDetails->{'largetext_'.$this->lang->lang()} : $jobDetails->largetext_en;?>
                      </p>
                      <h5 class="font-weight-600"> <?php echo lang('appDetails')?> </h5>
-                     <div class="dez-divider divider-2px bg-gray-dark mb-4 mt-0"></div>
+                     <div class="dez-divider divider-2px bg-gray-dark mb-2 mt-0"></div>
                      <div class="table-responsive job-details mb-5">
                         <table class="table mb-0">                           
                            <tbody>
@@ -93,23 +93,20 @@
                               </tr>
                               <tr>
                                  <td class="detais-header"><strong><i class="fas fa-eye"></i> <?php echo lang('views')?> </strong></td>
-                                 <td><?php echo 1254;?></td>
+                                 <td><?php echo $jobDetails->viewCount;?></td>
                               </tr>
                               <tr>
                                  <td class="detais-header"><strong><i class="fas fa-star"></i> <?php echo lang('rating')?> </strong></td>
-                                 <td>
-                                    <?php if($jobDetails->rateCount):?>
-                                       <span class="rating"><?php echo $jobDetails->averageRate;?></span>
-                                       <span class="text-info ml-2">
-                                          <?php echo lang('average')?> 
-                                          <?php echo number_format($jobDetails->averageRate, 1, '.', ',');?> 
-                                          <?php echo lang('pointsOf')?>
-                                          <?php echo $jobDetails->rateCount;?>
-                                          <?php echo lang('votes')?>.
-                                       </span>
-                                    <?php else:?>
-                                       <span class="text-danger"> <?php echo lang('noRatingYet')?>. </span>
-                                    <?php endif;?>                                    
+                                 <td>                                    
+                                    <span class="rating <?php echo $jobDetails->rateCount?'':'displaynone';?>" id="rating"><?php echo $jobDetails->averageRate;?></span>
+                                    <span class="rating-details text-info ml-2 <?php echo $jobDetails->rateCount?'':'displaynone';?>">
+                                       <?php echo lang('average')?>
+                                       <span id="average"><?php echo number_format($jobDetails->averageRate, 1, '.', ',');?></span>
+                                       <?php echo lang('pointsOf')?>
+                                       <span id="numVotes"><?php echo $jobDetails->rateCount;?></span>
+                                       <?php echo lang('votes')?>.
+                                    </span>                                    
+                                    <span class="norating text-danger <?php echo $jobDetails->rateCount?'displaynone':'';?>"> <?php echo lang('noRatingYet')?>. </span>
                                  </td>
                               </tr>        
                            </tbody>
@@ -117,18 +114,22 @@
                      </div>                     
                      <!-- Rating -->
                      <h5 class="font-weight-600 mt-5"> <?php echo lang('rating')?> </h5>
-                     <div class="dez-divider divider-2px bg-gray-dark mb-4 mt-0"></div>
+                     <div class="dez-divider divider-2px bg-gray-dark mb-2 mt-0"></div>
                      <div class="container d-flex p-0">
-                        <?php echo form_open(base_url(), array('class'=>'d-flex')); ?>
-                           <div class="rating-label"><span> <?php echo lang('rateUser')?> </span></div>
-                           <div class="starrating risingstar d-flex justify-content-center flex-row-reverse">                              
-                              <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 star"></label>
-                              <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 star"></label>
-                              <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 star"></label>
-                              <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 star"></label>
-                              <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star"></label>
-                           </div>
-                        <?php echo form_close(); ?>
+                        <?php if($usersRate): ?>
+                           <div class="rating-label"><span class="mr-2"><?php echo lang('yourRate')?>: </span> <span id="userrate"><?php echo $usersRate;?></span></div>
+                        <?php else: ?>
+                           <?php echo form_open(base_url(), array('class'=>'d-flex')); ?>
+                              <div class="rating-label"><span> <?php echo lang('rateUser')?> </span></div>
+                              <div class="starrating risingstar d-flex justify-content-center flex-row-reverse">                              
+                                 <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 star"></label>
+                                 <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 star"></label>
+                                 <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 star"></label>
+                                 <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 star"></label>
+                                 <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star"></label>
+                              </div>
+                           <?php echo form_close(); ?>
+                        <?php endif; ?>
                      </div>
                      <!-- Lightbox -->
                      <h5 class="font-weight-600 mt-5"> <?php echo lang('imgGallery')?> </h5>
@@ -158,7 +159,6 @@
       $('.rating').each(function(index, el) {
          var rating = $(el).text();
          $(el).html(getStars(rating));
-         console.log(getStars(rating));
       });
 
       function getStars(rating) {
@@ -172,23 +172,36 @@
          return output.join('');
       }
 
+      function getFullStars(rating) {       
+         let output = [];
+         for (var i = rating; i >= 1; i--)
+            output.push('<i class="fas fa-star mr-1" aria-hidden="true" style="color:#ecbe03;"></i>');
+         return output.join('');
+      }
+
       $('.starrating label').click(function(index, el){
          var stars = parseInt(index.target.title);
          $.ajax({
-            url:'<?=base_url()?>jobs/trackRating',
+            url:'<?=site_url("jobs/trackRating")?>',
             method: 'post',
             data: {csrf_token: $('input[name=csrf_token]').val(), star: stars, jobId: <?php echo $jobDetails->id;?>},
-            dataType: 'json'
-            // ,
-            // success: function(response){
-            //    $('input[name=csrf_token]').val(response.token);
-            //    if(response['jobtype'][0]['initial_price'] > 0){
-            //       $('#payment').removeClass('displaynone');
-            //    }else{
-            //       $('#payment').addClass('displaynone');
-            //    }       
-            // }
+            dataType: 'json',
+            success: function(response){
+               var averageRate =  <?php echo $jobDetails->averageRate?$jobDetails->averageRate:0;?> ;
+               var numRates = <?php echo $jobDetails->rateCount?$jobDetails->rateCount:0;?>;
+               var newRate = (averageRate * numRates + stars) / (numRates + 1);
+               $('#rating').html(getStars(newRate));
+               $('#average').text(newRate.toFixed(1));
+               $('#numVotes').text(numRates + 1);
+               $('.rating, .rating-details').removeClass('displaynone');
+               $('.norating').addClass('displaynone');
+            }
          });
+      });
+
+      $('#userrate').each(function(index, el) {
+         var stars = $(el).text();
+         $(el).html(getFullStars(stars));
       });
 
       $('.venobox').venobox();

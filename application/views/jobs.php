@@ -60,7 +60,7 @@
       <div class="section-full browse-job p-b50">
          <div class="container">
             <div class="row">
-               <div class="col-xl-9 col-lg-8 col-md-7">
+               <div class="col-xl-9 col-lg-8 col-md-7 mb-4">
                   <div class="job-bx-title clearfix">
                      <h5 class="font-weight-700 pull-left text-uppercase"> 
                         <?php echo lang('found')?> <?php echo $numSearchResult;?> <?php echo lang('applications')?>

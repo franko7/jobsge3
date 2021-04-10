@@ -124,20 +124,24 @@ class Jobs extends CI_Controller {
          $this->data['jobDetails'] = $this->job->getJobById($id);
          if($this->data['jobDetails']){
             $this->trackViews($id);
+            $this->load->model('rating');
+            $this->data['usersRate'] = $this->rating->getCurrentUsersRates($id, $this->getUserIP());            
             $this->load->view('jobdetails', $this->data);
          }else{return redirect ('/');}         
       }else{return redirect ('/');}
    }
-
-
+      
 
    public function trackRating()
 	{
-      $postData = $this->input->post();
-      $stars = $postData['star'];
-      $jobId = $postData['jobId'];
+      //$postData = $this->input->post();
+      // $stars = $postData['star'];
+      // $jobId = $postData['jobId'];
+      $stars = $_POST['star'];
+      $jobId = $_POST['jobId'];
       $this->load->model('rating');
       $this->rating->addRating($jobId, $this->getUserIP(), $stars);
+      echo json_encode(null);
 	}
 
 
@@ -161,6 +165,7 @@ class Jobs extends CI_Controller {
          $ipaddress = 'UNKNOWN';
       return $ipaddress;
    }
+
 
    private function trackViews($jobid){
       $this->load->model('pageview');

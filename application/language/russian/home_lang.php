@@ -1,7 +1,7 @@
 <?php
 
 // Header & Footer
-$lang['title'] = "АФИШНИК";
+$lang['site_title'] = "АФИШНИК";
 $lang['home'] = "Домой";
 $lang['aboutUs'] = "О нас";
 $lang['contact'] = "Контакт";
@@ -38,6 +38,7 @@ $lang['average']     = "Среднее";
 $lang['pointsOf']    = "балла из";
 $lang['votes']       = "голосов";
 $lang['noRatingYet'] = "Нет оценки";
+$lang['yourRate']    = "Ваша оценка";
 
 // Auth
 $lang['login']       = "Авторизация";

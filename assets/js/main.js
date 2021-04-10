@@ -224,19 +224,19 @@ var JobBoard = function() {
                 }), $("input, textarea").blur(function() {
                     "" == $(this).val() ? ($(this).removeClass("filled"), $(this).parents(".form-group").removeClass("focused")) : $(this).addClass("filled")
                 })), n(),
-                function() {
-                    "use strict";
-                    jQuery(document).on("change", ".btn-file :file", function() {
-                        var e = jQuery(this),
-                            t = e.get(0).files ? e.get(0).files.length : 1,
-                            i = e.val().replace(/\\/g, "https://job-board.dexignzone.com/").replace(/.*\//, "");
-                        e.trigger("fileselect", [t, i])
-                    }), jQuery(".btn-file :file").on("fileselect", function(e, t, i) {
-                        input = jQuery(this).parents(".input-group").find(":text");
-                        var r = t > 10 ? t + " files selected" : i;
-                        input.length ? input.val(r) : r && alert(r)
-                    })
-                }(),
+                // function() {
+                //     "use strict";
+                //     jQuery(document).on("change", ".btn-file :file", function() {
+                //         var e = jQuery(this),
+                //             t = e.get(0).files ? e.get(0).files.length : 1,
+                //             i = e.val().replace(/\\/g, "https://job-board.dexignzone.com/").replace(/.*\//, "");
+                //         e.trigger("fileselect", [t, i])
+                //     }), jQuery(".btn-file :file").on("fileselect", function(e, t, i) {
+                //         input = jQuery(this).parents(".input-group").find(":text");
+                //         var r = t > 10 ? t + " files selected" : i;
+                //         input.length ? input.val(r) : r && alert(r)
+                //     })
+                // }(),
                 function() {
                     "use strict";
                     jQuery(window).on("scroll", function() {

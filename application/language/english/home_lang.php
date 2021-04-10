@@ -1,7 +1,7 @@
 <?php
 
 // Header & Footer
-$lang['title'] = "Aphishnik";
+$lang['site_title'] = "Aphishnik";
 $lang['home'] = "Home";
 $lang['aboutUs'] = "About Us";
 $lang['contact'] = "Contact";
@@ -35,9 +35,10 @@ $lang['rating']      = "Rating";
 $lang['rateUser']    = "Rate User";
 $lang['imgGallery']  = "Image Gallery";
 $lang['average']     = "Average";
-$lang['pointsOf']    = "Points of";
-$lang['votes']       = "Votes";
+$lang['pointsOf']    = "points out of";
+$lang['votes']       = "vote(s)";
 $lang['noRatingYet'] = "No rating yet";
+$lang['yourRate']    = "Your rate";
 
 // Auth
 $lang['login']       = "Login";

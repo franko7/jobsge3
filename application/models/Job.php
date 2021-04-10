@@ -81,14 +81,15 @@ class job extends CI_Model
 		$this->db->select('J.id, J.user_id, J.job_type, J.fullname, J.phone, J.email, J.website, J.company, J.location_id, J.address, J.zipcode, J.category_id, 
 		J.subcategory_id, J.slug, J.shorttext_en, J.shorttext_ru, J.largetext_en, J.largetext_ru, J.imgfilename1, J.imgfilename2, J.imgfilename3, J.imgfilename4, 
 		J.imgfilename5, J.submitedrenewal, J.created_at, J.expiring_at, J.isinitial, J.status, C.category_en, C.category_ru, SC.subcategory_en, SC.subcategory_ru, 
-		L.location, JT.job_type_en, JT.job_type_ru, AVG(R.stars) AS averageRate, COUNT(R.stars) AS rateCount');
+		L.location, JT.job_type_en, JT.job_type_ru, AVG(R.stars) AS averageRate, COUNT(R.stars) AS rateCount, COUNT(PV.id) AS viewCount');
 		$this->db->from('jobs AS J');
 		$this->db->where('J.id', $id);
 		$this->db->join('categories AS C', 'J.category_id = C.id');
 		$this->db->join('subcategories AS SC', 'J.subcategory_id = SC.id');
 		$this->db->join('locations AS L', 'J.location_id = L.id');
 		$this->db->join('jobtypes AS JT', 'J.job_type = JT.id');
-		$this->db->join('ratings AS R', 'J.id = R.job_id', 'left outer');	
+		$this->db->join('ratings AS R', 'J.id = R.job_id', 'left outer');
+		$this->db->join('pageviews AS PV', 'J.id = PV.job_id', 'left outer');
 		return $this->db->get()->row();
 	}
 
@@ -228,7 +229,7 @@ class job extends CI_Model
 		return $this->db->select('*')->from('jobs')->count_all_results();
 	}
 
-	public function getAllJobs(){//$limit, $start  //for admin panel
+	public function getAllJobs(){//$limit, $start  //for admin panel, used datatable
 		$this->db->select('J.id, J.user_id, J.job_type, J.fullname, J.phone, J.email, J.website, J.location_id, J.address, J.zipcode, J.category_id, J.subcategory_id,
 		J.slug, J.shorttext_en, J.shorttext_ru, J.largetext_en, J.largetext_ru, J.imgfilename1, J.imgfilename2, J.imgfilename3, J.imgfilename4, J.imgfilename5, 
 		J.submitedrenewal, J.created_at, J.expiring_at, J.isinitial, J.status, C.category_en, C.category_ru, SC.subcategory_en, SC.subcategory_ru, L.location, 
