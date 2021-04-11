@@ -1830,6 +1830,17 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+.social-share-links{display:flex;}/*fr*/
+.social-share-links a{flex-shrink:1;}/*fr*/
+.social-share-links div{padding: 5px 24px;border-radius: 4px;margin-right: 5px;flex-shrink:1;}/*fr*/
+.social-share-links i{color:#fefefe;}/*fr*/
+.social-share-links .facebook{background-color:#3b5998;}
+.social-share-links .twitter{background-color:#1da1f2;}
+.social-share-links .google{background-color:#dd4b39;}
+.social-share-links .linkedin{background-color:#0077b5;}
+.social-share-links .whatsapp{background-color:#25d366;}
+
 .post-bx .job-post-info ul li,/*fr*/
 .post-bx .job-post-info ul li a,
 .job-info-box ul.job-info li,

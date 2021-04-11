@@ -58,6 +58,34 @@
                            <span class="tstd"><?php echo $jobDetails->created_at;?></span>
                         </li>
                      </ul>
+                     <!-- Social share -->
+                     <div class="p-t20 mb-5 social-share-links">                        
+                        <a href="https://www.facebook.com/sharer.php?u=<?php echo site_url('jobs/job/'.$jobDetails->id.'/'.$jobDetails->slug);?>" target="_blank" title="Share on Facebook">
+                           <div class="facebook">
+                              <i class="fab fa-facebook-f"></i>
+                           </div>   
+                        </a>
+                        <a href="https://twitter.com/share?url=<?php echo site_url('jobs/job/'.$jobDetails->id.'/'.$jobDetails->slug);?>&text=<?php echo $jobDetails->shorttext_en;?>" target="_blank" title="Share on Twitter">
+                           <div class="twitter">
+                              <i class="fab fa-twitter"></i>
+                           </div>   
+                        </a>
+                        <a href="https://plus.google.com/share?url=<?php echo site_url('jobs/job/'.$jobDetails->id.'/'.$jobDetails->slug);?>" target="_blank" title="Share on Google+">
+                           <div class="google">
+                              <i class="fab fa-google-plus-g"></i>
+                           </div>   
+                        </a>
+                        <a href="https://www.linkedin.com/shareArticle?url=<?php echo site_url('jobs/job/'.$jobDetails->id.'/'.$jobDetails->slug);?>&title=<?php echo $jobDetails->shorttext_en;?>" target="_blank" title="Share on LinkedIn">
+                           <div class="linkedin">
+                              <i class="fab fa-linkedin-in"></i>
+                           </div>   
+                        </a>
+                        <a href="https://api.whatsapp.com/send?text=<?php echo $jobDetails->shorttext_en;?> <?php echo site_url('jobs/job/'.$jobDetails->id.'/'.$jobDetails->slug);?>" target="_blank" title="Share on Whatsapp">
+                           <div class="whatsapp">
+                              <i class="fab fa-whatsapp"></i>
+                           </div>   
+                        </a>
+                     </div>
                      <!-- Job details -->
                      <p class="p-t20 mb-5">
                         <?php echo $jobDetails->{'largetext_'.$this->lang->lang()} ? $jobDetails->{'largetext_'.$this->lang->lang()} : $jobDetails->largetext_en;?>

@@ -17,10 +17,10 @@
    <!-- <link rel="stylesheet" href="<?= base_url('assets/css/font-awesome.min.css');?>"> -->
    <link rel="shortcut icon" type="image/jpg" href="<?php echo $bgPath.$images[3]->filename;?>">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-   <link rel="preconnect" href="https://fonts.gstatic.com">
-   
+   <link rel="preconnect" href="https://fonts.gstatic.com">   
    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
    <script type="text/javascript" src="<?php echo base_url('assets/js/jquery.3.1.1.min.js');?>"></script>
+   
 </head>
 <body>
 
@@ -73,7 +73,7 @@
                         <li>
                            <a href="<?php echo site_url('contact');?>" class="site-button"> <?php echo lang('contact')?> </a>                           
                         </li>
-                        <li class="ml-auto">
+                        <li>
                            <a href="<?php echo site_url('profile/addjob');?>" title="Add application" class="site-button"><i class="fas fa-file-medical"></i> <?php echo lang('addApplication')?> </a>
                         </li>                        
                         <?php if ($this->session->userdata('logged_in')): ?>
