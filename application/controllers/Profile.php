@@ -388,6 +388,49 @@ class Profile extends CI_Controller {
       }     
    }
 
+
+   public function subscriptions(){
+      $this->load->model('subscription');
+      $this->load->model('category');
+      $this->data['categories'] = $this->category->getCategories();
+      
+      if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST'){
+         $c_sc = 0;
+         $this->form_validation->set_rules('category', 'Category', 'required|integer|greater_than[0]');
+         if (isset($_POST['addSubcategory'])) {
+            $this->form_validation->set_rules('subcategory', 'Subcategory', 'required|integer|greater_than[0]');
+            $c_sc = 2;
+         } else {
+            $c_sc = 1;
+         }
+         if($this->form_validation->run()){
+            $this->subscription->addSubscription(
+               $this->session->userdata('user_id'),
+               $this->input->post('category'),
+               $c_sc==1 ? 0 : $this->input->post('subcategory'),
+               $c_sc
+            );
+         }
+         return redirect('profile/subscriptions');
+      }
+      $this->data['subscriptions'] = $this->subscription->getSubscriptions($this->session->userdata('user_id'));
+      $this->load->view('profile/subscriptions', $this->data);
+   }
+
+
+   public function deletesubscription($id){
+      if($id && filter_var($id, FILTER_VALIDATE_INT)){
+         $this->load->model('subscription');
+         // Check owner of job 
+         if($this->session->userdata('user_id')===$this->subscription->getUserIdBySubscriptionId($id) || $this->session->userdata('user_role')===1){
+            // Then record from DB
+            $this->subscription->deleteSubscription($id);
+         }
+      }
+      return $this->subscriptions();
+   }
+
+
    public function deleteprofile(){
       $id = $this->session->userdata('user_id');
       $this->job->deleteUser($id);
@@ -424,9 +467,10 @@ class Profile extends CI_Controller {
 
    public function getSubcategories()
 	{
-      //$postData = $this->input->post();    
       $this->load->model('subcategory');
-      $data['subcategories'] = $this->subcategory->getSubcategoriesByCategoryId($_POST['categoryid']);//$postData['categoryid']
+      $postData = $this->input->post();    
+      $data['subcategories'] = $this->subcategory->getSubcategoriesByCategoryId($postData['categoryid']);//
+      //$data['subcategories'] = $this->subcategory->getSubcategoriesByCategoryId($_POST['categoryid']);//$postData['categoryid']
       $data['token']= $this->security->get_csrf_hash();
       echo json_encode($data);
 	}
@@ -466,6 +510,56 @@ class Profile extends CI_Controller {
       return null;           
    }
 
+
+   private function checkSubscriptions($job_id, $category_id, $subcategory_id){
+      $this->load->model('subscription');      
+      $subscriptions = $this->subscription->getAllSubscriptions();
+      foreach($subscriptions as $subsc){
+         if(($category_id==$subsc->category_id && $subsc->c_sc==1) || $category_id==$subsc->category_id && $subcategory_id==$subsc->subcategory_id && $subsc->c_sc==2){
+            //Send mail to this user
+            $this->load->model('user');  
+            $this->load->model('category');  
+            $this->load->model('subcategory');
+            $this->load->model('job');
+            
+            $this->load->library('phpmailer_lib');
+            $mail = $this->phpmailer_lib->load();
+            $mail->isSMTP();
+            $mail->Host     = $this->config->item('emailConfig')['host'];
+            $mail->SMTPAuth = $this->config->item('emailConfig')['SMTPAuth'];
+            $mail->Username = $this->config->item('emailConfig')['Username'];
+            $mail->Password = $this->config->item('emailConfig')['Password'];
+            $mail->SMTPSecure = $this->config->item('emailConfig')['SMTPSecure'];
+            $mail->Port     = $this->config->item('emailConfig')['port'];
+            // sender
+            $mail->setFrom($this->config->item('emailConfig')['senderEmail'], $this->config->item('emailConfig')['senderName']);
+            // recipient
+            $mail->addAddress($this->user->getUserdataById($subsc->user_id)->email);
+            // Email subject
+            $mail->Subject = 'New application';
+            // Set email format to HTML
+            $mail->isHTML(true);
+            // Email body content
+            $data['category'] = $this->category->getCategoryById($category_id)->category_en;
+            $data['subcategory'] = $this->category->getSubcategoryById($subcategory_id)->subcategory_en;
+            $data['wantedSubcategory'] = $subsc->c_sc==2;
+            $data['username'] = $this->user->getUserdataById($subsc->user_id)->fullname;
+            $data['url'] = base_url('jobs/job/'.$this->job->getJobById($job_id)->id.'/'.$this->job->getJobById($job_id)->slug);
+            $mailContent = $this->load->view('emails/sendsubscriptionmail', $data, TRUE);;
+            $mail->Body = $mailContent;
+
+            // Send email
+            if($mail->send())
+               return true;
+            else
+               return false;		
+         }
+      }
+   }
+
+   
+
+   
   
 
 

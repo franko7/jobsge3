@@ -9,7 +9,7 @@
       <div class="container">
          <div class="row">
             <div class="col-xl-3 col-lg-4 m-b30">               
-               <?php $data['activeitem'] = 3; $this->load->view('profile/profilesidebar', $data);?> 
+               <?php $data['activeitem'] = 4; $this->load->view('profile/profilesidebar', $data);?> 
             </div>
             <div class="col-xl-9 col-lg-8 m-b30">
                <div class="job-bx submit-job">

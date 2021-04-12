@@ -21,3 +21,4 @@ $lang['usefulLinks'] = "usefulLinks";
 $lang['confDelAccount'] = "confDelAccount";
 $lang['deleteAccount'] = "deleteAccount";
 $lang['signOut'] = "signOut";
+$lang['action'] = "action";

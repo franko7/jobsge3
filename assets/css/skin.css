@@ -80,6 +80,9 @@
 .navbar-nav li.lang{
     text-align: center;
     background-color: #005960;
+    font-weight: 400;
+    text-transform: uppercase;
+    position: relative;
 }
 /* .owl-btn-1.primary .owl-next:hover,
 .owl-btn-1.primary .owl-prev:hover,

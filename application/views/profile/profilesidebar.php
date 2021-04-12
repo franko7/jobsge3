@@ -23,7 +23,15 @@
             </a>
          </li>
          <li>
-            <a href="<?php echo site_url('profile/changepassword');?>" class="<?php echo $activeitem==3?'active':'';?>">
+            <a href="<?php echo site_url('profile/subscriptions');?>" class="<?php echo $activeitem==3?'active':'';?>">
+               <i class="fas fa-file-signature" aria-hidden="true"></i>
+               <span>
+                  <?php echo lang('subscriptions')?>
+               </span>
+            </a>
+         </li>
+         <li>
+            <a href="<?php echo site_url('profile/changepassword');?>" class="<?php echo $activeitem==4?'active':'';?>">
                <i class="fa fa-key" aria-hidden="true"></i> 
                <span>
                   <?php echo lang('changePassword')?>
@@ -39,7 +47,7 @@
             </a>            
          </li>
          <li>
-            <a href="<?php echo site_url('auth/logout');?>" class="<?php echo $activeitem==4?'active':'';?>">
+            <a href="<?php echo site_url('auth/logout');?>" class="<?php echo $activeitem==5?'active':'';?>">
                <i class="fa fa-sign-out-alt" aria-hidden="true"></i> 
                <span>
                   <?php echo lang('signOut')?>

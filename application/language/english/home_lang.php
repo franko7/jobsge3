@@ -83,6 +83,13 @@ $lang['payWithPP'] = "Pay with paypal";
 $lang['addApplication'] = "Add Application";
 $lang['myApplications'] = "My Applications";
 $lang['deleteAccount'] = "Delete Account";
+$lang['subscriptions'] = "Subscriptions";
+$lang['subscription'] = "Subscription";
+$lang['addSubscription'] = "Add Subscription";
+$lang['mySubscriptions'] = "My Subscriptions";
+$lang['addCategory'] = "Add Category";
+$lang['mySubcategory'] = "My Subcategory";
+$lang['noSubscriptions'] = "You have no subscriptions.";
 
 //Tables
 $lang['title'] = "Title";

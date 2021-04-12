@@ -69,12 +69,7 @@
                            <div class="twitter">
                               <i class="fab fa-twitter"></i>
                            </div>   
-                        </a>
-                        <a href="https://plus.google.com/share?url=<?php echo site_url('jobs/job/'.$jobDetails->id.'/'.$jobDetails->slug);?>" target="_blank" title="Share on Google+">
-                           <div class="google">
-                              <i class="fab fa-google-plus-g"></i>
-                           </div>   
-                        </a>
+                        </a>                        
                         <a href="https://www.linkedin.com/shareArticle?url=<?php echo site_url('jobs/job/'.$jobDetails->id.'/'.$jobDetails->slug);?>&title=<?php echo $jobDetails->shorttext_en;?>" target="_blank" title="Share on LinkedIn">
                            <div class="linkedin">
                               <i class="fab fa-linkedin-in"></i>

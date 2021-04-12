@@ -20,7 +20,6 @@
    <link rel="preconnect" href="https://fonts.gstatic.com">   
    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
    <script type="text/javascript" src="<?php echo base_url('assets/js/jquery.3.1.1.min.js');?>"></script>
-   
 </head>
 <body>
 
@@ -38,32 +37,18 @@
                         <img src="<?php echo $bgPath.$images[2]->filename;?>" class="logo" alt="">
                      </a>
                   </div>
-                  <!-- nav toggle button -->
-                  <!-- nav toggle button -->
+                  <!-- nav toggle buttons -->
                   <button class="navbar-toggler collapsed navicon justify-content-end" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                      <span></span>
                      <span></span>
                      <span></span>
-                  </button>
-                  <!-- extra nav -->
-                  <!-- <div class="extra-nav">
-                     <div class="extra-cell">
-                           <a href="<?php echo base_url('profile/addjob');?>" title="Add application" class="site-button"><i class="fas fa-file-medical"></i> <?php echo lang('addApplication')?> </a>
-                        <?php if ($this->session->userdata('logged_in')): ?>
-                           <a href="<?php echo base_url('auth/logout');?>" title="Sign up" class="site-button"><i class="fa fa-sign-out-alt"></i> <?php echo lang('signOut')?> </a>
-                        <?php else: ?>
-                           <a href="<?php echo base_url('auth/register');?>" title="Sign up" class="site-button"><i class="fa fa-user"></i> <?php echo lang('register')?> </a>
-                           <a href="<?php echo base_url('auth/login');?>" title="Log in" class="site-button"><i class="fa fa-lock"></i> <?php echo lang('login')?> </a>
-                        <?php endif; ?>
-                        <span>
-                           <?php echo anchor($this->lang->switch_uri('en'),'EN');?>
-                           <?php echo anchor($this->lang->switch_uri('ru'),'RU');?>
-                        </span>
-                     </div>
-                  </div> -->
+                  </button>                  
                   <!-- main nav -->
                   <div class="header-nav navbar-collapse collapse justify-content-start" id="navbarNavDropdown">
                      <ul class="nav navbar-nav">
+                        <li class="sitelogo displaynone p-3">
+                           <img src="<?php echo $bgPath.$images[2]->filename;?>" style="height:70px">
+                        </li>
                         <li>
                            <a href="<?php echo site_url($this->lang->lang());?>" class="site-button"> <?php echo lang('home')?> </a>                           
                         </li>
@@ -90,6 +75,7 @@
                         <?php endif; ?>
                         <li class="lang"><?php echo anchor($this->lang->switch_uri('en'),'EN');?></li>
                         <li class="lang"><?php echo anchor($this->lang->switch_uri('ru'),'RU');?></li>
+                        <li class="displaynone spacer"></li>
                      </ul>			
                   </div>
                </div>

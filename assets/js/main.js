@@ -22,7 +22,7 @@ var JobBoard = function() {
                 if (0 == $(".mo-left .header-nav").children("div").length) {
                     var t = jQuery("<div>").append($(".mo-left .logo-header").clone()).html();
                     jQuery(".mo-left .header-nav").prepend(t), 
-                    jQuery(".mo-left .header-nav .logo-header > a > img").attr("src", "images/logo.png"), 
+                    jQuery(".mo-left .header-nav .logo-header > a > img").attr("src", "assets/uploads/covers/logo.png"), 
                     jQuery(".mo-left.lw .header-nav .logo-header > a > img").attr("src", "images/logo-white.png")
                 }
             } else jQuery(".mo-left .header-nav div").remove(), jQuery(".mo-left.lw .header-nav div").remove();
@@ -237,22 +237,27 @@ var JobBoard = function() {
                 //         input.length ? input.val(r) : r && alert(r)
                 //     })
                 // }(),
+
                 function() {
                     "use strict";
                     jQuery(window).on("scroll", function() {
                         if (jQuery(".sticky-header").length > 0) {
                             var e = jQuery(".sticky-header");
-                            $(window).scrollTop() > e.offset().top ? (e.addClass("is-fixed"), $(".header-style-5 .container > .logo-header .logo").attr("src", "images/logo.png")) : (e.removeClass("is-fixed"), $(".header-style-5 .container > .logo-header .logo").attr("src", "error-404.html"))
+                            $(window).scrollTop() > e.offset().top ? (e.addClass("is-fixed")/*, $(".header-style-5 .container > .logo-header .logo").attr("src", "images/logo.png")*/) : (e.removeClass("is-fixed"), $(".header-style-5 .container > .logo-header .logo").attr("src", "error-404.html"))
                         }
                     })
-                }(), a(), jQuery('iframe[src*="youtube.com"]').wrap('<div class="embed-responsive embed-responsive-16by9"></div>'), jQuery('iframe[src*="vimeo.com"]').wrap('<div class="embed-responsive embed-responsive-16by9"></div>'), jQuery("#image-gallery-mix").length && (jQuery(".gallery-filter").find("li").each(function() {
+                }(), a(), 
+                jQuery('iframe[src*="youtube.com"]').wrap('<div class="embed-responsive embed-responsive-16by9"></div>'), jQuery('iframe[src*="vimeo.com"]').wrap('<div class="embed-responsive embed-responsive-16by9"></div>'), 
+                jQuery("#image-gallery-mix").length && (jQuery(".gallery-filter").find("li").each(function() {
                     $(this).addClass("filter")
-                }), jQuery("#image-gallery-mix").mixItUp()), jQuery(".gallery-filter.masonary").length && jQuery(".gallery-filter.masonary").on("click", "span", function() {
+                }), 
+                jQuery("#image-gallery-mix").mixItUp()), jQuery(".gallery-filter.masonary").length && jQuery(".gallery-filter.masonary").on("click", "span", function() {
                     var e = $(this).parent().attr("data-filter");
                     return jQuery(".gallery-filter.masonary span").parent().removeClass("active"), jQuery(this).parent().addClass("active"), jQuery("#image-gallery-isotope").isotope({
                         filter: e
                     }), !1
                 }),
+                
                 function(e) {
                     $(".countdown").length && $(".countdown").countdown({
                         date: e + " 23:5"

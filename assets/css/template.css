@@ -2,6 +2,9 @@
 	Custom css
 ==========================*/
 /* Header */
+.main-bar .header-nav{
+	flex-direction: row-reverse;
+}
 .fullwidth .logo-header{
 	margin-right:30px;
 }
@@ -16,6 +19,7 @@
 .fullwidth .header-nav .nav > li:hover > a{
 	background-color:#005960;
 	color:#fff;
+	
 }
 .extra-nav{
 	padding: 20px 0;
@@ -29,6 +33,7 @@
 .fullwidth  .header-nav .nav > li > a{
 	padding: 10px 10px;/*fr 15*/
 	border-radius:4px;
+	font-family: roboto;/*fr 15*/
 }
 .fullwidth .is-fixed .header-nav .nav > li{
 	padding: 20px 0;/* fr 13 */
@@ -208,10 +213,17 @@
 	margin-left:30px;
 }
 
+.header-nav ul.navbar-nav li.sitelogo{
+	display:none;
+}
+
 
 @media only screen and (max-width: 991px){
 	.fullwidth  .header-nav .nav > li{
 		margin:0;
+	}
+	.header-nav ul.navbar-nav li.sitelogo{
+		display:block;
 	}
 }
 @media only screen and (max-width: 768px){
@@ -1060,6 +1072,9 @@
 	}
 	.fullwidth .header-nav .nav > li > a{
 		border-radius:0;
+		text-align: left;/*fr*/
+		padding-left: 30px;/*fr*/
+		border-top: none;/*fr*/
 	} 
 	.nav.navbar-nav li:hover a i.fa-chevron-down{
 		color:#fff;
@@ -1328,7 +1343,7 @@
 	padding: 10px 20px;/*fr*/
 }
 .table-job-bx .job-links{
-	padding: 20px 20px 20px 5px;
+	padding: 10px 10px 10px 5px;/*fr*/
 }
 .job-bx{
 	box-shadow: 0 0 10px 0 rgba(0,24,128,0.1);
@@ -1896,7 +1911,7 @@
 
 @media only screen and (max-width: 1024px){
 	.job-bx{
-		overflow: scroll;
+		overflow-y: hidden;/*fr*/
 	}
 	.cv-manager .action-bx {
 		right: 5px;

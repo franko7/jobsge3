@@ -201,58 +201,9 @@
                                  </div>
                               </div>
                               <!-- payment -->
-                              <div class="col-lg-12 displaynone" id="payment">
-                                 <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                    <li class="nav-item">
-                                       <a class="nav-link active" id="cardpay-tab" data-toggle="tab" href="#cardpay" role="tab" aria-controls="cardpay" aria-selected="true">Enter card details</a>
-                                    </li>
-                                    <li class="nav-item">
-                                       <a class="nav-link" id="paypalpay-tab" data-toggle="tab" href="#paypalpay" role="tab" aria-controls="paypalpay" aria-selected="false">Pay with PayPal</a>
-                                    </li>
-                                 </ul>
-                                 <div class="tab-content p-2" id="myTabContent">
-                                    <div class="tab-pane fade show active" id="cardpay" role="tabpanel" aria-labelledby="cardpay-tab"><!-- card details -->
-                                       <div class="form-row pt-2">
-                                          <div class="form-group col-md-6">
-                                             <label for="cardholder">Name on card</label>
-                                             <input type="text" id="cardholder" name="cardholder" class="form-control" placeholder="Cardholder name" value="<?php echo set_value('cardholder');?>">
-                                             <small style="color:red"><?php echo form_error('cardholder'); ?></small>
-                                          </div>
-                                          <div class="form-group col-md-6">
-                                             <label for="cardnumber">Card number</label>
-                                             <input type="text" id="cardnumber" name="cardnumber" class="form-control" placeholder="Card number" value="<?php echo set_value('cardnumber');?>">
-                                             <small style="color:red"><?php echo form_error('cardnumber'); ?></small>
-                                          </div>
-                                          <div class="form-group col-md-4">
-                                             <label for="cardmonth">Month</label>
-                                             <select name="cardmonth" id="cardmonth">
-                                                <?php for($m=1; $m<=12; $m++): ?>
-                                                   <option value="<?php echo $m;?>"> <?php echo $m<10?'0'.$m:$m;?> </option>
-                                                <?php endfor; ?>
-                                             </select>
-                                             <small style="color:red"><?php echo form_error('cardmonth'); ?></small>
-                                          </div>
-                                          <div class="form-group col-md-4">
-                                             <label for="cardyear">Year</label>
-                                             <select name="cardyear" id="cardyear">
-                                                <?php for($y=date("Y"); $y<date("Y")+11; $y++): ?>
-                                                   <option value="<?php echo $y;?>"> <?php echo $y;?> </option>
-                                                <?php endfor; ?>
-                                             </select>
-                                             <small style="color:red"><?php echo form_error('cardyear'); ?></small>
-                                          </div>
-                                          <div class="form-group col-md-4">
-                                             <label for="cardcvv">CVV</label>
-                                             <input type="text" id="cardcvv" name="cardcvv" class="form-control" placeholder="CCV" value="<?php echo set_value('cardcvv');?>">
-                                             <small style="color:red"><?php echo form_error('cardcvv'); ?></small>
-                                          </div>
-                                       </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="paypalpay" role="tabpanel" aria-labelledby="paypalpay-tab">
-                                       <input type="text" name="paypaltoken" value="abcdefgh123545">
-                                       <button> <?php echo lang('payWithPP')?> </button>
-                                    </div>
-                                 </div>
+                              <div class="col-lg-12 displaynone" id="payment">                                 
+                                 <input type="text" name="paypaltoken" value="abcdefgh123545">
+                                 <button> <?php echo lang('payWithPP')?> </button>
                               </div>
                            </div>
                            <button type="submit" class="site-button m-b30"> <?php echo lang('addApplication')?> </button>
@@ -324,7 +275,7 @@
             for (var i = 0; i<response['subcategories'].length; i++){
                var opt = document.createElement('option');
                opt.value = response['subcategories'][i]['id'];
-               opt.innerHTML = response['subcategories'][i]['subcategory_en'];
+               opt.innerHTML = response['subcategories'][i]['subcategory_<?php echo $this->lang->lang();?>'];
                $("#subcategory").append(opt);
             }
             $("#subcategory").selectpicker("refresh");               

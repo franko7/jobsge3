@@ -83,6 +83,13 @@ $lang['payWithPP'] = "Оплата с PayPal";
 $lang['addApplication'] = "Добавить объявление";
 $lang['myApplications'] = "Мои объявлении";
 $lang['deleteAccount'] = "Удалить аккаунт";
+$lang['subscriptions'] = "Подписки";
+$lang['subscription'] = "Подписка";
+$lang['addSubscription'] = "Добавить подписку";
+$lang['mySubscriptions'] = "Моя подписки";
+$lang['addCategory'] = "Добавить категорию";
+$lang['addSubcategory'] = "Добавить подкатегория";
+$lang['noSubscriptions'] = "У вас нет подписок.";
 
 //Tables
 $lang['title'] = "Названые";
