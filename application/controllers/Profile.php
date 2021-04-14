@@ -464,6 +464,28 @@ class Profile extends CI_Controller {
 	}
 
 
+   public function chat(){
+      $this->load->view('profile/chat', $this->data);
+   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
    public function getSubcategories()
 	{
