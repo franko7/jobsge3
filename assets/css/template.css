@@ -2593,9 +2593,12 @@ transition: transform .5s ease-in-out, -webkit-transform .5s ease-in-out;
 	display: flex;
 	flex-direction:column;
 	align-items:flex-start;
+	margin-right: 20px;	
 }
 .direct-chat-msg.right {
 	align-items: flex-end;
+	margin-left: 20px;
+	margin-right: 0;
 }
 .direct-chat-text {
 	border-radius: 0.3rem;
@@ -2639,6 +2642,52 @@ transition: transform .5s ease-in-out, -webkit-transform .5s ease-in-out;
 	margin:0 12px;
 	font-size: 12px;
 }
+
+
+/*   chat2    */
+.chat2 .card-body{
+	display: flex;
+   flex-direction: column-reverse;
+	overflow: auto;
+}
+.chat2 .tab {
+	float: left;
+	width: 100%;
+}
+.chat2 .tab li{
+	list-style: none;
+}
+.chat2 .tab button {
+	display: block;
+	background-color: inherit;
+	color: black;
+	padding: 10px 15px;
+	width: 100%;
+	border: none;
+	outline: none;
+	text-align: left;
+	cursor: pointer;
+	transition: 0.3s;
+}
+.chat2  .tab button:hover {
+	background-color: #6c8f92;
+}
+.chat2 .tab button.active {
+	background-color: #005960;
+	color: white;
+}
+.tabcontent {
+	float: left;
+	padding: 0;
+	width: 100%;
+	overflow: auto!important;
+	position:relative;
+}
+.chat2 .card-body .tabcontent:not(:first-child){
+	display: none;
+}
+
+
 
 
 

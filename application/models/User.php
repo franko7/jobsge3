@@ -10,6 +10,11 @@ class user extends CI_Model
 		return false;
 	}
 
+	public function getUsers()
+	{
+		return $this->db->select('*')->from('users')->get()->result();
+	}
+
 	public function getUserdataById($id)
 	{
 		return $this->db->select('*')->from('users')->where('id', $id)->get()->row();
@@ -42,6 +47,21 @@ class user extends CI_Model
 
 	public function deleteUser($id){
 		return $this->db->where('id', $id)->delete('users');
+	}
+
+	public function setRecoveryString($email, $recstr)
+	{
+		return $this->db->update('users', array('recoverystring' => $recstr), array('email' => $email));
+	}
+
+	public function hasRecoveryString($userid, $recstr)
+	{
+		return $this->db->select('*')->from('users')->where('id', $userid)->where('recoverystring', $recstr)->count_all_results();
+	}
+
+	public function resetPassword($userid, $recstr, $hpwd)
+	{
+		return $this->db->update('users', array('recoverystring' => '', 'password' => $hpwd), array('id' => $userid, 'recoverystring' => $recstr));
 	}
 
 }

@@ -4,15 +4,33 @@ class chat extends CI_Model
 {
    public function sendMessage($from, $to, $message)
 	{
-		$data = array('from_id' => $from, 'to_id' => $to, 'message' => $message);
+		$data = array('from_id' => $from, 'to_id' => $to, 'message' => $message, 'sent_at' => time());
 		$this->db->insert('chats', $data);
 		return $this->db->insert_id();
 	}
 
+	public function getChatByUserId($id)
+	{
+		$this->db->select('C.id, C.from_id AS from, C.to_id AS to, C.message, C.sent_at, (C.from_id + C.to_id) AS fromto, U.fullname AS namefrom, US.fullname AS nameto');
+		$this->db->from('chats AS C');
+		$this->db->where('C.from_id', $id)->or_where('C.to_id', $id);
+		$this->db->order_by('sent_at','asc'); 
+		$this->db->join('users AS U', 'C.from_id = U.id');
+		$this->db->join('users AS US', 'C.to_id = US.id');
+		return  $this->db->get()->result();	
+	}
 
-
-
-
+	public function getNewMessages($id, $dt)
+	{
+		$this->db->select('C.id, C.from_id AS from, C.to_id AS to, C.message, C.sent_at, (C.from_id + C.to_id) AS fromto, U.fullname AS namefrom, US.fullname AS nameto');
+		$this->db->from('chats AS C');
+		$this->db->where('C.to_id', $id);
+		$this->db->where('C.sent_at >=', $dt);
+		$this->db->order_by('sent_at','asc'); 
+		$this->db->join('users AS U', 'C.from_id = U.id');
+		$this->db->join('users AS US', 'C.to_id = US.id');
+		return  $this->db->get()->result();	
+	}
 
 
 

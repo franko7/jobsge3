@@ -465,8 +465,75 @@ class Profile extends CI_Controller {
 
 
    public function chat(){
+      $userId = $this->session->userdata('user_id');
+      $this->load->model('chat');
+      $chatHistory = $this->chat->getChatByUserId($userId);
+      $this->load->model('user');
+      $users = $this->user->getUsers();      
+      $chats = array();
+      $chatUsers = array();
+      // Group messages in senders-addresser
+      foreach ($chatHistory as $c){
+         $fromto = $c->fromto;
+         $chatid = $c->id;
+         $fromid = $c->from;
+         $toid = $c->to;
+         // $namefrom = $c->namefrom;
+         // $nameto = $c->nameto;
+         $msg = $c->message;
+         $time = $c->sent_at;
+         if (!in_array($fromto, $chatUsers)) array_push($chatUsers, $fromto);
+         $chats[$fromto][isset($chats[$fromto])?count($chats[$fromto]):0] = array('fromto'=>$fromto, 
+         'fromid'=>$fromid, 
+         'toid'=>$toid, 
+         //'namefrom'=>$namefrom, 'nameto'=>$nameto, 
+         'msg'=>$msg, 'time'=>$time);
+      }
+      // chatUsers2 contains unique chats and last time of message
+      $chatUsers2 = array();
+      foreach($chatUsers as $i=>$u){
+         $chatUsers2[$i]['user'] = $u[0];
+         $chatUsers2[$i]['max'] = $chats[$chatUsers2[$i]['user']][count($chats[$u[0]])-1]['time'];
+      }
+      // Sort array so users with new messages will be on top 
+      $keys = array_column($chatUsers2, 'max');
+      array_multisort($keys, SORT_DESC, $chatUsers2);
+
+      $this->data['userId'] = $userId;
+      $this->data['users'] = $users;
+      $this->data['chatUsers'] = $chatUsers2;
+      $this->data['chats'] = $chats;
       $this->load->view('profile/chat', $this->data);
    }
+
+
+   public function file(){
+      $myfile = fopen("newfile.txt", "w") or die("Unable to open file!");
+      $txt = "John Doe\n";
+      fwrite($myfile, $txt);
+      fclose($myfile);
+   }
+
+
+   public function sendMessage(){
+      $this->load->model('chat');
+      $this->chat->sendMessage($this->session->userdata('user_id'), $this->input->post('to', true), $this->input->post('msg', true));
+      $data['token']= $this->security->get_csrf_hash();
+      echo json_encode($data);
+   }
+
+   public function getMessages(){
+      $this->load->model('chat');      
+      $data['newMessages'] = $this->chat->getNewMessages($this->session->userdata('user_id'), $this->input->post('lastUpd', true));
+      $data['token'] = $this->security->get_csrf_hash();
+      echo json_encode($data);
+   }
+
+
+   public function time(){
+      echo time();
+   }
+
 
 
 

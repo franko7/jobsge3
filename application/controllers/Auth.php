@@ -27,6 +27,7 @@ class Auth extends CI_Controller
 		if ($this->session->userdata('logged_in')) redirect('/profile');
 		$this->load->view('register', $this->data);
 	}
+	
 
 	public function register_process()
 	{
@@ -55,6 +56,7 @@ class Auth extends CI_Controller
 		if ($this->session->userdata('logged_in')) redirect('/profile');
 		$this->load->view('login', $this->data);
 	}
+
 
 	public function login_process()
 	{
@@ -86,18 +88,19 @@ class Auth extends CI_Controller
 		}
 	}
 
+
 	public function sendrecovery()
 	{
 		if ($this->session->userdata('logged_in')) redirect('/profile');
 		$this->load->view('sendrecovery', $this->data);
 	}
 
+
 	public function sendrecovery_process()
 	{
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean|valid_email|callback_existingemail',
 			array('xss_clean' => $this->lang->line("xss_clean"), 'existingemail' => "User with this email address does not exist")
-		);
-		
+		);				
 		if ($this->form_validation->run()) {
 			//genaerare random string
 			$random_string = "";
@@ -125,6 +128,7 @@ class Auth extends CI_Controller
 		}
 	}
 
+
 	public function recover($user_id=0, $recoverystring='')
 	{
 		if ($this->user->hasRecoveryString($user_id, $recoverystring)){
@@ -137,6 +141,7 @@ class Auth extends CI_Controller
 			
 	}
 
+
 	public function reset_process()
 	{
 		$this->form_validation->set_rules('userid', 'Userid', 'integer');
@@ -147,14 +152,17 @@ class Auth extends CI_Controller
 		if ($this->form_validation->run()) {
 			if($this->user->resetPassword($this->input->post('userid'), $this->input->post('recstr'), password_hash($this->input->post('password'), PASSWORD_BCRYPT))){
 				$this->session->set_flashdata('resetResult', array('status' => true, 'message' => "Password has been set successfully"));
+				return redirect('auth/login');
 			}else{
 				$this->session->set_flashdata('resetResult', array('status' => false, 'message' => "Database error"));
 				$this->recover($this->input->post('userid'), $this->input->post('recstr'));
+				return redirect('auth/sendrecovery');
 			}
 		} else {
 			$this->recover($this->input->post('userid'), $this->input->post('recstr'));
 		}
 	}
+
 
 	public function logout()
 	{
@@ -163,21 +171,7 @@ class Auth extends CI_Controller
 		redirect('/');
 	}
 
-	// private function sendmail($email, $id, $recstr){
-	// 	$message =  $this->lang->line("emailnotsent") . "<br>";
-	// 	$message .= base_url() . "recover/" . $id . "/" . $recstr;
-
-	// 	$subject = $this->lang->line("emailsubj");
-		
-	// 	$headers = "From: admin@" . base_url() . "\r\n" .
-	// 	'X-Mailer: PHP/' . phpversion() . "\r\n" .
-	// 	"MIME-Version: 1.0\r\n" .
-	// 	"Content-Type: text/html; charset=utf-8\r\n" .
-	// 	"Content-Transfer-Encoding: 8bit\r\n\r\n";
-	// 	// Send 
-	// 	return mail($email, $subject, $message, $headers);
-	// }
-
+	
 	function existingemail($str)
 	{
 		if ($this->user->validate_email($str))
@@ -185,20 +179,13 @@ class Auth extends CI_Controller
 		return false;
 	}
 
+
 	function terms() {
 		if (isset($_POST['terms'])) return true;
 		$this->form_validation->set_message('terms', 'Please read and accept our terms and conditions.');
 		return false;
   }
 
-	public function test(){
-		// echo $this->config->item('emailConfig')['setFrom'];
-		// $data['test'] = 'I am web dev';
-		// $body = $this->load->view('welcome_message.php', $data, TRUE);
-		// echo $body;
-
-		//echo $this->user->validate_email('vndassb@admin.com');
-	}
 
 	function sendRecoveryMail($recipient, $userid, $username, $recoveryString){
 		$this->load->library('phpmailer_lib');
