@@ -41,9 +41,12 @@
 <script src="<?= base_url('assets/js/bootstrap-select.min.js'); ?>" type="text/javascript"></script>
 <script src="<?= base_url('assets/js/summernote-bs4.min.js'); ?>" type="text/javascript"></script>
 <script>
-   $('.tst').each(function(index, el) {
-      $(el).text(localTime($(el).text()));
-   });
+   intervalToDatetime();
+   function intervalToDatetime(){
+      $('.tst').each(function(index, el) {
+         $(el).text(localTime($(el).text()));
+      });
+   }
    $('.tstd').each(function(index, el) {
       $(el).text(localTime($(el).text()).substring(0, 10));
    });

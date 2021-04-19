@@ -20,19 +20,20 @@ class Profile extends CI_Controller {
       $this->data['bgPath'] = base_url($this->config->item('bgImagesUploadConfig')['upload_path']);
    }
 
-	public function index()
-	{
+	public function index(){
 		return $this->myjobs();
 	}
 
-   public function myjobs()
-	{
+
+   public function myjobs(){
       $this->load->model('jobtype');
       $this->load->model('location');
       $this->load->model('category');
+      $this->load->model('chat');
       $this->data['jobTypes'] = $this->jobtype->getJobTypes();
       $this->data['locations'] = $this->location->getLocations();
       $this->data['categories'] = $this->category->getCategories();
+      $this->data['chatCout'] = $this->chat->getNewChatCount($this->session->userdata('user_id'));
       
       $config = $this->config->item('profilePaginationConfig');
       $config['base_url'] = site_url('profile/myjobs');
@@ -55,8 +56,7 @@ class Profile extends CI_Controller {
       $this->load->view('profile/myjobs', $this->data);
 	}
 
-   public function addjob()
-	{
+   public function addjob(){
       $this->load->model('jobtype');
       $this->load->model('location');
       $this->load->model('category');
@@ -193,8 +193,7 @@ class Profile extends CI_Controller {
       $this->load->view('profile/addjob', $this->data);		
 	}
 
-   public function editjob($id)
-	{
+   public function editjob($id){
       if($id && filter_var($id, FILTER_VALIDATE_INT)){
          $this->load->model('jobtype');
          $this->load->model('location');
@@ -438,13 +437,11 @@ class Profile extends CI_Controller {
    }
 
 
-   public function changepassword()
-	{
+   public function changepassword(){
 		$this->load->view('profile/changepassword', $this->data);
 	}
 
-   public function changepassword_process()
-	{
+   public function changepassword_process(){
       $this->form_validation->set_rules('oldpassword', 'Old Password', 'required');
 		$this->form_validation->set_rules('newpassword', 'New Password', 'required|min_length[6]|max_length[32]');
 		$this->form_validation->set_rules('confpassword', 'Confirm Password', 'required|min_length[6]|max_length[32]|matches[newpassword]');
@@ -464,46 +461,83 @@ class Profile extends CI_Controller {
 	}
 
 
-   public function chat(){
+   public function chat($toId=0){
+      $array = $this->get_chat();      
+      $this->data['userId'] = $array['userId'];
+      $this->data['chatUsers'] = $array['chatUsers'];
+      $this->data['chat'] = $array['chat'];
+      $this->load->model('chat');
+      $inArray = false;
+      foreach ($array['chatUsers'] as $c) if ($c['user'] === $toId) $inArray = true;
+      if(count($array['chat'])) $this->chat->markRead($array['chatUsers'][0]['user'], $this->session->userdata('user_id'));
+      if(filter_var($toId, FILTER_VALIDATE_INT) && $toId>0 && !$inArray) {
+         $this->data['toId'] = $toId;
+         $this->load->model('chat');
+         $this->data['toName'] = $this->user->getUserdataById($toId)->fullname;
+      }
+      $this->load->view('profile/chat', $this->data);
+   }
+
+   public function refreshChat(){
+      $user = $this->input->post('user', true);
+      $data['user'] = $user;
+      if ($user && filter_var($user, FILTER_VALIDATE_INT)){
+         $this->load->model('chat');
+         $this->chat->markRead($user, $this->session->userdata('user_id'));         
+         $array = $this->get_chat($user);
+         $data['userId'] = $array['userId'];
+         $data['chatUsers'] = $array['chatUsers'];
+         $data['chat'] = $array['chat'];
+         $data['lastUser'] = $user;
+      }
+      $data['token']= $this->security->get_csrf_hash();
+      echo json_encode($data);
+   }
+
+   function get_chat($toUser=0){
       $userId = $this->session->userdata('user_id');
       $this->load->model('chat');
-      $chatHistory = $this->chat->getChatByUserId($userId);
+      $chatHistory = $this->chat->getChatByUserId($userId);      
       $this->load->model('user');
       $users = $this->user->getUsers();      
       $chats = array();
       $chatUsers = array();
+      $newMessages = array();
       // Group messages in senders-addresser
       foreach ($chatHistory as $c){
-         $fromto = $c->fromto;
-         $chatid = $c->id;
-         $fromid = $c->from;
-         $toid = $c->to;
-         // $namefrom = $c->namefrom;
-         // $nameto = $c->nameto;
+         $from = $c->from;
+         $to = $c->to;
          $msg = $c->message;
          $time = $c->sent_at;
-         if (!in_array($fromto, $chatUsers)) array_push($chatUsers, $fromto);
-         $chats[$fromto][isset($chats[$fromto])?count($chats[$fromto]):0] = array('fromto'=>$fromto, 
-         'fromid'=>$fromid, 
-         'toid'=>$toid, 
-         //'namefrom'=>$namefrom, 'nameto'=>$nameto, 
-         'msg'=>$msg, 'time'=>$time);
+         // Create array of unique chatters to current user
+         $person2 = $from==$this->session->userdata('user_id')?$to:$from;
+         if (!in_array($person2, $chatUsers)) array_push($chatUsers, $person2);
+         // Sort chatHistory data to chats array
+         // at person2 index  as count second deminsion of array
+         $chats[$person2][isset($chats[$person2])?count($chats[$person2]):0] = array('from'=>$from, 'to'=>$to, 'msg'=>$msg, 'time'=>$time);
+         // Save unique messages by sender and store in array
+         if($c->new && $c->from==$person2 && !in_array($from, $newMessages)) array_push($newMessages, $from);
       }
-      // chatUsers2 contains unique chats and last time of message
+      // Group chatters, Last message time, new message (yes/no), and chatter full name
       $chatUsers2 = array();
       foreach($chatUsers as $i=>$u){
-         $chatUsers2[$i]['user'] = $u[0];
-         $chatUsers2[$i]['max'] = $chats[$chatUsers2[$i]['user']][count($chats[$u[0]])-1]['time'];
+         $chatUsers2[$i]['user'] = $u; //user id chatting to
+         foreach($chats as $key => $chat) if ($key == $u) $max= $chat[count($chat)-1]['time'];    
+         $chatUsers2[$i]['max'] = $max; //last dt of chat
+         $chatUsers2[$i]['newMsg'] = in_array($u, $newMessages)?1:0; //new message or not
+         $chatUsers2[$i]['name'] = $users[$u-1]->fullname;
       }
       // Sort array so users with new messages will be on top 
       $keys = array_column($chatUsers2, 'max');
       array_multisort($keys, SORT_DESC, $chatUsers2);
-
-      $this->data['userId'] = $userId;
-      $this->data['users'] = $users;
-      $this->data['chatUsers'] = $chatUsers2;
-      $this->data['chats'] = $chats;
-      $this->load->view('profile/chat', $this->data);
+      // filter chat by first user or userid passed
+      $key = $toUser && array_search($toUser, array_column($chatUsers2, 'user')) ? array_search($toUser, array_column($chatUsers2, 'user')) : 0;
+      $filteredChat = array();
+      foreach ($chatHistory as $c)
+         if($c->from==$chatUsers2[$key]['user'] || $c->to==$chatUsers2[$key]['user'])  array_push($filteredChat, $c);
+      // if toUser greater then 0 but user not in chatUser list i.e. new chat return empty array
+      if($toUser>0 && array_search($toUser, array_column($chatUsers2, 'user'))===false) $filteredChat = array('touser'=>$toUser);
+      return array('userId'=>$userId, 'chatUsers'=>$chatUsers2, 'chat'=>$filteredChat);     
    }
 
 
@@ -522,17 +556,15 @@ class Profile extends CI_Controller {
       echo json_encode($data);
    }
 
-   public function getMessages(){
-      $this->load->model('chat');      
-      $data['newMessages'] = $this->chat->getNewMessages($this->session->userdata('user_id'), $this->input->post('lastUpd', true));
-      $data['token'] = $this->security->get_csrf_hash();
-      echo json_encode($data);
+
+
+   public function test(){
+      // $this->load->model('chat');
+      // print_r($this->chat->getNewChatCount($this->session->userdata('user_id')));
+
    }
 
 
-   public function time(){
-      echo time();
-   }
 
 
 

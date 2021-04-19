@@ -11,14 +11,14 @@
          <li>
             <a href="<?php echo site_url('profile/myjobs');?>" class="<?php echo $activeitem==1?'active':'';?>">
                <i class="fa fa-file-alt" aria-hidden="true"></i> 
-               <span> <?php echo lang('myApplications')?> </span>
+               <span> <?php echo lang('myApplications');?> </span>
             </a>
          </li>
          <li>
             <a href="<?php echo site_url('profile/addjob');?>" class="<?php echo $activeitem==2?'active':'';?>">
                <i class="fas fa-file-medical" aria-hidden="true"></i> 
                <span>
-                  <?php echo lang('addApplication')?>
+                  <?php echo lang('addApplication');?>
                </span>
             </a>
          </li>
@@ -26,7 +26,16 @@
             <a href="<?php echo site_url('profile/subscriptions');?>" class="<?php echo $activeitem==3?'active':'';?>">
                <i class="fas fa-file-signature" aria-hidden="true"></i>
                <span>
-                  <?php echo lang('subscriptions')?>
+                  <?php echo lang('subscriptions');?>
+               </span>
+            </a>
+         </li>
+         <li>
+            <a href="<?php echo site_url('profile/chat');?>" >
+               <i class="fas fa-sms" aria-hidden="true"></i>
+               <span>
+                  <?php echo lang('chat'); ?>
+                  <?php echo isset($chatCout)&&$chatCout>0?'<span class="badge badge-pill badge-info">'.$chatCout.'</span>':''; ?> 
                </span>
             </a>
          </li>
@@ -34,7 +43,7 @@
             <a href="<?php echo site_url('profile/changepassword');?>" class="<?php echo $activeitem==4?'active':'';?>">
                <i class="fa fa-key" aria-hidden="true"></i> 
                <span>
-                  <?php echo lang('changePassword')?>
+                  <?php echo lang('changePassword');?>
                </span>
             </a>
          </li>
@@ -42,7 +51,7 @@
             <a href="javascript:void(0);" alt="Delete" data-toggle="modal" data-target="#deleteAccModal">
                <i class="fa fa-trash-alt text-danger" aria-hidden="true"></i> 
                <span class="text-danger">
-                  <?php echo lang('deleteAccount')?>
+                  <?php echo lang('deleteAccount');?>
                </span>
             </a>            
          </li>
@@ -50,7 +59,7 @@
             <a href="<?php echo site_url('auth/logout');?>" class="<?php echo $activeitem==5?'active':'';?>">
                <i class="fa fa-sign-out-alt" aria-hidden="true"></i> 
                <span>
-                  <?php echo lang('signOut')?>
+                  <?php echo lang('signOut');?>
                </span>
             </a>
          </li>

@@ -90,6 +90,10 @@ $lang['mySubscriptions'] = "Моя подписки";
 $lang['addCategory'] = "Добавить категорию";
 $lang['addSubcategory'] = "Добавить подкатегория";
 $lang['noSubscriptions'] = "У вас нет подписок.";
+$lang['chat'] = "Чат";
+$lang['typeMessage'] = "Напишите сообщение";
+$lang['send'] = "Послать";
+$lang['backToProfile'] = "Назад к профилю";
 
 //Tables
 $lang['title'] = "Названые";

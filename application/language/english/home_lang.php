@@ -90,6 +90,10 @@ $lang['mySubscriptions'] = "My Subscriptions";
 $lang['addCategory'] = "Add Category";
 $lang['mySubcategory'] = "My Subcategory";
 $lang['noSubscriptions'] = "You have no subscriptions.";
+$lang['chat'] = "Chat";
+$lang['typeMessage'] = "Type a message";
+$lang['send'] = "Send";
+$lang['backToProfile'] = "Back to Profile";
 
 //Tables
 $lang['title'] = "Title";

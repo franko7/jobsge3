@@ -2645,6 +2645,9 @@ transition: transform .5s ease-in-out, -webkit-transform .5s ease-in-out;
 
 
 /*   chat2    */
+.chat2 .chat-container .chatbox {
+	height: calc(100% - 80px) !important
+}
 .chat2 .card-body{
 	display: flex;
    flex-direction: column-reverse;
@@ -2686,7 +2689,7 @@ transition: transform .5s ease-in-out, -webkit-transform .5s ease-in-out;
 .chat2 .card-body .tabcontent:not(:first-child){
 	display: none;
 }
-
+.chat2 .chat-sidebar{max-height:250px; overflow:auto}
 
 
 
