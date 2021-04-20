@@ -52,40 +52,38 @@ class Auth extends CI_Controller
 
 
 	public function login()
-	{		
-		if ($this->session->userdata('logged_in')) redirect('/profile');
-		$this->load->view('login', $this->data);
-	}
-
-
-	public function login_process()
 	{
-		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|xss_clean|min_length[5]|max_length[100]');
-		$this->form_validation->set_rules('password', 'Password', 'required');
+		if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST'){
+			$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|xss_clean|min_length[5]|max_length[100]');
+			$this->form_validation->set_rules('password', 'Password', 'required');
 
-		if ($this->form_validation->run()) {
-			$userdata = $this->user->getUserdataByEmail($this->input->post('email'));
+			if ($this->form_validation->run()) {
+				$userdata = $this->user->getUserdataByEmail($this->input->post('email'));
 
-			if ($userdata && password_verify($this->input->post('password'), $userdata->password)) {
-				$sessiondata = array(
-					'user_id'  		=> $userdata->id,
-					'full_name' 	=> $userdata->fullname,
-					'user_role'		=> $userdata->role,
-					'user_email'	=> $userdata->email,
-					'logged_in' 	=> TRUE
-				);
-				$this->session->set_userdata($sessiondata);
-				return redirect('/profile');
+				if ($userdata && password_verify($this->input->post('password'), $userdata->password)) {
+					$sessiondata = array(
+						'user_id'  		=> $userdata->id,
+						'full_name' 	=> $userdata->fullname,
+						'user_role'		=> $userdata->role,
+						'user_email'	=> $userdata->email,
+						'logged_in' 	=> TRUE
+					);
+					$this->session->set_userdata($sessiondata);
+					if ($this->session->userdata('user_role' != 1)) redirect('/profile');
+					else redirect ('/admin');
+				} else {
+					//invalid username or password
+					$this->session->set_flashdata('loginResult', array('status' => false, 'message' => 'Invalid username or password'));
+					return redirect('/auth/login');
+				}
 			} else {
-				//invalid username or password
+				//validation not passed
 				$this->session->set_flashdata('loginResult', array('status' => false, 'message' => 'Invalid username or password'));
 				return redirect('/auth/login');
 			}
-		} else {
-			//validation not passed
-			$this->session->set_flashdata('loginResult', array('status' => false, 'message' => 'Invalid username or password'));
-			return redirect('/auth/login');
 		}
+		if ($this->session->userdata('logged_in')) redirect('/profile');
+		$this->load->view('login', $this->data);
 	}
 
 

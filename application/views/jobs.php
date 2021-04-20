@@ -79,7 +79,7 @@
                                     </span>
                                  </a>
                               </div>
-                              <div class="job-post-info">
+                              <div class="job-post-info mt-3">
                                  <h4>
                                     <a href="<?php echo site_url('jobs/job/'.$job->id.'/'.$job->slug);?>">
                                        <?php if($job->{'shorttext_'.$this->lang->lang()}) : ?>

@@ -64,7 +64,7 @@ class Profile extends CI_Controller {
       $this->data['locations'] = $this->location->getLocations();
       $this->data['categories'] = $this->category->getCategories();
       
-      if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST'){            
+      if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST'){
          $this->form_validation->set_rules('fullname', 'Full name', 'trim|required|xss_clean|min_length[2]|max_length[200]');
          $this->form_validation->set_rules('category', 'Category', 'required|integer');
          $this->form_validation->set_rules('subcategory', 'Subcategory', 'required|integer|greater_than[0]');
@@ -555,34 +555,6 @@ class Profile extends CI_Controller {
       $data['token']= $this->security->get_csrf_hash();
       echo json_encode($data);
    }
-
-
-
-   public function test(){
-      // $this->load->model('chat');
-      // print_r($this->chat->getNewChatCount($this->session->userdata('user_id')));
-
-   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

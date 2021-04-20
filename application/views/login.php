@@ -54,7 +54,7 @@
                      </div>
                   <?php endif; ?>                  
                   
-                  <?php echo form_open('auth/login_process', array('class' => 'tab-pane active col-12 p-a0', 'id' => 'login')); ?>
+                  <?php echo form_open('auth/login', array('class' => 'tab-pane active col-12 p-a0', 'id' => 'login')); ?>
                      <h4 class="font-weight-700"> <?php echo lang('login')?> </h4>
                      <div class="form-group">
                         <label class="font-weight-700">E-mail *</label>

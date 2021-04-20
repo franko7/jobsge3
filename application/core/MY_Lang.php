@@ -32,7 +32,7 @@ class MY_Lang extends CI_Lang {
      * @var array
      */
     public $special = [
-        ""
+        "admin", "api"
     ];
 
     /**

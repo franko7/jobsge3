@@ -7,18 +7,12 @@
 
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet" href="<?php echo base_url('assets/admin/css/googlefonts.css');?>">
-<!-- Font Awesome -->
 <link rel="stylesheet" href="<?php echo base_url('assets/admin/css/fontawesome-all.min.css');?>">
-<!-- Ionicons -->
 <link rel="stylesheet" href="<?php echo base_url('assets/admin/css/ionicons.min.css');?>">
-<!-- Tempusdominus Bootstrap 4 -->
 <link rel="stylesheet" href="<?php echo base_url('assets/admin/css/tempusdominus-bootstrap-4.min.css');?>">
-<!-- iCheck -->
 <link rel="stylesheet" href="<?php echo base_url('assets/admin/css/icheck-bootstrap.min.css');?>">
 <link rel="stylesheet" href="<?php echo base_url('assets/admin/css/select2.min.css');?>">
-<!-- overlayScrollbars -->
 <link rel="stylesheet" href="<?php echo base_url('assets/admin/css/OverlayScrollbars.min.css');?>">
-<!-- summernote -->
 <link rel="stylesheet" href="<?php echo base_url('assets/admin/css/summernote-bs4.min.css');?>">
 <link rel="stylesheet" href="<?php echo base_url('assets/admin/css/adminlte.min.css');?>">
 <link rel="stylesheet" href="<?php echo base_url('assets/admin/css/dataTables.bootstrap4.min.css');?>">
