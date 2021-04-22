@@ -161,7 +161,7 @@
                         <?php for ($i=1; $i<=5; $i++):?>
                            <?php if($jobDetails->{'imgfilename'.$i}) :?>
                               <a class="venobox" data-gall="myGallery" href="<?php echo base_url($uploadFolder.$jobDetails->{'imgfilename'.$i});?>" >
-                                 <img src="<?php echo base_url($uploadFolder.$jobDetails->{'imgfilename'.$i});?>" class="img-thumbnail" style="height:120px"/>
+                                 <img src="<?php echo base_url($uploadFolder.$jobDetails->{'imgfilename'.$i});?>" class="img-thumbnail"/>
                               </a>
                            <?php endif; ?>                           
                         <?php endfor;?>

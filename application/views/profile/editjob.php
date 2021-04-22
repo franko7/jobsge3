@@ -20,14 +20,14 @@
                      <div class="row m-b30">                        
                         <div class="col-lg-6 col-md-6"><!-- firstname -->
                            <div class="form-group">
-                              <label>Full name</label>
+                              <label><?php echo lang('fullname')?></label>
                               <input type="text" name="fullname" class="form-control" placeholder="Full name" value="<?php echo $currentJob->fullname;?>">
                               <small style="color:red"><?php echo form_error('fullname'); ?></small>
                            </div>
                         </div>
                         <div class="col-lg-6 col-md-6"><!-- job type -->
                            <div class="form-group">
-                              <label>Job type</label>
+                              <label><?php echo lang('jobType')?></label>
                               <select name="jobtype" id="jobtype">
                                  <?php foreach($jobTypes as $jobType): ?>
                                     <option value="<?php echo $jobType->id;?>" <?php echo $currentJob->job_type==$jobType->id ? 'selected':'';?> > 
@@ -40,7 +40,7 @@
                         </div>                       
                         <div class="col-lg-6 col-md-6"><!-- category -->
                            <div class="form-group">
-                              <label>Category</label>
+                              <label><?php echo lang('category')?></label>
                               <select name="category" id="category">
                                  <?php foreach($categories as $category): ?>
                                     <option value="<?php echo $category->id;?>" <?php echo $currentJob->category_id==$category->id ? 'selected':'';?>> 
@@ -53,7 +53,7 @@
                         </div>
                         <div class="col-lg-6 col-md-6"><!-- subcategory -->
                            <div class="form-group">
-                              <label>Subcategory</label>
+                              <label><?php echo lang('subcategory')?></label>
                               <select name="subcategory" id="subcategory">
                                  <?php foreach($subcategories as $subcategory): ?>
                                     <option value="<?php echo $subcategory->id;?>" <?php echo $currentJob->subcategory_id==$subcategory->id ? 'selected':'';?>> 
@@ -66,14 +66,14 @@
                         </div>
                         <div class="col-lg-6 col-md-6"><!-- company -->
                            <div class="form-group">
-                              <label>Company</label>
+                              <label><?php echo lang('company')?></label>
                               <input type="text" name="company" class="form-control" placeholder="Company" value="<?php echo isset($currentJob->company)?$currentJob->company:'';?>">
                               <small style="color:red"><?php echo form_error('company'); ?></small>
                            </div>
                         </div>
                         <div class="col-lg-6 col-md-6"><!-- phone -->
                            <div class="form-group">
-                              <label>Phone</label>
+                              <label><?php echo lang('phone')?></label>
                               <input type="text" name="phone" class="form-control" placeholder="Phone number" value="<?php echo $currentJob->phone;?>">
                               <small style="color:red"><?php echo form_error('phone'); ?></small>
                            </div>
@@ -87,14 +87,14 @@
                         </div>
                         <div class="col-lg-6 col-md-6"><!-- website -->
                            <div class="form-group">
-                              <label>Website</label>
+                              <label><?php echo lang('website')?></label>
                               <input type="text" name="website" class="form-control" placeholder="Website" value="<?php echo $currentJob->website;?>">
                               <small style="color:red"><?php echo form_error('website'); ?></small>
                            </div>
                         </div>
                         <div class="col-lg-6 col-md-6"><!-- location -->
                            <div class="form-group">
-                              <label>Location</label>
+                              <label><?php echo lang('location')?></label>
                               <select name="location">
                                  <?php foreach($locations as $location): ?>
                                     <option value="<?php echo $location->id;?>" <?php echo $currentJob->location==$location->id ? 'selected':'';?>> 
@@ -107,21 +107,21 @@
                         </div>
                         <div class="col-lg-6 col-md-6"><!-- zip -->
                            <div class="form-group">
-                              <label>Zip code</label>
+                              <label><?php echo lang('zipCode')?></label>
                               <input type="text" name="zip" class="form-control" placeholder="Zip code" value="<?php echo $currentJob->zipcode;?>">
                               <small style="color:red"><?php echo form_error('zip'); ?></small>
                            </div>
                         </div>
                         <div class="col-lg-12"><!-- address -->
                            <div class="form-group">
-                              <label>Address</label>
+                              <label><?php echo lang('address')?></label>
                               <input type="text" name="address" class="form-control" placeholder="Address" value="<?php echo $currentJob->address;?>">
                               <small style="color:red"><?php echo form_error('address'); ?></small>
                            </div>
                         </div>
                         <div class="col-lg-12"><!-- short text en -->
                            <div class="form-group">
-                              <label>Short description</label>
+                              <label><?php echo lang('shortDescription')?></label>
                               <div class="col-lg-12" style="padding:0">
                                  <ul class="nav nav-tabs" id="myTab" role="tablist">
                                     <li class="nav-item">
@@ -146,7 +146,7 @@
                         </div>
                         <div class="col-lg-12"><!-- Large text -->
                            <div class="form-group">
-                              <label>Long description</label>
+                              <label><?php echo lang('longDescription')?></label>
                               <div class="col-lg-12" style="padding:0">
                                  <ul class="nav nav-tabs" id="myTab" role="tablist">
                                     <li class="nav-item">
@@ -171,7 +171,7 @@
                         </div>
                         <div class="col-lg-12"><!-- images -->
                            <div class="form-group">
-                              <label>Images</label>
+                              <label><?php echo lang('images')?></label>
                               <div class="imgupload">
                                  <div class="<?php echo $currentJob->imgfilename1?'imgwrapper':'displaynone';?>">
                                     <img src="<?php echo base_url('assets/uploads/'.$currentJob->imgfilename1);?>">    
@@ -188,7 +188,7 @@
                                     <div class="imgwrapper">
                                        <?php if($currentJob->imgfilename2):?>
                                           <img src="<?php echo base_url('assets/uploads/'.$currentJob->imgfilename2);?>">
-                                       <?php endif;?>   
+                                       <?php endif;?>
                                     </div>
                                     <div class="fileinpwrapper">
                                        <input type="file" name="file2" class="form-control" >
@@ -237,7 +237,7 @@
                               </div>
                            </div>
                            <!-- payment -->
-                           <div class="col-lg-12 displaynone" id="payment">
+                           <!-- <div class="col-lg-12 displaynone" id="payment">
                               <ul class="nav nav-tabs" id="myTab" role="tablist">
                                  <li class="nav-item">
                                     <a class="nav-link active" id="cardpay-tab" data-toggle="tab" href="#cardpay" role="tab" aria-controls="cardpay" aria-selected="true">Enter card details</a>
@@ -247,7 +247,7 @@
                                  </li>
                               </ul>
                               <div class="tab-content p-2" id="myTabContent">
-                                 <div class="tab-pane fade show active" id="cardpay" role="tabpanel" aria-labelledby="cardpay-tab"><!-- card details -->
+                                 <div class="tab-pane fade show active" id="cardpay" role="tabpanel" aria-labelledby="cardpay-tab">
                                     <div class="form-row pt-2">
                                        <div class="form-group col-md-6">
                                           <label for="cardholder">Name on card</label>
@@ -289,10 +289,10 @@
                                     <button>Pay with paypal</button>
                                  </div>
                               </div>
-                           </div>
+                           </div> -->
                         </div>
                      </div>
-                     <button type="submit" class="site-button m-b30">Update Setting</button>
+                     <button type="submit" class="site-button m-b30"><?php echo lang('updateApp')?></button>
                   <?php echo form_close(); ?>
                </div>
             </div>
@@ -311,10 +311,11 @@
       });
       $('#jobtype').change(function(){
          displayImageFields();
-         getInitialPrice($('#jobtype').val());
+         // getInitialPrice($('#jobtype').val());
       });
       displayImageFields();
-      getInitialPrice($('#jobtype').val());
+      //getInitialPrice($('#jobtype').val());
+
       $('.summernote').summernote({
         tabsize: 3,
         height: 150,
@@ -327,6 +328,7 @@
          ['view', ['fullscreen', 'codeview', 'help']]
         ]
       });
+
    });
 
    function getSubcategories(categoryid){
@@ -358,22 +360,22 @@
       }
    };
 
-   function getInitialPrice(jobType){
-      $.ajax({
-         url:'<?=base_url()?>profile/getInitialFeeByType',
-         method: 'post',
-         data: {csrf_token: $('input[name=csrf_token]').val(), jobtype: jobType},
-         dataType: 'json',
-         success: function(response){
-            $('input[name=csrf_token]').val(response.token);
-            if(response['jobtype'][0]['initial_price'] > 0){
-               $('#payment').removeClass('displaynone');
-            }else{
-               $('#payment').addClass('displaynone');
-            }       
-         }
-      });
-   };
+   // function getInitialPrice(jobType){
+   //    $.ajax({
+   //       url:'<?=base_url()?>profile/getInitialFeeByType',
+   //       method: 'post',
+   //       data: {csrf_token: $('input[name=csrf_token]').val(), jobtype: jobType},
+   //       dataType: 'json',
+   //       success: function(response){
+   //          $('input[name=csrf_token]').val(response.token);
+   //          if(response['jobtype']['initial_price'] > 0){
+   //             $('#payment').removeClass('displaynone');
+   //          }else{
+   //             $('#payment').addClass('displaynone');
+   //          }       
+   //       }
+   //    });
+   // };
    
    
 </script>

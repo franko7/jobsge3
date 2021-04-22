@@ -13,3 +13,5 @@ $lang['register'] = "register";
 $lang['login'] = "login";
 $lang['ourSocials'] = "ourSocials";
 $lang['usefulLinks'] = "usefulLinks";
+$lang['activateApp'] = "activateApp";
+$lang['signOut'] = "signOut";

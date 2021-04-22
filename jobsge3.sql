@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 15, 2021 at 12:30 PM
+-- Generation Time: Apr 22, 2021 at 02:17 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -61,51 +61,97 @@ CREATE TABLE IF NOT EXISTS `chats` (
   `to_id` int(11) NOT NULL,
   `message` text NOT NULL,
   `sent_at` int(11) NOT NULL,
+  `new` tinyint(4) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=39 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=188 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `chats`
 --
 
-INSERT INTO `chats` (`id`, `from_id`, `to_id`, `message`, `sent_at`) VALUES
-(2, 1, 2, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487536),
-(3, 1, 2, 'going through the cites of the word in classicaindustry. Lorem Ipsum has been t', 1618487536),
-(4, 1, 1, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487501),
-(5, 2, 2, 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. industry. Lorem Ipsum has been t', 1618487502),
-(6, 3, 3, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487504),
-(7, 1, 4, 'going through the cites of the word in classicadustry. Lorem Ipsum has been t', 1618487508),
-(8, 2, 1, 'y duhe primmy text of tnting and typesetting industry. Lorem Ipsum has been t', 1618487510),
-(9, 2, 2, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487512),
-(10, 3, 3, 'rinting and typesy dummy text of the petting industry. Lorem Ipsum has been t', 1618487517),
-(11, 4, 4, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487520),
-(12, 2, 1, 'predefined chunks as necessary, making this the first true generator on the Internet.industry. Lorem Ipsum has been t', 1618487525),
-(13, 3, 2, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487528),
-(14, 4, 3, 'predefined chunks as necessary, making this the first true generator on the Internet. Lorem Ipsum has been t', 1618487532),
-(15, 2, 4, 'going through the cites of the word in classicaIpsum has been t', 1618487537),
-(16, 2, 2, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487539),
-(17, 3, 3, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487540),
-(18, 1, 4, 'ng and typesetting indy dummy text of the printiustry. Lorem Ipsum has been t', 1618487542),
-(19, 2, 1, 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.', 1618487544),
-(20, 2, 2, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487545),
-(21, 3, 3, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487547),
-(22, 4, 4, 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. industry. Lorem Ipsum has been t', 1618487550),
-(23, 2, 1, 'predefined chunks as necessary, making this the first true generator on the Internet.em Ipsum has been t', 1618487550),
-(24, 3, 2, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487554),
-(25, 4, 3, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487558),
-(26, 2, 2, 'predefined chunks as necessary, making this the first true generator on the Internet.industry. Lorem Ipsum has been t', 1618487560),
-(27, 3, 3, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487570),
-(28, 1, 4, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487575),
-(29, 2, 1, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487580),
-(30, 2, 2, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487590),
-(31, 3, 3, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487592),
-(32, 4, 4, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487596),
-(33, 2, 1, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487100),
-(34, 3, 2, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487102),
-(35, 4, 3, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487106),
-(36, 2, 4, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487110),
-(37, 2, 4, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487126),
-(38, 3, 1, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487136);
+INSERT INTO `chats` (`id`, `from_id`, `to_id`, `message`, `sent_at`, `new`) VALUES
+(38, 3, 1, 'y 3 dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487136, 0),
+(37, 2, 4, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487126, 0),
+(36, 2, 4, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487110, 0),
+(34, 3, 2, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487102, 0),
+(35, 4, 3, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487106, 0),
+(33, 3, 1, '3 y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487100, 0),
+(32, 4, 4, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487596, 0),
+(31, 3, 2, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487592, 0),
+(30, 2, 4, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487590, 0),
+(29, 2, 1, 'y 2 dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487580, 0),
+(28, 1, 4, 'y 4 dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487575, 0),
+(27, 3, 2, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487570, 0),
+(26, 2, 3, 'predefined chunks as necessary, making this the first true generator on the Internet.industry. Lorem Ipsum has been t', 1618487560, 0),
+(25, 4, 3, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487558, 0),
+(24, 3, 2, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487554, 0),
+(23, 9, 1, '9 predefined chunks as necessary, making this the first true generator on the Internet.em Ipsum has been t', 1618487550, 0),
+(22, 4, 4, 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. industry. Lorem Ipsum has been t', 1618487550, 0),
+(21, 3, 2, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487547, 0),
+(20, 2, 3, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487545, 0),
+(19, 2, 1, 'The 2 standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.', 1618487544, 0),
+(18, 1, 4, 'ng 4 and typesetting indy dummy text of the printiustry. Lorem Ipsum has been t', 1618487542, 0),
+(16, 2, 3, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487539, 0),
+(17, 2, 3, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487540, 0),
+(15, 2, 4, 'going through the cites of the word in classicaIpsum has been t', 1618487537, 0),
+(14, 4, 3, 'predefined chunks as necessary, making this the first true generator on the Internet. Lorem Ipsum has been t', 1618487532, 0),
+(13, 3, 2, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487528, 0),
+(12, 7, 1, 'predefined chunks as necessary, making this the first true generator on the Internet.industry. Lorem Ipsum has been t', 1618487525, 0),
+(11, 8, 1, 'y 8 dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487520, 0),
+(10, 3, 2, 'rinting and typesy dummy text of the petting industry. Lorem Ipsum has been t', 1618487517, 0),
+(9, 3, 2, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487512, 0),
+(8, 6, 1, 'y duhe primmy text of tnting and typesetting industry. Lorem Ipsum has been t', 1618487510, 0),
+(7, 1, 4, '4 going through the cites of the word in classicadustry. Lorem Ipsum has been t', 1618487508, 0),
+(6, 3, 3, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487504, 0),
+(5, 2, 4, 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. industry. Lorem Ipsum has been t', 1618487502, 0),
+(4, 1, 4, 'y 4 dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487501, 0),
+(3, 1, 2, 'going through the cites of the word in classicaindustry. Lorem Ipsum has been t', 1618487536, 0),
+(2, 1, 2, 'y dummy text of the printing and typesetting industry. Lorem Ipsum has been t', 1618487536, 0),
+(131, 1, 4, 'Hiiiii 4', 1618737173, 0),
+(132, 1, 4, 'Helllo 4', 1618740478, 0),
+(133, 1, 4, 'Are you here? 4', 1618740493, 0),
+(136, 4, 1, 'Yeeah 4', 1618742428, 0),
+(138, 6, 1, '6 asd aasjjhasgd', 1618742576, 0),
+(144, 2, 1, 'true?', 1618743024, 0),
+(145, 1, 2, '1-2yeah that\'s true 2', 1618743048, 0),
+(146, 4, 2, 'I knew about it too', 1618743071, 0),
+(147, 2, 1, '2-1Test Test2 ', 1618743212, 0),
+(148, 4, 1, 'Test Test4 ', 1618743220, 0),
+(152, 2, 1, '2-1kjadsh kjashd laskdj 2', 1618743810, 0),
+(153, 2, 1, ' 2-1sdfksjdhf kjsldhf 2', 1618743817, 0),
+(154, 1, 8, ' df;lgk \'dk ddflkgkdl;jf ;dfklgj ;dlfkgj 8', 1618756081, 1),
+(156, 1, 7, 's 7 dkfjh lksjdhf lskdjfh lsdkjfh', 1618756100, 1),
+(157, 1, 3, 'Hello Admin 3', 1618756110, 0),
+(158, 2, 1, '2-1asdf sd ffsd', 1618802760, 0),
+(159, 1, 2, 'ajksdh sdfkljs', 1618804722, 0),
+(160, 11, 1, 'as sdf sd;lk', 1618804731, 0),
+(161, 12, 1, 'test message from user 12', 1618804771, 0),
+(162, 2, 1, ' sdkfjh skdjf', 1618811676, 0),
+(163, 1, 2, ' fdg dfg df', 1618811685, 0),
+(164, 5, 1, 'message from user 5', 1618811725, 0),
+(165, 2, 1, ' sdf sdlfksd', 1618812206, 0),
+(166, 2, 1, 'a', 1618817389, 0),
+(167, 1, 2, 'as', 1618817443, 0),
+(168, 1, 2, 'dfg', 1618817465, 0),
+(169, 1, 2, 'ფგჰ', 1618818161, 0),
+(170, 1, 2, 'დგფგდფგდფგ', 1618818185, 0),
+(171, 1, 2, 'სდფსდ', 1618818306, 0),
+(172, 1, 2, 'დფგდფგ დფგ დფგდ', 1618818370, 0),
+(173, 1, 2, 'წრტ რტერტ ერტერ', 1618818379, 0),
+(174, 1, 2, 'სდფ სდფ', 1618818459, 0),
+(175, 1, 2, 'სდფ სდფ სდფსდ', 1618818469, 0),
+(176, 1, 2, 'dfg dfg dfgdf', 1618818538, 0),
+(177, 2, 4, 'fg ffgh', 1618823298, 1),
+(178, 2, 5, 'sfd sd sdkjfhsdjk', 1618825411, 1),
+(179, 2, 8, ' gfh fgh fgh', 1618825606, 1),
+(180, 2, 9, 'sdfsdf', 1618825896, 1),
+(181, 2, 10, ' lkdsfj ;lsdkf', 1618826333, 0),
+(182, 2, 10, ' dslkfj ;sdlk', 1618826345, 0),
+(183, 10, 2, 's dflfsd', 1618826492, 0),
+(184, 2, 10, 's fsdfsd', 1618826539, 0),
+(185, 1, 2, 'f sdf', 1618826680, 0),
+(186, 1, 2, 'asaaaaaaaaaa', 1618826741, 0),
+(187, 1, 2, 'sdf sdfkljsd', 1618826803, 0);
 
 -- --------------------------------------------------------
 
@@ -169,7 +215,7 @@ CREATE TABLE IF NOT EXISTS `jobs` (
   `status` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=81 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=91 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `jobs`
@@ -183,8 +229,8 @@ INSERT INTO `jobs` (`id`, `user_id`, `job_type`, `fullname`, `phone`, `email`, `
 (59, 1, 2, 'jondo jaani', '2423477', 'jondo@gmail.com', 'www.jeasd.er', NULL, '9', 'ipsum dolor sit amet..', '4353488', 2, 8, 'This book is a treatise on the theory of ethics, very popular duringa', '', 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham. test', '', 'this-book-is-a-treatise-on-the-theory-of-ethics-very-popular-duringa', NULL, 'JOB00000592.jpg', NULL, NULL, NULL, 0, 1616650711, 1624426711, 1, 1),
 (60, 1, 2, 'jondo jaani', '2342978', 'jondo@gmail.com', 'www.dois.ge', '', '1', 'There are many variations of passages of Lorem Ipsum 56', '3453', 1, 4, 'There are many variations of pass ageThere are many variations of passages of Lorem Ipsum', '', 'you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the<b> Internet tend to repeat predefine</b>d chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is', '', 'there-are-many-variations-of-pass-agethere-are-many-variations-of-passages-of-lorem-ipsum', 'JOB00000601.jpg', 'JOB00000602.jpeg', NULL, 'JOB00000604.jpg', NULL, 0, 1616651370, 1624427370, 1, 1),
 (57, 1, 3, 'jondo jaani', '4545645', 'jondo@gmail.com', 'www.sdf.sdf', NULL, '1', 'reproduced below for those interested. Sections 1.10.3', '45654', 1, 2, '\"de Finibusa Bonorum et Malorum\" by Cicero are also', '', 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text.', '', '-de-finibus-bonorum-et-malorum-by-cicero-are-also', 'JOB00000571.png', 'JOB00000572.jpeg', NULL, NULL, NULL, 0, 1616650102, 1648186102, 1, 1),
-(58, 1, 3, 'jondo jaani', '4545645', 'jondo@gmail.com', 'www.sdf.sdf', '', '1', 'reproduced below for those interested. Sections 1.10.3', '45654', 1, 2, 'de Finibus Bonorum et Malorum', '', 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use <b>a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. orm</b>, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle o', '', 'de-finibus-bonorum-et-malorum', 'JOB00000581.jpg', NULL, 'JOB00000583.jpg', NULL, NULL, 0, 1616650126, 1648186126, 1, 1),
-(55, 1, 1, 'jondo jaani', '4545645', 'jondo@gmail.com', 'www.sdf.sdf', NULL, '1', 'reproduced below for those interested. Sections 1.10.3', '45654', 1, 2, 'de Finibus Bonorum et Malorum\" by Cicero are also', '', 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text.', '', '-de-finibus-bonorum-et-malorum-by-cicero-are-also', 'JOB00000551.png', NULL, NULL, NULL, NULL, 0, 1616649995, 1619241995, 1, 1),
+(58, 1, 3, 'jondo jaani', '4545645', 'jondo@gmail.com', 'www.sdf.sdf', '', '1', 'reproduced below for those interested. Sections 1.10.3', '45654', 1, 2, 'de Finibus Bonorum et Malorum', '', 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use <b>a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. orm</b>, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle o', '', 'de-finibus-bonorum-et-malorum', 'JOB00000581.jpg', NULL, 'JOB00000583.png', NULL, NULL, 1, 1616650126, 1648186126, 1, 0),
+(55, 1, 1, 'jondo jaani', '4545645', 'jondo@gmail.com', 'www.sdf.sdf', NULL, '1', 'reproduced below for those interested. Sections 1.10.3', '45654', 1, 2, 'de Finibus Bonorum et Malorum\" by Cicero are also', '', 'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text.', '', '-de-finibus-bonorum-et-malorum-by-cicero-are-also', NULL, NULL, NULL, NULL, NULL, 0, 1616649995, 1619241995, 1, 1),
 (50, 1, 3, 'jondo jaani', '743589475', 'jondo@gmail.com', 'www.jondo.de', NULL, '14', 'dasdasd asdasdas asdas', '534345', 3, 13, 'literature, discovered the undoubtable source. finibusa Lorem Ipsum comes from sections 1.10.32 and 1.10.33', '', 'irginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of \"de Finibus Bonorum et Malorum\" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", comes from a line in section 1.10.32.', '', 'literature-discovered-the-undoubtable-source-lorem-ipsum-comes-from-sections-1-10-32-and-1-10-33', 'JOB00000501.jpg', NULL, 'JOB00000503.jpg', NULL, 'JOB00000505.jpg', 0, 1615448873, 1646984873, 1, 1),
 (51, 1, 2, 'jondo jaani', '534534353', 'jondo@gmail.com', 'www.jondo.io', '', '1', 'The standard chunk, Ipsum used since the 1500', '35634345', 3, 14, 'Sections 1.10.32 and 1.10.33 from', '', 'The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from \"de Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.', '', 'sections-1-10-32-and-1-10-33-from', 'JOB00000511.jpg', 'JOB00000512.png', 'JOB00000513.jpg', NULL, NULL, 0, 1616449281, 1624225281, 1, 1),
 (43, 1, 1, 'jondo jaani', '3245234234', 'jondo@gmail.com', 'www.gondo.ge', NULL, '5', 'Sed ut perspiciatis unde 45', '345345', 3, 13, 'qui dolorem ipsum quia dolor sit amet, consectetur, adipisci ius modi tempo', '', 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.', '', 'qui-dolorem-ipsum-quia-dolor-sit-amet-consectetur-adipisci-ius-modi-tempo', 'JOB00000431.jpg', NULL, NULL, NULL, NULL, 0, 1616081597, 1618673597, 1, 1),
@@ -201,7 +247,17 @@ INSERT INTO `jobs` (`id`, `user_id`, `job_type`, `fullname`, `phone`, `email`, `
 (77, 2, 3, 'jemal bagashvili', '45656456', 'jemala@gmail.com', 'www.jlkajsdlk.re', NULL, '1', 'ng through the cites of the word in classical literature,67', '345343', 2, 9, 'opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing ge edi', '', 'majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reaso', '', 'opposed-to-using-content-here-content-here-making-it-look-like-readable-english-many-desktop-publishing-ge-edi', 'JOB00000771.jpg', 'JOB00000772.png', 'JOB00000773.jpg', 'JOB00000774.jpg', NULL, 0, 1617026405, 1648562405, 1, 1),
 (78, 11, 2, 'accusantium doloremque', '43534 53453', 'accus@gmail.com', 'www.top.ge', '', '1', 'ith content hourly on the day of going live. Hoe', '34234', 1, 3, 'ith content hourly on the day of going live. However, reviewers tend to be distracted by comprehensible content, say, a random text copied from a ne', '', 'In a professional context it often happens that private or corporate clients corder a publication to be made and presented with the actual content still not being ready. Think of a news blog that\'s filled with content hourly on the day of going live. However, reviewers tend to be distracted by comprehensible content, say, a random text copied from a newspaper or the internet. The are likely to focus on the text, disregarding the layout and its elements. Besides, random text risks to be unintendedly humorous or offensive, an unacceptable risk in corporate environments. Lorem ipsum and its many variants have been employed since the early 1960ies, and quite likely since the sixteenth century', '', 'ith-content-hourly-on-the-day-of-going-live-however-reviewers-tend-to-be-distracted-by-comprehensible-content-say-a-random-text-copied-from-a-ne', 'JOB00000781.jpg', 'JOB00000782.jpg', 'JOB00000783.png', 'JOB00000784.jpg', NULL, 0, 1617649728, 1625425728, 1, 1),
 (79, 1, 1, 'jondo jaani', '4580349', 'jondo@gmail.com', 'www.mycompany.fd', 'mycompany', '9', 'nsectetur in classical Latin searched for citings of co 56', '38400', 3, 12, 'searched for citings of consectetur in classical Latin', '', '<span xss=removed>In a professional context it often happens that private or corporate clients corder a publication to be made and presented w</span><span xss=removed><font color=\"#000000\">ith the actual content still not being ready. Think of a news blog that\'s filled with content hourly on the day of going live. </font><font color=\"#ff0000\">However, reviewers tend to be distracted by comprehensible content, say, a random text copied from a newspaper or the internet. The are likely to focus o</font></span><span xss=removed><font color=\"#ff0000\">n the text</font><font color=\"#000000\">, disregarding the layout and its elements. Besides, </font><b xss=removed>random text risks to be unintendedly humorous or offensive</b><font color=\"#000000\">, an unacceptable risk in corporate environments. </font></span><strong xss=removed>Lorem ipsum</strong><span xss=removed> and its many variants have been employed since the early 1960ies, and quite likely since the sixteenth century</span>', '', 'searched-for-citings-of-consectetur-in-classical-latin', 'JOB00000791.jpg', 'JOB00000792.jpg', NULL, NULL, NULL, 0, 1617730704, 1620322704, 1, 1),
-(80, 2, 2, 'jemal bagashvili', '80-098-09', 'jemala@gmail.com', 'www.toasd.fi', 'kjhjhgkjhg', '7', 'ipsum dolor sit amet, consectetur adipiscing 45', '345', 2, 10, 'ipsum dolor sit amet, consec tetur adipiscing ipsum dolor sit a', '', '<span xss=removed>tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>', '', 'ipsum-dolor-sit-amet-consec-tetur-adipiscing-ipsum-dolor-sit-a', 'JOB00000801.jpg', NULL, NULL, NULL, NULL, 0, 1617810448, 1625586448, 1, 1);
+(80, 2, 2, 'jemal bagashvili', '80-098-09', 'jemala@gmail.com', 'www.toasd.fi', 'kjhjhgkjhg', '7', 'ipsum dolor sit amet, consectetur adipiscing 45', '345', 2, 10, 'ipsum dolor sit amet, consec tetur adipiscing ipsum dolor sit a', '', '<span xss=removed>tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span>', '', 'ipsum-dolor-sit-amet-consec-tetur-adipiscing-ipsum-dolor-sit-a', 'JOB00000801.jpg', NULL, NULL, NULL, NULL, 0, 1617810448, 1625586448, 1, 1),
+(81, 1, 2, 'jondo jaani', '6456456', 'jondo@gmail.com', 'www.djsdfs.gl', 'sdhkj', '1', 'm Ipsum is that it has a more-or-less normal distribution of lette 45', '456', 4, 16, 'he Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Interne', '', '<span xss=removed>. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc</span>', '', 'he-lorem-ipsum-generators-on-the-internet-tend-to-repeat-predefined-chunks-as-necessary-making-this-the-first-true-generator-on-the-interne', 'JOB00000811.jpg', NULL, NULL, NULL, NULL, 0, 1619067065, 1626843065, 1, 1),
+(82, 1, 2, 'jondo jaani', '37894579384', 'jondo@gmail.com', 'www.turningworks.com', 'turningworks co', '7', 'he undoubtable source. Lorem Ipsum comes from sections 1.10.32', '567', 4, 18, 'Finibus Bonorum et Malorum\" by Cicero are also reproduced in their exact original for', '', '<span xss=removed>em Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</span>', '', 'finibus-bonorum-et-malorum-by-cicero-are-also-reproduced-in-their-exact-original-for', 'JOB00000821.jpg', 'JOB00000822.jpg', 'JOB00000823.png', NULL, NULL, 0, 1619067317, 1626843317, 1, 1),
+(83, 1, 2, 'jondo jaani', '890648509', 'jondo@gmail.com', 'www.lesva.df', 'mlesavebi', '8', 'sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem 85', '456', 4, 25, 'sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunk', '', '<span xss=removed>sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc</span>', '', 'sure-there-isn-t-anything-embarrassing-hidden-in-the-middle-of-text-all-the-lorem-ipsum-generators-on-the-internet-tend-to-repeat-predefined-chunk', 'JOB00000831.jpg', NULL, NULL, NULL, NULL, 0, 1619067652, 1626843652, 1, 1),
+(84, 1, 2, 'jondo jaani', '435345', 'jondo@gmail.com', 'www.lesva.tu', 'mlesavebi', '9', 'All the Lorem Ipsum generators on the Internet tend to re 88', '456', 4, 25, 'All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, ma', '', '<span xss=removed> All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</span>', '', 'all-the-lorem-ipsum-generators-on-the-internet-tend-to-repeat-predefined-chunks-as-necessary-ma', 'JOB00000841.jpg', 'JOB00000842.jpg', 'JOB00000843.jpg', NULL, NULL, 0, 1619067765, 1626843765, 1, 1),
+(85, 1, 3, 'jondo jaani', '345345', 'jondo@gmail.com', 'lesva.ff', 'mlesavebi', '7', 'undoubtable source. Lorem Ipsum comes from sections 1.10.32', '345', 4, 25, 'dney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the', '', '<span xss=removed>dney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the</span><span xss=removed>dney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the</span><span xss=removed>dney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the</span><span xss=removed>dney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the</span><span xss=removed>dney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the</span>', '', 'dney-college-in-virginia-looked-up-one-of-the-more-obscure-latin-words-consectetur-from-a-lorem-ipsum-passage-and-going-through-the-cites-of-the', 'JOB00000851.jpg', 'JOB00000852.jpg', 'JOB00000853.png', NULL, NULL, 0, 1619067863, 1650603863, 1, 0),
+(86, 1, 3, 'jondo jaani', '6545', 'jondo@gmail.com', 'www.carpene.ff', 'carpenter\'s', '9', 'ndoubtable source. Lorem Ipsum comes from sections 1.10', '456', 4, 19, 'nly five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the releas', '', '<span xss=removed>nly five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsu</span><span xss=removed>nly five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsu</span>', '', 'nly-five-centuries-but-also-the-leap-into-electronic-typesetting-remaining-essentially-unchanged-it-was-popularised-in-the-1960s-with-the-releas', 'JOB00000861.png', 'JOB00000862.png', 'JOB00000863.png', 'JOB00000864.png', NULL, 0, 1619068400, 1650604400, 1, 0),
+(87, 1, 3, 'jondo jaani', '54645645', 'jondo@gmail.com', 'www.gloov.re', 'erwwrerwe', '6', 'ords, consectetur, from a Lorem Ipsum passage, and going through 56', '45645', 3, 13, 'ords, consectetur, from a Lorem Ipsum passage, and going through', '', '<span xss=removed>ords, consectetur, from a Lorem Ipsum passage, and going through t</span><span xss=removed>ords, consectetur, from a Lorem Ipsum passage, and going through t</span><span xss=removed>ords, consectetur, from a Lorem Ipsum passage, and going through t</span><span xss=removed>ords, consectetur, from a Lorem Ipsum passage, and going through t</span><span xss=removed>ords, consectetur, from a Lorem Ipsum passage, and going through t</span><span xss=removed>ords, consectetur, from a Lorem Ipsum passage, and going through t</span><span xss=removed>ords, consectetur, from a Lorem Ipsum passage, and going through t</span><span xss=removed>ords, consectetur, from a Lorem Ipsum passage, and going through t</span><span xss=removed>ords, consectetur, from a Lorem Ipsum passage, and going through t</span><span xss=removed>ords, consectetur, from a Lorem Ipsum passage, and going through t</span><span xss=removed>ords, consectetur, from a Lorem Ipsum passage, and going through t</span>', '', 'ords-consectetur-from-a-lorem-ipsum-passage-and-going-through', 'JOB00000871.jpg', 'JOB00000872.png', 'JOB00000873.jpg', 'JOB00000874.jpg', NULL, 0, 1619069930, 1650605930, 1, 0),
+(88, 1, 3, 'jondo jaani', '45645645', 'jondo@gmail.com', 'www.sdkfjsd.ed', 'dgfgdfg', '4', 'ords, consectetur, from a Lorem Ipsum passage, and going through', '45645', 1, 4, 'ords, consectetur, from a Lorem Ipsum passage, and going through t', '', '<span xss=removed>ords, consectetur, from a Lorem Ipsum passage, and going through t</span><span xss=removed>ords, consectetur, from a Lorem Ipsum passage, and going through t</span><span xss=removed>ords, consectetur, from a Lorem Ipsum passage, and going through t</span><span xss=removed>ords, consectetur, from a Lorem Ipsum passage, and going through t</span><span xss=removed>ords, consectetur, from a Lorem Ipsum passage, and going through t</span><span xss=removed>ords, consectetur, from a Lorem Ipsum passage, and going through t</span><span xss=removed>ords, consectetur, from a Lorem Ipsum passage, and going through t</span><span xss=removed>ords, consectetur, from a Lorem Ipsum passage, and going through t</span><span xss=removed>ords, consectetur, from a Lorem Ipsum passage, and going through t</span>', '', 'ords-consectetur-from-a-lorem-ipsum-passage-and-going-through-t', 'JOB00000881.jpg', 'JOB00000882.jpg', 'JOB00000883.jpg', 'JOB00000884.png', NULL, 0, 1619070057, 1650606057, 1, 0),
+(89, 1, 3, 'jondo jaani', '435804980', 'jondo@gmail.com', 'ww.dsad.fe', 'sdjkhfk', '6', 'containing Lorem Ipsum passages, and more recently with deskto', '345', 2, 9, 'containing Lorem Ipsum passages, and more recently with deskto', '', '<span xss=removed> containing Lorem Ipsum passages, and more recently with deskto</span><span xss=removed> containing Lorem Ipsum passages, and more recently with deskto</span><span xss=removed> containing Lorem Ipsum passages, and more recently with deskto</span><span xss=removed> containing Lorem Ipsum passages, and more recently with deskto</span><span xss=removed> containing Lorem Ipsum passages, and more recently with deskto</span><span xss=removed> containing Lorem Ipsum passages, and more recently with deskto</span><span xss=removed> containing Lorem Ipsum passages, and more recently with deskto</span><span xss=removed> containing Lorem Ipsum passages, and more recently with deskto</span><span xss=removed> containing Lorem Ipsum passages, and more recently with deskto</span><span xss=removed> containing Lorem Ipsum passages, and more recently with deskto</span>', '', 'containing-lorem-ipsum-passages-and-more-recently-with-deskto', 'JOB00000891.jpg', 'JOB00000892.jpg', 'JOB00000893.jpg', 'JOB00000894.jpg', NULL, 0, 1619070196, 1650606196, 1, 0),
+(90, 1, 3, 'jondo jaani', '53453', 'jondo@gmail.com', 'www.sddd.he', 'rewwer', '7', 'ally unchanged. It was popularised in the 1960s with the release of L', '4534', 3, 14, 'ally unchanged. It was popularised in the 1960s with the release of', '', '<span xss=removed>ally unchanged. It was popularised in the 1960s with the release of L</span><span xss=removed>ally unchanged. It was popularised in the 1960s with the release of L</span><span xss=removed>ally unchanged. It was popularised in the 1960s with the release of L</span><span xss=removed>ally unchanged. It was popularised in the 1960s with the release of L</span><span xss=removed>ally unchanged. It was popularised in the 1960s with the release of L</span><span xss=removed>ally unchanged. It was popularised in the 1960s with the release of L</span><span xss=removed>ally unchanged. It was popularised in the 1960s with the release of L</span><span xss=removed>ally unchanged. It was popularised in the 1960s with the release of L</span><span xss=removed>ally unchanged. It was popularised in the 1960s with the release of L</span><span xss=removed>ally unchanged. It was popularised in the 1960s with the release of L</span>', '', 'ally-unchanged-it-was-popularised-in-the-1960s-with-the-release-of', 'JOB00000901.jpg', 'JOB00000902.jpg', 'JOB00000903.jpg', 'JOB00000904.jpg', NULL, 0, 1619070475, 1650606475, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -278,13 +334,37 @@ CREATE TABLE IF NOT EXISTS `pageviews` (
   `ip` varchar(30) NOT NULL,
   `viewed_at` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=395 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=419 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `pageviews`
 --
 
 INSERT INTO `pageviews` (`id`, `job_id`, `ip`, `viewed_at`) VALUES
+(418, 58, '::1', 1619084483),
+(417, 58, '::1', 1619081977),
+(416, 86, '::1', 1619068822),
+(415, 86, '::1', 1619068807),
+(414, 86, '::1', 1619068806),
+(413, 86, '::1', 1619068463),
+(412, 86, '::1', 1619068450),
+(411, 84, '::1', 1619067778),
+(410, 83, '::1', 1619067665),
+(409, 82, '::1', 1619067427),
+(408, 81, '::1', 1619067411),
+(407, 81, '::1', 1619067327),
+(406, 81, '::1', 1619067094),
+(405, 79, '127.0.0.1', 1618915644),
+(404, 79, '127.0.0.1', 1618915627),
+(403, 79, '127.0.0.1', 1618915617),
+(402, 64, '127.0.0.1', 1618905271),
+(401, 64, '127.0.0.1', 1618905262),
+(400, 71, '127.0.0.1', 1618905258),
+(399, 71, '127.0.0.1', 1618905245),
+(398, 71, '127.0.0.1', 1618905240),
+(397, 71, '127.0.0.1', 1618905217),
+(396, 71, '127.0.0.1', 1618765753),
+(395, 46, '::1', 1618757465),
 (394, 46, '::1', 1618228990),
 (393, 46, '::1', 1618227888),
 (392, 46, '::1', 1618210566),
@@ -389,13 +469,15 @@ CREATE TABLE IF NOT EXISTS `ratings` (
   `stars` int(11) DEFAULT NULL,
   `rated_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=181 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=183 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `ratings`
 --
 
 INSERT INTO `ratings` (`id`, `job_id`, `ip`, `stars`, `rated_at`) VALUES
+(182, 79, '127.0.0.1', 3, 1618915623),
+(181, 71, '127.0.0.1', 3, 1618905225),
 (180, 46, '::1', 3, 1618139265),
 (179, 76, '::1', 4, 1618076508),
 (178, 75, '::1', 2, 1618075723),
@@ -571,15 +653,15 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `fullname`, `email`, `password`, `recoverystring`, `role`, `created_at`) VALUES
 (1, 'jondo jaani', 'jondo@gmail.com', '$2y$10$c8n0Nq.zVoJ8b2/7Ss4che0S2EtaHsGr4z7QXB9YUIkerafuFewJO', NULL, 2, NULL),
-(2, 'jemal bagashvili', 'jemala@gmail.com', '$2y$10$RIxh9ksXPTb0qzJA/z/l7uCAjHucywzaxX/iyZ0kG4.aKd7RbAkyW', '3Vvzvylt09dlUWjGH0TnJ7z1438rJ1M2zXyxtdvVMvEr1DDeBUY76QbHgg4oBQSLJaGxBpPJ8sI1iL3nFWVYr3s7IctpHTT2BxvaanNPxwYBDof90K3lB6YpmMnvrxPd', 2, NULL),
+(2, 'jemal bagashvili', 'jemala@gmail.com', '$2y$10$c8n0Nq.zVoJ8b2/7Ss4che0S2EtaHsGr4z7QXB9YUIkerafuFewJO', '3Vvzvylt09dlUWjGH0TnJ7z1438rJ1M2zXyxtdvVMvEr1DDeBUY76QbHgg4oBQSLJaGxBpPJ8sI1iL3nFWVYr3s7IctpHTT2BxvaanNPxwYBDof90K3lB6YpmMnvrxPd', 2, NULL),
 (3, 'Admin', 'admin@admin.com', '$2y$10$c8n0Nq.zVoJ8b2/7Ss4che0S2EtaHsGr4z7QXB9YUIkerafuFewJO', NULL, 1, NULL),
-(4, 'sdfsdfs', 'sdfsdf', 'sdfsdfsdf', NULL, 2, NULL),
+(4, 'jiork', 'jiork@gmail.com', '$2y$10$c8n0Nq.zVoJ8b2/7Ss4che0S2EtaHsGr4z7QXB9YUIkerafuFewJO', NULL, 2, NULL),
 (5, 'sdfsdfsd sdfs df', 'sdf sdf sdf sdfsdf', 'sdf sdf sdfsdf sd', NULL, 2, NULL),
 (6, 'hg fgh fgh fgh', 'vndassb@admin.com', '$2y$10$sD3lwAppOxqSvy1lz1gN7O2hSQeq9he0U22FBQxuPTbQP.HRR8c/S', '', 2, NULL),
 (7, 'werwe wer     yrt rtyrt rt', 'f ghghfg h fgh fgh', 'sd dfdr sdf sdf sdf', NULL, 2, NULL),
 (8, 'sdf sdf sdf dfyj hvbn ', ' nbmmbnmjhkhj nb ghj gh', 'gh gbdsvgvsdf', NULL, 2, NULL),
-(9, 'sdf sdv fsdf sd', ' sdfs dsfc sdfs fsd', 'ds fsd fsdf sdf', NULL, 2, NULL),
-(10, 's df sdf sdf sd', ' sdf dsf sdfsdf sd', 'sd fsdf sdf', NULL, 2, NULL),
+(9, 'gioh jull', 'jull@gmail.com', '$2y$10$c8n0Nq.zVoJ8b2/7Ss4che0S2EtaHsGr4z7QXB9YUIkerafuFewJO', NULL, 2, NULL),
+(10, 'tiaon', 'tiaon@gmail.com', '$2y$10$c8n0Nq.zVoJ8b2/7Ss4che0S2EtaHsGr4z7QXB9YUIkerafuFewJO', NULL, 2, NULL),
 (11, 'accusantium doloremque', 'accus@gmail.com', '$2y$10$ZN8Tq2mx8TyUVxil9xZ3VuIa/5WTBKwPJ0RmH50r6pibTuRZ0us2i', NULL, 2, NULL),
 (12, 'ilia dzidzishvili', 'ilia.dzidzishvili@gmail.com', '$2y$10$4jEq9GLLhKyIyma7IVu7gOiYtFWE2SP2DBndEekDTncnqQAveXZja', NULL, 2, NULL);
 COMMIT;

@@ -12,67 +12,38 @@
                <div class="col-xl-9 col-lg-8 m-b30">
                   <div class="job-bx submit-job">
                      <div class="job-bx-title clearfix">
-                        <h5 class="font-weight-700 pull-left text-uppercase">Renew Application</h5>
-                     </div>                     
-                     <?php echo form_open('profile/renewjob/'.$currentJob->id); ?>
-                        <div class="row m-b30">
-                           <!-- payment -->
-                           <div class="col-lg-12" id="payment">
-                              <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                 <li class="nav-item">
-                                    <a class="nav-link active" id="cardpay-tab" data-toggle="tab" href="#cardpay" role="tab" aria-controls="cardpay" aria-selected="true">Enter card details</a>
-                                 </li>
-                                 <li class="nav-item">
-                                    <a class="nav-link " id="paypalpay-tab" data-toggle="tab" href="#paypalpay" role="tab" aria-controls="paypalpay" aria-selected="false">Pay with PayPal</a>
-                                 </li>
-                              </ul>
-                              <div class="tab-content" id="myTabContent"> 
-                                 <div class="tab-pane fade show active" id="cardpay" role="tabpanel" aria-labelledby="cardpay-tab"><!-- card details -->
-                                    <div class="form-row pt-2">
-                                       <div class="form-group col-md-6">
-                                          <label for="cardholder">Name on card</label>
-                                          <input type="text" id="cardholder" name="cardholder" class="form-control" placeholder="Cardholder name" value="<?php echo set_value('cardholder');?>">
-                                          <small style="color:red"><?php echo form_error('cardholder'); ?></small>
-                                       </div>
-                                       <div class="form-group col-md-6">
-                                          <label for="cardnumber">Card number</label>
-                                          <input type="text" id="cardnumber" name="cardnumber" class="form-control" placeholder="Card number" value="<?php echo set_value('cardnumber');?>">
-                                          <small style="color:red"><?php echo form_error('cardnumber'); ?></small>
-                                       </div>
-                                       <div class="form-group col-md-4">
-                                          <label for="cardmonth">Month</label>
-                                          <select name="cardmonth" id="cardmonth">
-                                             <?php for($m=1; $m<=12; $m++): ?>
-                                                <option value="<?php echo $m;?>"> <?php echo $m<10?'0'.$m:$m;?> </option>
-                                             <?php endfor; ?>
-                                          </select>
-                                          <small style="color:red"><?php echo form_error('cardmonth'); ?></small>
-                                       </div>
-                                       <div class="form-group col-md-4">
-                                          <label for="cardyear">Year</label>
-                                          <select name="cardyear" id="cardyear">
-                                             <?php for($y=date("Y"); $y<date("Y")+11; $y++): ?>
-                                                <option value="<?php echo $y;?>"> <?php echo $y;?> </option>
-                                             <?php endfor; ?>
-                                          </select>
-                                          <small style="color:red"><?php echo form_error('cardyear'); ?></small>
-                                       </div>
-                                       <div class="form-group col-md-4">
-                                          <label for="cardcvv">CVV</label>
-                                          <input type="text" id="cardcvv" name="cardcvv" class="form-control" placeholder="CCV" value="<?php echo set_value('cardcvv');?>">
-                                          <small style="color:red"><?php echo form_error('cardcvv'); ?></small>
-                                       </div>
-                                    </div>
-                                 </div>
-                                 <div class="tab-pane fade" id="paypalpay" role="tabpanel" aria-labelledby="paypalpay-tab">
-                                    <input type="text" name="paypaltoken" value="abcdefgh123545">
-                                    <button>Pay with paypal</button>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                        <button type="submit" class="site-button m-b30">Update Setting</button>
-                     <?php echo form_close(); ?>                     
+                        <h5 class="font-weight-700 pull-left text-uppercase"><?php echo $action;?></h5>
+                     </div>
+                     
+                     <div id="paypal-button-container"></div>
+
+                     <!-- Include the PayPal JavaScript SDK -->
+                     <script src="https://www.paypal.com/sdk/js?client-id=AcY319h0dZyAPR6qcDnBtPkmiDdKrGlxzQ3imTgGOvHTZSA7SsJNl55Qr-9TsC14UPOe9L13-UwXi6ha&currency=USD"></script>
+                     <script>
+                        // Render the PayPal button into #paypal-button-container
+                        paypal.Buttons({
+                           // Call your server to set up the transaction
+                           createOrder: function(data, actions) {
+                              return actions.order.create({
+                                 purchase_units: [{
+                                    amount: {
+                                       value: '<?php echo $fee; ?>'
+                                    },
+                                    reference_id: "76",
+                                    description: "<?php echo $this->data['currentJob']->id; ?>"
+                                 }]
+                              });
+                           },
+
+                           // Finalize the transaction
+                           onApprove: function(data, actions) {
+                              return actions.order.capture().then(function(details) {
+                                 // Show a success message to the buyer
+                                 alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                              });
+                           }
+                        }).render('#paypal-button-container');
+                     </script>               
                   </div>
                </div>
             </div>

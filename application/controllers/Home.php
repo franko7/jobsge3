@@ -60,22 +60,6 @@ class Home extends CI_Controller {
       echo json_encode($data);
 	}
 
-   public function getInitialFeeByType()
-	{
-      $postData = $this->input->post();
-      $this->load->model('jobtype');
-      $data['jobtype'] = $this->jobtype->getJobTypeById($postData['jobtype']);
-      $data['token']= $this->security->get_csrf_hash();
-      echo json_encode($data);
-	}
 
 
-
-   public function test(){
-		// nested tenary
-      $a = 3;
-		echo $a==1 ? 'one' : ($a==2 ? 'two' : 'three');
-
-
-   }
 }

@@ -271,6 +271,11 @@
 		padding: 30px;
 	}
 }
+@media only screen and (min-width: 991px){
+	.header-nav .logo-header{
+		display:none;
+	}
+}
 .about-timeline::after{
 	background-color: #ff2a2a;
 }
@@ -525,6 +530,11 @@
 .featurd-job-list .job-box-list:hover{
 	box-shadow: 0 0 5px 5px rgba(0,0,0,0.1);
 	transition: all 0.5s;
+}
+
+.job-info-box a.venobox img{
+	height: 120px;
+	margin-bottom: 5px
 }
 
 /* testimonial-5 */

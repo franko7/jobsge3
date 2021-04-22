@@ -3,10 +3,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class About extends CI_Controller {
 
-   
-
 	public function index()
 	{
+		$this->lang->load('home');
       $this->load->config('appconfig');
 		$data['iconPath'] = base_url($this->config->item('categoryIconUploadConfig')['upload_path']);
 		$data['bgPath'] = base_url($this->config->item('bgImagesUploadConfig')['upload_path']);
@@ -15,7 +14,5 @@ class About extends CI_Controller {
 		$data['pageN'] = 2;
 		$this->load->view('about', $data);
 	}
-
-	
 
 }

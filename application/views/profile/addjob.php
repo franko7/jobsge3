@@ -178,33 +178,33 @@
                               <div class="col-lg-12"><!-- images -->
                                  <div class="form-group">
                                     <label> <?php echo lang('images')?> </label>
-                                    <input type="file" name="file1" class="form-control" placeholder="Zip code">
+                                    <input type="file" name="file1" class="form-control" >
                                     <small style="color:red"><?php echo form_error('file1'); ?></small>
                                  </div>
                                  <div id="images4" class="displaynone">
                                     <div class="form-group">
-                                       <input type="file" name="file2" class="form-control" placeholder="Zip code">
+                                       <input type="file" name="file2" class="form-control" >
                                        <small style="color:red"><?php echo form_error('file2'); ?></small>
                                     </div>
                                     <div class="form-group">
-                                       <input type="file" name="file3" class="form-control" placeholder="Zip code">
+                                       <input type="file" name="file3" class="form-control" >
                                        <small style="color:red"><?php echo form_error('file3'); ?></small>
                                     </div>
                                     <div class="form-group">
-                                       <input type="file" name="file4" class="form-control" placeholder="Zip code">
+                                       <input type="file" name="file4" class="form-control" >
                                        <small style="color:red"><?php echo form_error('file4'); ?></small>
                                     </div>
                                     <div class="form-group">
-                                       <input type="file" name="file5" class="form-control" placeholder="Zip code">
+                                       <input type="file" name="file5" class="form-control" >
                                        <small style="color:red"><?php echo form_error('file5'); ?></small>
                                     </div>
                                  </div>
                               </div>
                               <!-- payment -->
-                              <div class="col-lg-12 displaynone" id="payment">                                 
+                              <!-- <div class="col-lg-12 displaynone" id="payment">                                 
                                  <input type="text" name="paypaltoken" value="abcdefgh123545">
                                  <button> <?php echo lang('payWithPP')?> </button>
-                              </div>
+                              </div> -->
                            </div>
                            <button type="submit" class="site-button m-b30"> <?php echo lang('addApplication')?> </button>
                         <?php echo form_close(); ?>
@@ -224,17 +224,17 @@
          getSubcategories($('#category').val());
          
       });
-      $('#jobtype').change(function(){
-         $('#hjobtype').val($('#jobtype').val());
-         getInitialPrice($('#jobtype').val());
-      });
+      // $('#jobtype').change(function(){
+      //    $('#hjobtype').val($('#jobtype').val());
+      //    getInitialPrice($('#jobtype').val());
+      // });
       $('#addJobSeeker').click(function(){
          $('#jobtypewrapper').addClass('displaynone');  
          $('#fullnamewrapper').removeClass('col-lg-6 col-md-6');
          $('#fullnamewrapper').addClass('col-lg-12');
          $('.appbuttons').addClass('displaynone');
          $('#formwrapper').removeClass('displaynone');
-         $('#hjobtype').val(1);
+         // $('#hjobtype').val(1);
       });
       $('#addSGApp').click(function(){
          $('.appbuttons').addClass('displaynone');
@@ -242,7 +242,7 @@
          $('#images4').removeClass('displaynone');
          $('#hjobtype').val($('#jobtype').val());
       });
-      getInitialPrice($('#jobtype').val());
+      // getInitialPrice($('#jobtype').val());
       getSubcategories($('#category').val());
 
       $('#category').selectpicker();
@@ -283,21 +283,21 @@
       });
    };
 
-   function getInitialPrice(jobType){
-      $.ajax({
-         url:'<?=site_url("profile/getInitialFeeByType")?>',
-         method: 'post',
-         data: {csrf_token: $('input[name=csrf_token]').val(), jobtype: jobType},
-         dataType: 'json',
-         success: function(response){
-            $('input[name=csrf_token]').val(response.token);
-            if(response['jobtype'][0]['initial_price'] > 0){
-               $('#payment').removeClass('displaynone');
-            }else{
-               $('#payment').addClass('displaynone');
-            }       
-         }
-      });
-   };
+   // function getInitialPrice(jobType){
+   //    $.ajax({
+   //       url:'<?=site_url("profile/getInitialFeeByType")?>',
+   //       method: 'post',
+   //       data: {csrf_token: $('input[name=csrf_token]').val(), jobtype: jobType},
+   //       dataType: 'json',
+   //       success: function(response){
+   //          $('input[name=csrf_token]').val(response.token);
+   //          if(response['jobtype']['initial_price'] > 0){
+   //             $('#payment').removeClass('displaynone');
+   //          }else{
+   //             $('#payment').addClass('displaynone');
+   //          }       
+   //       }
+   //    });
+   // };
 </script>
 <?php $this->load->view('templates/footer');?>

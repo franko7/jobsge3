@@ -60,6 +60,7 @@ $lang['updPassword']= "Update Password";
 
 // Profile
 $lang['AddNewApp'] = "Add new application";
+$lang['updateApp'] = "Update Application";
 $lang['addJobSeekApp'] = "Add Job Seeker Application";
 $lang['youCanAddJobSeekApp'] = "You can add Job seeker applications here";
 $lang['addSilverGoldApp'] = "Add Silver or Gold Application";
@@ -94,6 +95,8 @@ $lang['chat'] = "Chat";
 $lang['typeMessage'] = "Type a message";
 $lang['send'] = "Send";
 $lang['backToProfile'] = "Back to Profile";
+$lang['renewApp'] = "Renew Application";
+$lang['activateApp'] = "Activate Application";
 
 //Tables
 $lang['title'] = "Title";
@@ -106,5 +109,9 @@ $lang['confirmDeleteJob'] = "Do you really want to delete ";
 $lang['confDelAccount'] = "Do you really want to delete Account";
 $lang['delete'] = "Delete";
 $lang['close'] = "Close";
+
+// Flash messages
+$lang['appSucc'] = "Application added successfully";
+$lang['appSuccPay'] = "Application added successfully, but it is not active. Don't forget to activate it.";
 
 

@@ -5,6 +5,7 @@ class Contact extends CI_Controller {
 
 	public function index()
 	{
+		$this->lang->load('home');
 		$this->load->config('appconfig');
 		$data['iconPath'] = base_url($this->config->item('categoryIconUploadConfig')['upload_path']);
 		$data['bgPath'] = base_url($this->config->item('bgImagesUploadConfig')['upload_path']);
@@ -12,8 +13,6 @@ class Contact extends CI_Controller {
 		$data['images'] = $this->image->getImageNames();
 		$data['pageN'] = 3;
 		$this->load->view('contact', $data);
-	}
-
-	
+	}	
 
 }

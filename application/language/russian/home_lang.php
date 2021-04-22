@@ -60,6 +60,7 @@ $lang['updPassword']= "Обновить пароль";
 
 // Profile
 $lang['AddNewApp'] = "Добавить новое объявление";
+$lang['updateApp'] = "Обновить Приложение";
 $lang['addJobSeekApp'] = "Добавить объявление соискателя";
 $lang['youCanAddJobSeekApp'] = "Здесь вы можете добавить объявление на соискание";
 $lang['addSilverGoldApp'] = "Добавить объявление Silver или Gold";
@@ -94,6 +95,8 @@ $lang['chat'] = "Чат";
 $lang['typeMessage'] = "Напишите сообщение";
 $lang['send'] = "Послать";
 $lang['backToProfile'] = "Назад к профилю";
+$lang['renewApp'] = "Продлить Приложение";
+$lang['activateApp'] = "Активировать Приложение";
 
 //Tables
 $lang['title'] = "Названые";
@@ -106,3 +109,7 @@ $lang['confirmDeleteJob'] = "Вы действительно хотите уда
 $lang['confDelAccount'] = "Вы действительно хотите удалить Аккаунт";
 $lang['delete'] = "Удалить";
 $lang['close'] = "Закрыть";
+
+// Flash messages
+$lang['appSucc'] = "Application added successfully";
+$lang['appSuccPay'] = "Application added successfully, but it is not active. <a href='%1$'>click here</a> to activate it.";

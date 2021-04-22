@@ -73,8 +73,11 @@
                               <a href="<?php echo site_url('auth/login');?>" title="Log in" class="site-button"><i class="fa fa-lock"></i> <?php echo lang('login')?> </a>
                            </li>
                         <?php endif; ?>
-                        <li class="lang"><?php echo anchor($this->lang->switch_uri('en'),'EN');?></li>
-                        <li class="lang"><?php echo anchor($this->lang->switch_uri('ru'),'RU');?></li>
+                        <?php if ($this->lang->lang()=='en'): ?>
+                           <li class="lang"><?php echo anchor($this->lang->switch_uri('ru'),'RU');?></li>
+                        <?php else: ?>
+                           <li class="lang"><?php echo anchor($this->lang->switch_uri('en'),'EN');?></li>
+                        <?php endif; ?>
                         <li class="displaynone spacer"></li>
                      </ul>			
                   </div>

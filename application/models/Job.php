@@ -71,6 +71,10 @@ class job extends CI_Model
 	public function deleteJob($id){
 		return $this->db->where('id', $id)->delete('jobs');
 	}
+	
+	public function deleteJobByUserId($id){
+		return $this->db->where('user_id', $id)->delete('jobs');
+	}
 
 	public function getImages($id){
 		return $this->db->select('imgfilename1, imgfilename2, imgfilename3, imgfilename4, imgfilename5')->from('jobs')->where('id', $id)->get()->row();

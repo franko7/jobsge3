@@ -35,7 +35,7 @@ class Admin extends CI_Controller {
       $config['base_url'] = base_url('admin/users');
       $config['total_rows'] =  $this->user->getNonAdminUsersCount();
       $this->pagination->initialize($config);
-      $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
+      $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
        
       $data['links'] = $this->pagination->create_links();
       $data['page'] = $page;
@@ -547,11 +547,55 @@ class Admin extends CI_Controller {
    }
 
 
+   public function jobtypes()
+	{
+      $data['pageN'] = 11;
+      $this->load->model('jobtype');
+      if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST'){
+         $this->form_validation->set_rules('stInitPeriod', 'Standart Application Initial Period', 'integer|greater_than[0]');
+         $this->form_validation->set_rules('stInitPrice', 'Standart Application Initial Price', 'integer|greater_than_equal_to[0]');
+         $this->form_validation->set_rules('stRenPeriod', 'Standart Application Renewal Period', 'integer|greater_than[0]');
+         $this->form_validation->set_rules('stRenPrice', 'Standart Application Renewal Price', 'integer|greater_than_equal_to[0]');
+
+         $this->form_validation->set_rules('silInitPeriod', 'Silver Application Initial Period', 'integer|greater_than[0]');
+         $this->form_validation->set_rules('silInitPrice', 'Silver Application Initial Price', 'integer|greater_than_equal_to[0]');
+         $this->form_validation->set_rules('silRenPeriod', 'Silver Application Renewal Period', 'integer|greater_than[0]');
+         $this->form_validation->set_rules('silRenPrice', 'Silver Application Renewal Price', 'integer|greater_than_equal_to[0]');
+
+         $this->form_validation->set_rules('golInitPeriod', 'Gold Application Initial Period', 'integer|greater_than[0]');
+         $this->form_validation->set_rules('golInitPrice', 'Gold Application Initial Price', 'integer|greater_than_equal_to[0]');
+         $this->form_validation->set_rules('golRenPeriod', 'Gold Application Renewal Period', 'integer|greater_than[0]');
+         $this->form_validation->set_rules('golRenPrice', 'Gold Application Renewal Price', 'integer|greater_than_equal_to[0]');
+
+         //if validation passed save data to db
+         if ($this->form_validation->run()) {
+            //if data saved set flash message
+            if(
+               $this->jobtype->updateJobTypes(
+                  1, $this->input->post('stInitPeriod')*86400, $this->input->post('stInitPrice'), $this->input->post('stRenPeriod')*86400, $this->input->post('stRenPrice')) &&
+               $this->jobtype->updateJobTypes(
+                  2, $this->input->post('silInitPeriod')*86400, $this->input->post('silInitPrice'), $this->input->post('silRenPeriod')*86400, $this->input->post('silRenPrice')) &&
+               $this->jobtype->updateJobTypes(
+                  3, $this->input->post('golInitPeriod')*86400, $this->input->post('golInitPrice'), $this->input->post('golRenPeriod')*86400, $this->input->post('golRenPrice'))
+            ){
+               $this->session->set_flashdata('jobTypesResult', array('status' => true, 'message' => "Job type data updated successfully"));
+               return redirect('admin/jobtypes');
+            }else{
+               $this->session->set_flashdata('jobTypesResult', array('status' => false, 'message' => "Error updating job type data"));
+            }
+         }
+      }
+      $data['jobTypes'] = $this->jobtype->getJobTypes();
+      $this->load->view('admin/jobtypes', $data);
+   }
+
+
    public function changepassword()
 	{
       $data['pageN'] = 20;
 		$this->load->view('admin/changepassword', $data);
 	}
+
 
    public function changepassword_process()
 	{

@@ -47,29 +47,31 @@
                         soft_descriptor: "HighFashions",
                      }]
                   });
-               },
-               // onApprove: function(data, actions) {
-               //    // This function captures the funds from the transaction.
-               //    return actions.order.capture().then(function(details) {
-               //    // This function shows a transaction success message to your buyer.
-               //    console.log(details);
-               //    });
-               // }
-               onApprove: function(data, actions) {
-                  return actions.order.capture().then(function(details) {
-                     console.log('Transaction completed by ' + details.payer.name.given_name)
-                     // Call your server to save the transaction
-                     return fetch('<?php echo base_url();?>/api/api/index2', {
-                        method: 'post',
-                        headers: {
-                           'content-type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                           orderID: data.orderID
-                        })
-                     })
-                  })
                }
+               ,
+               onApprove: function(data, actions) {
+                  // This function captures the funds from the transaction.
+                  return actions.order.capture().then(function(details) {
+                  // This function shows a transaction success message to your buyer.
+                  console.log(details);
+                  });
+               }
+
+               // onApprove: function(data, actions) {
+               //    return actions.order.capture().then(function(details) {
+               //       console.log(details)//.payer.name.given_name
+               //       // Call your server to save the transaction
+               //       return fetch('<?php echo base_url();?>api/paypaltransaction', {
+               //          method: 'post',
+               //          headers: {
+               //             'content-type': 'application/json'
+               //          },
+               //          body: JSON.stringify({
+               //             orderID: data.orderID
+               //          })
+               //       })
+               //    })
+               // }
             }).render('#paypal-button-container');
          </script>
       </div>

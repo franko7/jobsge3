@@ -81,34 +81,35 @@ class Profile extends CI_Controller {
          $this->form_validation->set_rules('largetextru', 'Long text Russian', 'trim|xss_clean');
          // if application is either Gold or Silver make company field not required
          if($this->input->post('jobtype')>1)
-               $this->form_validation->set_rules('company', 'Company', 'xss_clean|min_length[2]|max_length[100]');
-            else
-               $this->form_validation->set_rules('company', 'Company', 'required|xss_clean|min_length[2]|max_length[100]');
+            $this->form_validation->set_rules('company', 'Company', 'xss_clean|min_length[2]|max_length[100]');
+         else
+            $this->form_validation->set_rules('company', 'Company', 'required|xss_clean|min_length[2]|max_length[100]');
          // first input file element must have image 
          if (empty($_FILES['file1']['name'])){
             $this->form_validation->set_rules('file1', 'Image', 'required');
          }
          // if selected jobtype has initial_price
-         $appPrice = $this->data['jobTypes'][$this->input->post('jobtype')-1]->initial_price;
-         if($appPrice > 0){
-            if($this->input->post('paypaltoken')){
-               // Validate token ?
-            }
-            else{
-               $year = date("Y");
-               $this->form_validation->set_rules('cardholder', 'Card holder', 'trim|required');
-               $this->form_validation->set_rules('cardnumber', 'Card number', 'trim|required|numeric');
-               $this->form_validation->set_rules('cardmonth', 'Card expiration month', 'required|integer|greater_than[0]|less_than[13]');
-               $this->form_validation->set_rules('cardyear', 'Card expiration year', 'required|integer|greater_than['.($year-1).']|less_than['.($year+11).']');
-               $this->form_validation->set_rules('cardcvv', 'Card CVV number', 'trim|required|numeric|min_length[3]|max_length[4]');
-            }
-         }
+         //$appPrice = $this->data['jobTypes'][$this->input->post('jobtype')-1]->initial_price;
+
+         // if($appPrice > 0){
+         //    if($this->input->post('paypaltoken')){
+         //       // Validate token ?
+         //    }
+         //    else{
+         //       $year = date("Y");
+         //       $this->form_validation->set_rules('cardholder', 'Card holder', 'trim|required');
+         //       $this->form_validation->set_rules('cardnumber', 'Card number', 'trim|required|numeric');
+         //       $this->form_validation->set_rules('cardmonth', 'Card expiration month', 'required|integer|greater_than[0]|less_than[13]');
+         //       $this->form_validation->set_rules('cardyear', 'Card expiration year', 'required|integer|greater_than['.($year-1).']|less_than['.($year+11).']');
+         //       $this->form_validation->set_rules('cardcvv', 'Card CVV number', 'trim|required|numeric|min_length[3]|max_length[4]');
+         //    }
+         // }
 
          //if validation passed save data to db
          if ($this->form_validation->run()) {
             $jobid = $this->job->addJob(
                $this->session->userdata('user_id'),
-               $this->input->post('hjobtype'),
+               $this->input->post('jobtype'),
                $this->input->post('fullname', true),
                $this->input->post('phone', true),
                $this->input->post('email', true),
@@ -124,29 +125,29 @@ class Profile extends CI_Controller {
                $this->input->post('largetexten', true),
                $this->input->post('largetextru', true), 
                strtolower(preg_replace('/[^A-Za-z0-9-]+/', '-', $this->input->post('shorttexten', true))),
-               $appPrice > 0 && !$this->input->post('paypaltoken') ? 1 : 0,
+               0, //submited renewal
                time(),
-               time() + $this->data['jobTypes'][$this->input->post('hjobtype')-1]->initial_period,
-               1 //job status needs modification for GOLD applications (paypal token validation) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+               time() + $this->data['jobTypes'][$this->input->post('jobtype')-1]->initial_period,
+               $this->data['jobTypes'][$this->input->post('jobtype')-1]->initial_price > 0 ? 0 : 1 //set job status 0 if it is paid app, otherwise 1
             );
 
             //if either card data or paypal data is present save data to database
-            if($jobid && $this->data['jobTypes'][$this->input->post('hjobtype')-1]->initial_price > 0){
-               $this->load->model('payment');
-               if($this->input->post('paypaltoken')){
-                  $this->payment->addPPPayment(
-                     $jobid, 
-                     $this->input->post('paypaltoken'));
-               }else{
-                  $cardmonth = $this->input->post('cardmonth')<10?'0'.$this->input->post('cardmonth'):$this->input->post('cardmonth');
-                  $this->payment->addCCPayment(
-                     $jobid, 
-                     $this->input->post('cardholder', true), 
-                     $this->input->post('cardnumber'), 
-                     $cardmonth . '/' . $this->input->post('cardyear'), 
-                     $this->input->post('cardcvv', true));
-               }
-            }
+            // if($jobid && $this->data['jobTypes'][$this->input->post('hjobtype')-1]->initial_price > 0){
+            //    $this->load->model('payment');
+            //    if($this->input->post('paypaltoken')){
+            //       $this->payment->addPPPayment(
+            //          $jobid, 
+            //          $this->input->post('paypaltoken'));
+            //    }else{
+            //       $cardmonth = $this->input->post('cardmonth')<10?'0'.$this->input->post('cardmonth'):$this->input->post('cardmonth');
+            //       $this->payment->addCCPayment(
+            //          $jobid, 
+            //          $this->input->post('cardholder', true), 
+            //          $this->input->post('cardnumber'), 
+            //          $cardmonth . '/' . $this->input->post('cardyear'), 
+            //          $this->input->post('cardcvv', true));
+            //    }
+            // }
             
             //if data saved try to upload images
             if($jobid){
@@ -177,7 +178,9 @@ class Profile extends CI_Controller {
                //else delete data to database and delete uploaded images
                if (!count($notUploadedFiles)){
                   $this->job->updateImages($jobid, $newFiles);
-                  $this->session->set_flashdata('addJobResult', array('status' => true, 'message' => "Application added successfully"));
+                  // if current jobs initial price is freater then 0 remind user to activate it                  
+                  $this->session->set_flashdata('addJobResult', array('status' => true, 'message' => 
+                     $this->data['jobTypes'][$this->input->post('jobtype')-1]->initial_price > 0 ? lang('appSuccPay') : lang('appSucc')));
                }else{
                   $this->job->deleteJob($jobid);
                   foreach($newFiles as $newFile)
@@ -228,19 +231,19 @@ class Profile extends CI_Controller {
 
             // if selected jobtype has initial_price
             $appPrice = $this->data['jobTypes'][$this->input->post('jobtype')-1]->initial_price;
-            if($appPrice > 0){
-               if($this->input->post('paypaltoken')){
-                  // Validate token ?
-               }
-               else{
-                  $year = date("Y");
-                  $this->form_validation->set_rules('cardholder', 'Card holder', 'trim|required');
-                  $this->form_validation->set_rules('cardnumber', 'Card number', 'trim|required|numeric');
-                  $this->form_validation->set_rules('cardmonth', 'Card expiration month', 'required|integer|greater_than[0]|greater_than[0]|less_than[13]');
-                  $this->form_validation->set_rules('cardyear', 'Card expiration year', 'required|integer|greater_than['.($year-1).']|less_than['.($year+11).']');
-                  $this->form_validation->set_rules('cardcvv', 'Card CVV number', 'trim|required|numeric|min_length[3]|max_length[4]');
-               }
-            }
+            // if($appPrice > 0){
+            //    if($this->input->post('paypaltoken')){
+            //       // Validate token ?
+            //    }
+            //    else{
+            //       $year = date("Y");
+            //       $this->form_validation->set_rules('cardholder', 'Card holder', 'trim|required');
+            //       $this->form_validation->set_rules('cardnumber', 'Card number', 'trim|required|numeric');
+            //       $this->form_validation->set_rules('cardmonth', 'Card expiration month', 'required|integer|greater_than[0]|greater_than[0]|less_than[13]');
+            //       $this->form_validation->set_rules('cardyear', 'Card expiration year', 'required|integer|greater_than['.($year-1).']|less_than['.($year+11).']');
+            //       $this->form_validation->set_rules('cardcvv', 'Card CVV number', 'trim|required|numeric|min_length[3]|max_length[4]');
+            //    }
+            // }
             
             //if validation passed save data to db
             if ($this->form_validation->run()) {
@@ -262,28 +265,27 @@ class Profile extends CI_Controller {
                   $this->input->post('largetexten', true),
                   $this->input->post('largetextru', true), 
                   strtolower(preg_replace('/[^A-Za-z0-9-]+/', '-', $this->input->post('shorttexten', true))),
-                  $appPrice > 0 && !$this->input->post('paypaltoken') ? 1 : 0,
-                  1
-                  //job status needs modification for GOLD applications (paypal token validation) !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                  $appPrice > 0 ? 1 : 0,
+                  $this->data['jobTypes'][$this->input->post('jobtype')-1]->initial_price > 0 ? 0 : 1
                );
 
                //if either card data or paypal data is present save data to database
-               if($jobid && $appPrice > 0){
-                  $this->load->model('payment');
-                  if($this->input->post('paypaltoken')){
-                     $this->payment->addPPPayment(
-                        $jobid, 
-                        $this->input->post('paypaltoken'));
-                  }else{
-                     $cardmonth = $this->input->post('cardmonth')<10?'0'.$this->input->post('cardmonth'):$this->input->post('cardmonth');
-                     $this->payment->addCCPayment(
-                        $jobid, 
-                        $this->input->post('cardholder', true), 
-                        $this->input->post('cardnumber'), 
-                        $cardmonth . '/' . $this->input->post('cardyear'), 
-                        $this->input->post('cardcvv', true));
-                  }
-               }
+               // if($jobid && $appPrice > 0){
+               //    $this->load->model('payment');
+               //    if($this->input->post('paypaltoken')){
+               //       $this->payment->addPPPayment(
+               //          $jobid, 
+               //          $this->input->post('paypaltoken'));
+               //    }else{
+               //       $cardmonth = $this->input->post('cardmonth')<10?'0'.$this->input->post('cardmonth'):$this->input->post('cardmonth');
+               //       $this->payment->addCCPayment(
+               //          $jobid, 
+               //          $this->input->post('cardholder', true), 
+               //          $this->input->post('cardnumber'), 
+               //          $cardmonth . '/' . $this->input->post('cardyear'), 
+               //          $this->input->post('cardcvv', true));
+               //    }
+               // }
                 
                //if data saved try to upload images
                if($jobid){                  
@@ -349,37 +351,47 @@ class Profile extends CI_Controller {
          $this->data['currentJob'] = $this->job->getJobById($id);
          // Check owner of job 
          if($this->session->userdata('user_id')===$this->data['currentJob']->user_id){
-            if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST'){
-               // check is paypal or CC data submited
-               if($this->input->post('paypaltoken')){
-                  // Validate token ?
-                  // if validated no need to submit for renewal
-               }
-               else{
-                  $year = date("Y");
-                  $this->form_validation->set_rules('cardholder', 'Card holder', 'trim|required');
-                  $this->form_validation->set_rules('cardnumber', 'Card number', 'trim|required|numeric');
-                  $this->form_validation->set_rules('cardmonth', 'Card expiration month', 'required|integer|greater_than[0]|less_than[13]');
-                  $this->form_validation->set_rules('cardyear', 'Card expiration year', 'required|integer|greater_than['.($year-1).']|less_than['.($year+11).']');
-                  $this->form_validation->set_rules('cardcvv', 'Card CVV number', 'trim|required|numeric|min_length[3]|max_length[4]');
+            $jobtype = $this->data['currentJob']->job_type;
+            $this->load->model('jobtype');
+            // if current jobs status is 1, ie it has been active and needs renew, otherwise activate is (Gold application)
+            if($this->data['currentJob']->status){
+               $this->data['fee'] = $this->jobtype->getJobTypeById($jobtype)->renewal_price;
+               $this->data['action'] = lang('renewApp');
+            }else{
+               $this->data['fee'] = $this->jobtype->getJobTypeById($jobtype)->initial_price;
+               $this->data['action'] = lang('activateApp');
+            }
+         //    if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST'){
+         //       // check is paypal or CC data submited
+         //       if($this->input->post('paypaltoken')){
+         //          // Validate token ?
+         //          // if validated no need to submit for renewal
+         //       }
+         //       else{
+         //          $year = date("Y");
+         //          $this->form_validation->set_rules('cardholder', 'Card holder', 'trim|required');
+         //          $this->form_validation->set_rules('cardnumber', 'Card number', 'trim|required|numeric');
+         //          $this->form_validation->set_rules('cardmonth', 'Card expiration month', 'required|integer|greater_than[0]|less_than[13]');
+         //          $this->form_validation->set_rules('cardyear', 'Card expiration year', 'required|integer|greater_than['.($year-1).']|less_than['.($year+11).']');
+         //          $this->form_validation->set_rules('cardcvv', 'Card CVV number', 'trim|required|numeric|min_length[3]|max_length[4]');
 
-                  if ($this->form_validation->run()) {
-                     $this->load->model('payment');
-                     if($this->job->submitForRenewal($id) &&
-                        $this->payment->addCCPayment(
-                           $id,
-                           $this->input->post('cardholder', true), 
-                           $this->input->post('cardnumber'), 
-                           $this->input->post('cardmonth') . '/' . $this->input->post('cardyear'), 
-                           $this->input->post('cardcvv', true))
-                     ){
-                        $this->session->set_flashdata('sentRenewalResult', array('status' => true, 'message' => "job sent for renewal successfully"));
-                     }else{
-                        $this->session->set_flashdata('sentRenewalResult', array('status' => false, 'message' => "error sending job for renewal"));
-                     }
-                  }
-               }               
-            }            
+         //          if ($this->form_validation->run()) {
+         //             $this->load->model('payment');
+         //             if($this->job->submitForRenewal($id) &&
+         //                $this->payment->addCCPayment(
+         //                   $id,
+         //                   $this->input->post('cardholder', true), 
+         //                   $this->input->post('cardnumber'), 
+         //                   $this->input->post('cardmonth') . '/' . $this->input->post('cardyear'), 
+         //                   $this->input->post('cardcvv', true))
+         //             ){
+         //                $this->session->set_flashdata('sentRenewalResult', array('status' => true, 'message' => "job sent for renewal successfully"));
+         //             }else{
+         //                $this->session->set_flashdata('sentRenewalResult', array('status' => false, 'message' => "error sending job for renewal"));
+         //             }
+         //          }
+         //       }               
+         //    }            
             $this->load->view('profile/renewjob', $this->data);
          }
       }else{
@@ -433,6 +445,7 @@ class Profile extends CI_Controller {
    public function deleteprofile(){
       $id = $this->session->userdata('user_id');
       $this->job->deleteUser($id);
+      $this->job->deleteJobByUserId($id);
       return redirect('/');     
    }
 
@@ -541,14 +554,6 @@ class Profile extends CI_Controller {
    }
 
 
-   public function file(){
-      $myfile = fopen("newfile.txt", "w") or die("Unable to open file!");
-      $txt = "John Doe\n";
-      fwrite($myfile, $txt);
-      fclose($myfile);
-   }
-
-
    public function sendMessage(){
       $this->load->model('chat');
       $this->chat->sendMessage($this->session->userdata('user_id'), $this->input->post('to', true), $this->input->post('msg', true));
@@ -562,8 +567,8 @@ class Profile extends CI_Controller {
 	{
       $this->load->model('subcategory');
       $postData = $this->input->post();    
-      $data['subcategories'] = $this->subcategory->getSubcategoriesByCategoryId($postData['categoryid']);//
-      //$data['subcategories'] = $this->subcategory->getSubcategoriesByCategoryId($_POST['categoryid']);//$postData['categoryid']
+      //$data['subcategories'] = $this->subcategory->getSubcategoriesByCategoryId($postData['categoryid']);//
+      $data['subcategories'] = $this->subcategory->getSubcategoriesByCategoryId($_POST['categoryid']);//$postData['categoryid']
       $data['token']= $this->security->get_csrf_hash();
       echo json_encode($data);
 	}

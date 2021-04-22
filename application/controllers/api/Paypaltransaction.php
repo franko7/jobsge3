@@ -17,6 +17,8 @@ class Paypaltransaction extends REST_Controller {
         // } 
         //$this->response($data, REST_Controller::HTTP_OK);
         $this->response(array("aaa"=>"bbb"), REST_Controller::HTTP_OK);
+
+
 	}
 
     
@@ -27,6 +29,9 @@ class Paypaltransaction extends REST_Controller {
         // $this->response(['Item created successfully.'], REST_Controller::HTTP_OK);
 
         $input = $this->input->post();
+        $myfile = fopen("newfile.txt", "w") or die("Unable to open file!");        
+        fwrite($myfile, "sadjaksldjaslk" );//serialize($input)
+        fclose($myfile);
         
         $this->response($input, REST_Controller::HTTP_OK);
     } 
