@@ -30,7 +30,7 @@ class Paypaltransaction extends REST_Controller {
 
         $input = $this->input->post();
         $myfile = fopen("newfile.txt", "w") or die("Unable to open file!");        
-        fwrite($myfile, "sadjaksldjaslk" );//serialize($input)
+        fwrite($myfile, serialize($input));//serialize($input)
         fclose($myfile);
         
         $this->response($input, REST_Controller::HTTP_OK);

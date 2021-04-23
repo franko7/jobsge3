@@ -90,7 +90,7 @@
          <li class="nav-item">
             <a href="<?php echo base_url('admin/jobtypes');?>" class="nav-link <?php echo $pageN==11?'active':'';?>" class="nav-link">
                <i class="far fa-file-alt"></i>
-               <p class="ml-1"> Job types </p>
+               <p class="ml-1"> Application types </p>
             </a>
          </li>
          <!-- Socials -->

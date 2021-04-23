@@ -36,6 +36,15 @@
                            </button>
                         </div>
                      <?php endif; ?>
+                     <!-- Payment process message -->
+                     <?php if ($this->session->flashdata('transProcessResult')):?>
+                        <div class="alert alert-<?php echo $this->session->flashdata('transProcessResult')['status']?'success':'danger';?> alert-dismissible fade show" role="alert">
+                           <strong><?php echo $this->session->flashdata('transProcessResult')['message'];?></strong>
+                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                           <span aria-hidden="true">&times;</span>
+                           </button>
+                        </div>
+                     <?php endif; ?>
                      <!-- end messages -->
                      <?php if(count($myJobs)): ?>                     
                         <table class="table-responsive">
@@ -72,9 +81,9 @@
                                        <?php endif;?>
                                     </td>
                                     <td class="job-links">                                       
-                                       <a href="<?php echo base_url('profile/editjob/').$myjob->id;?>"><i class="fa fa-pencil-alt edit" alt="Edit"></i></a>
+                                       <a href="<?php echo base_url('profile/editjob/').$myjob->id;?>" alt="Edit"><i class="fa fa-pencil-alt edit"></i></a>
                                        <a href="javascript:void(0);"><i class="fa fa-trash-alt delete" alt="Delete" data-toggle="modal" data-target="#deleteModal<?php echo $myjob->id;?>"></i></a>
-                                       <a href="<?php echo base_url('profile/renewjob/').$myjob->id;?>"><i class="fa fa-calendar-alt renew" alt="Renew"></i></a>                                       
+                                       <a href="<?php echo base_url('profile/renewjob/').$myjob->id;?>"><i class="fas fa-dollar-sign renew" alt="Renew"></i></a>                                       
                                        <!-- Modal -->
                                        <div class="modal fade modal-bx-info" id="deleteModal<?php echo $myjob->id;?>" tabindex="-1" role="dialog" aria-labelledby="deleteModal<?php echo $myjob->id;?>" aria-hidden="true">
                                           <div class="modal-dialog" role="document">
@@ -89,7 +98,7 @@
                                              </div>
                                           </div>
                                        </div>
-                                       <!-- Modal End -->                                                                              
+                                       <!-- Modal End -->                         
                                     </td>
                                  </tr>
                               <?php endforeach; ?>

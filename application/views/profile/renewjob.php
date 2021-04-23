@@ -14,33 +14,41 @@
                      <div class="job-bx-title clearfix">
                         <h5 class="font-weight-700 pull-left text-uppercase"><?php echo $action;?></h5>
                      </div>
-                     
-                     <div id="paypal-button-container"></div>
 
-                     <!-- Include the PayPal JavaScript SDK -->
-                     <script src="https://www.paypal.com/sdk/js?client-id=AcY319h0dZyAPR6qcDnBtPkmiDdKrGlxzQ3imTgGOvHTZSA7SsJNl55Qr-9TsC14UPOe9L13-UwXi6ha&currency=USD"></script>
+                     <div class="mb-2 ml-1"> Request Details </div>
+                     <div class="table-responsive job-details mb-4">
+                        <table class="table mb-0">                           
+                           <tbody>
+                              <tr>
+                                 <td class="detais-header"><strong> Action </strong></td>
+                                 <td> <?php echo $action;?></td>
+                              </tr>
+                              <tr>
+                                 <td class="detais-header"><strong> Fee </strong></td>
+                                 <td> <?php echo $fee;?> $ </td>
+                              </tr>
+                              <tr>
+                                 <td class="detais-header"><strong> Period </strong></td>
+                                 <td> <?php echo $period/86400;?> Days </td>
+                              </tr>
+                           </tbody>
+                        </table>
+                     </div>
+
+                     <div id="paypal-button-container"></div>
+                     <script src="https://www.paypal.com/sdk/js?client-id=<?php echo $ClientID;?>&currency=USD"></script>
                      <script>
-                        // Render the PayPal button into #paypal-button-container
                         paypal.Buttons({
-                           // Call your server to set up the transaction
                            createOrder: function(data, actions) {
                               return actions.order.create({
                                  purchase_units: [{
-                                    amount: {
-                                       value: '<?php echo $fee; ?>'
-                                    },
-                                    reference_id: "76",
+                                    amount: { value: '<?php echo $fee; ?>' },
                                     description: "<?php echo $this->data['currentJob']->id; ?>"
                                  }]
                               });
                            },
-
-                           // Finalize the transaction
                            onApprove: function(data, actions) {
-                              return actions.order.capture().then(function(details) {
-                                 // Show a success message to the buyer
-                                 alert('Transaction completed by ' + details.payer.name.given_name + '!');
-                              });
+                              return actions.order.capture().then(details => window.location.replace("<?php echo site_url('profile/validate_transaction/');?>" + details.purchase_units[0].payments.captures[0].id));
                            }
                         }).render('#paypal-button-container');
                      </script>               

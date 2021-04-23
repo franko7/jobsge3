@@ -46,15 +46,40 @@ class Profile extends CI_Controller {
       $this->data['myJobs'] = $this->job->getJobsByUserId($this->session->userdata('user_id'), $config["per_page"], $page);
       // add job status and passed time from active to array
       foreach($this->data['myJobs'] as $myjob){
-         $myjob->jobStatus = $this->setStatus($myjob);
-         $myjob->activePassed = $this->setActivePassed(
-            $myjob, 
-            $this->data['jobTypes'][$myjob->job_type - 1]->initial_period, 
-            $this->data['jobTypes'][$myjob->job_type - 1]->renewal_period
-         );
-      }      
+         $myjob->jobStatus = $myjob->status && $myjob->expiring_at > time() ? 1 : 0;
+         $myjob->activePassed =          
+            $myjob->expiring_at - $this->data['jobTypes'][$myjob->job_type - 1]->initial_period == $myjob->created_at ? 
+            (time()-$myjob->created_at)/($this->data['jobTypes'][$myjob->job_type - 1]->initial_period)*100 :
+            (time() - ($myjob->expiring_at - $this->data['jobTypes'][$myjob->job_type - 1]->renewal_period))/($this->data['jobTypes'][$myjob->job_type - 1]->renewal_period)*100;
+         $myjob->activePassed = $myjob->activePassed < 0 ? 0 : $myjob->activePassed;
+         $myjob->activePassed = $myjob->activePassed > 100 ? 100 : $myjob->activePassed;
+         
+        
+         // $myjob->activePassed = $this->setActivePassed(
+         //    $myjob, 
+         //    $this->data['jobTypes'][$myjob->job_type - 1]->initial_period, 
+         //    $this->data['jobTypes'][$myjob->job_type - 1]->renewal_period
+         // );
+      }
       $this->load->view('profile/myjobs', $this->data);
 	}
+
+   // private function setActivePassed($myjob, $initialPeriod, $renewalPeriod){
+   //    // calculates percentage of active status
+   //    if ($myjob->expiring_at >= time()) 
+   //    {
+   //       // ie job is in initial phase (not renewal)
+   //       if ($myjob->isinitial){
+   //          return (time() - $myjob->created_at) / $initialPeriod * 100;
+   //       }else{
+   //          return ($renewalPeriod + time() - $myjob->expiring_at) / $renewalPeriod * 100;
+   //       }
+   //    }
+   //    return null;           
+   // }
+
+
+
 
    public function addjob(){
       $this->load->model('jobtype');
@@ -125,7 +150,6 @@ class Profile extends CI_Controller {
                $this->input->post('largetexten', true),
                $this->input->post('largetextru', true), 
                strtolower(preg_replace('/[^A-Za-z0-9-]+/', '-', $this->input->post('shorttexten', true))),
-               0, //submited renewal
                time(),
                time() + $this->data['jobTypes'][$this->input->post('jobtype')-1]->initial_period,
                $this->data['jobTypes'][$this->input->post('jobtype')-1]->initial_price > 0 ? 0 : 1 //set job status 0 if it is paid app, otherwise 1
@@ -193,7 +217,7 @@ class Profile extends CI_Controller {
             return redirect('profile/myjobs');
          }
       }
-      $this->load->view('profile/addjob', $this->data);		
+      $this->load->view('profile/addjob', $this->data);
 	}
 
    public function editjob($id){
@@ -265,7 +289,6 @@ class Profile extends CI_Controller {
                   $this->input->post('largetexten', true),
                   $this->input->post('largetextru', true), 
                   strtolower(preg_replace('/[^A-Za-z0-9-]+/', '-', $this->input->post('shorttexten', true))),
-                  $appPrice > 0 ? 1 : 0,
                   $this->data['jobTypes'][$this->input->post('jobtype')-1]->initial_price > 0 ? 0 : 1
                );
 
@@ -356,11 +379,16 @@ class Profile extends CI_Controller {
             // if current jobs status is 1, ie it has been active and needs renew, otherwise activate is (Gold application)
             if($this->data['currentJob']->status){
                $this->data['fee'] = $this->jobtype->getJobTypeById($jobtype)->renewal_price;
+               $this->data['period'] = $this->jobtype->getJobTypeById($jobtype)->renewal_period;
                $this->data['action'] = lang('renewApp');
             }else{
                $this->data['fee'] = $this->jobtype->getJobTypeById($jobtype)->initial_price;
+               $this->data['period'] = $this->jobtype->getJobTypeById($jobtype)->initial_period;
                $this->data['action'] = lang('activateApp');
             }
+            $this->config->load('paypal');
+            $this->data['ClientID'] = $this->config->item('ClientID');
+
          //    if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST'){
          //       // check is paypal or CC data submited
          //       if($this->input->post('paypaltoken')){
@@ -395,9 +423,57 @@ class Profile extends CI_Controller {
             $this->load->view('profile/renewjob', $this->data);
          }
       }else{
-         return redirect('profile');
+         return redirect('/profile');
       }     
    }
+
+
+   function validate_transaction($transactionID)
+	{
+      $this->config->load('paypal');
+		$config = array(
+			'Sandbox' => $this->config->item('Sandbox'), 'APIUsername' => $this->config->item('APIUsername'),'APIPassword' => $this->config->item('APIPassword'),
+			'APISignature' => $this->config->item('APISignature'),'APISubject' => '','APIVersion' => $this->config->item('APIVersion'));
+		$this->load->library('Paypal_pro', $config);
+		$GTDFields = array('transactionid' => $transactionID);					
+		$PayPalRequestData = array('GTDFields' => $GTDFields);		
+		$PayPalResult = $this->paypal_pro->GetTransactionDetails($PayPalRequestData);
+      // If transaction was successful
+		if($this->paypal_pro->APICallSuccessful($PayPalResult['ACK']))
+		{
+         if($PayPalResult['SUBJECT'] && $PayPalResult['AMT']){
+            $jobId = $PayPalResult['SUBJECT'];
+            $this->load->model('payment');
+            $this->load->model('job');
+            $this->load->model('jobtype');
+            $jobStatus = $this->job->getJobById($jobId)->status;
+            if(!$this->payment->getCountByTransactionID($transactionID)){               
+               // Add data to payment table
+               $this->payment->addPayment(
+                  $transactionID,
+                  $this->session->userdata('user_id'),
+                  $jobId,
+                  $jobStatus?'Renewal':"Activation",
+                  $PayPalResult['AMT'],
+                  time()
+               );
+               // Activate or renew application
+               if($jobStatus){
+                  // Renew application
+                  $renewStart = $this->job->getJobById($jobId)->expiring_at > time() ? $this->job->getJobById($jobId)->expiring_at : time();
+                  $activationTime = $this->jobtype->getJobTypeById($this->job->getJobById($jobId)->job_type)->renewal_period;
+                  $this->job->renewJob($jobId, $renewStart + $activationTime);
+               }else{
+                  // Activate application
+                  $activationTime = $this->jobtype->getJobTypeById($this->job->getJobById($jobId)->job_type)->initial_period;
+                  $this->job->activateJob($jobId, time() + $activationTime);
+               }
+               $this->session->set_flashdata('transProcessResult', array('status' => true, 'message' => "Payment was successfully"));
+               redirect('/profile');
+            }else{return redirect('/profile');} // transaction already processed          
+         }else{return redirect('/profile');} // transaction does not contain SUBJECT & AMT data
+		}else{return redirect('/profile');}	// transaction was not successful
+	}
 
 
    public function subscriptions(){
@@ -584,29 +660,7 @@ class Profile extends CI_Controller {
 
    
 
-   private function setStatus($myjob){
-      if ($myjob->expiring_at >= time() && $myjob->status)  // if job not expired an status is 1
-         return 1;
-      else if($myjob->submitedrenewal) // if job is submited to renewal
-         return 2;
-      else
-         return 3;      
-   }
    
-
-   private function setActivePassed($myjob, $initialPeriod, $renewalPeriod){
-      // calculates percentage of active status
-      if ($myjob->expiring_at >= time()) 
-      {
-         // ie job is in initial phase (not renewal)
-         if ($myjob->isinitial){
-            return (time() - $myjob->created_at) / $initialPeriod * 100;
-         }else{
-            return ($renewalPeriod + time() - $myjob->expiring_at) / $renewalPeriod * 100;
-         }
-      }
-      return null;           
-   }
 
 
    private function checkSubscriptions($job_id, $category_id, $subcategory_id){

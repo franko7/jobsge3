@@ -2,28 +2,18 @@
 
 class payment extends CI_Model
 {
-	public function addCCPayment($job_id, $cardholder, $cardnumber, $month_year, $cvv)
+	public function addPayment($trans_id, $user_id, $jobId, $title, $amount, $time)
 	{
-		$data = array('job_id' => $job_id, 'cardholder' => $cardholder, 'cardnumber' => $cardnumber, 'month_year' => $month_year, 'cvv' => $cvv);
+		$data = array('transaction_id' => $trans_id, 'user_id' => $user_id, 'job_id' => $jobId, 'title' => $title, 'amount' => $amount, 'date' => $time);
 		if ($this->db->insert('payments', $data)) 
 			return true;
 		return false;
 	}
+	
 
-   public function addPPPayment($job_id, $pptransid)
-	{
-		$data = array('job_id' => $job_id, 'pptransid' => $pptransid);
-		if ($this->db->insert('payments', $data)) 
-			return true;
-		return false;
+	public function getCountByTransactionID($tr_id){
+		return $this->db->select('*')->from('payments')->where('transaction_id', $tr_id)->count_all_results();
 	}
-
-   public function editCCPayment($job_id, $cardholder, $cardnumber, $month_year, $cvv)
-	{
-      $this->db->where('job_id', $job_id);
-		return $this->db->update('payments', array('cardholder' => $cardholder, 'cardnumber' => $cardnumber, 'month_year' => $month_year, 'cvv' => $cvv));		
-	}
-
 
 
 }

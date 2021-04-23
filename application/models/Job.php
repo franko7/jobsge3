@@ -3,12 +3,12 @@
 class job extends CI_Model
 {
    public function addJob($userId, $jobtype, $fullname, $phone, $email, $website, $company, $location, $address, $zip, $category, $subcategory,   
-      $shorttexten, $shorttextru, $largetexten, $largetextru, $slug, $submitedrenewal, $created_at, $expiring_at, $status)
+      $shorttexten, $shorttextru, $largetexten, $largetextru, $slug, $created_at, $expiring_at, $status)
 	{
 		$data = array('user_id' => $userId, 'job_type' => $jobtype, 'fullname' => $fullname, 'category_id' => $category, 'subcategory_id' => $subcategory,
          'phone' => $phone, 'email' => $email, 'website' => $website, 'company' => $company, 'location_id' => $location, 'zipcode' => $zip, 'address' => $address,
          'shorttext_en' => $shorttexten, 'shorttext_ru' => $shorttextru, 'largetext_en' => $largetexten, 'largetext_ru' => $largetextru, 'slug' => $slug,
-			'submitedrenewal' => $submitedrenewal, 'created_at' => $created_at, 'expiring_at' => $expiring_at, 'status' => $status);
+			'created_at' => $created_at, 'expiring_at' => $expiring_at, 'status' => $status);
 		$this->db->insert('jobs', $data);
 		return $this->db->insert_id();
 	}
@@ -26,13 +26,13 @@ class job extends CI_Model
 	}
 
 	public function editJob($id, $jobtype, $fullname, $phone, $email, $website, $company, $location, $address, $zip, $category, $subcategory,   
-		$shorttexten, $shorttextru, $largetexten, $largetextru, $slug, $submitedrenewal, $status)
+		$shorttexten, $shorttextru, $largetexten, $largetextru, $slug, $status)
 	{
 		$this->db->where('id', $id);
 		return $this->db->update('jobs', array('job_type' => $jobtype, 'fullname' => $fullname, 'phone' => $phone, 'email' => $email, 'website' => $website, 
 			'company' => $company, 'location_id' => $location, 'address' => $address, 'zipcode' => $zip, 'category_id' => $category, 'subcategory_id' => $subcategory,			
 			'shorttext_en' => $shorttexten, 'shorttext_ru' => $shorttextru, 'largetext_en' => $largetexten, 'largetext_ru' => $largetextru, 
-			'slug' => $slug, 'submitedrenewal' => $submitedrenewal, 'status' => $status));
+			'slug' => $slug, 'status' => $status));
 	}
 
 	public function editJobAdmin($id, $jobtype, $fullname, $phone, $email, $website, $company, $location, $address, $zip, $category, $subcategory,   
@@ -49,7 +49,7 @@ class job extends CI_Model
 	{
 		$this->db->select('J.id, J.user_id, J.job_type, J.fullname, J.phone, J.email, J.website, J.location_id, J.address, J.zipcode, J.category_id, J.subcategory_id,
 		J.slug, J.shorttext_en, J.shorttext_ru, J.largetext_en, J.largetext_ru, J.imgfilename1, J.imgfilename2, J.imgfilename3, J.imgfilename4, J.imgfilename5, 
-		J.submitedrenewal, J.created_at, J.expiring_at, J.isinitial, J.status, C.category_en, C.category_ru, SC.subcategory_en, SC.subcategory_ru, U.fullname');
+		J.created_at, J.expiring_at, J.isinitial, J.status, C.category_en, C.category_ru, SC.subcategory_en, SC.subcategory_ru, U.fullname');
 		$this->db->from('jobs AS J, categories AS C, subcategories AS SC, users as U');
 		$this->db->where('J.user_id', $user_id);
 		$this->db->where('J.category_id = C.id');
@@ -84,7 +84,7 @@ class job extends CI_Model
 	{
 		$this->db->select('J.id, J.user_id, J.job_type, J.fullname, J.phone, J.email, J.website, J.company, J.location_id, J.address, J.zipcode, J.category_id, 
 		J.subcategory_id, J.slug, J.shorttext_en, J.shorttext_ru, J.largetext_en, J.largetext_ru, J.imgfilename1, J.imgfilename2, J.imgfilename3, J.imgfilename4, 
-		J.imgfilename5, J.submitedrenewal, J.created_at, J.expiring_at, J.isinitial, J.status, C.category_en, C.category_ru, SC.subcategory_en, SC.subcategory_ru, 
+		J.imgfilename5, J.created_at, J.expiring_at, J.isinitial, J.status, C.category_en, C.category_ru, SC.subcategory_en, SC.subcategory_ru, 
 		L.location, JT.job_type_en, JT.job_type_ru, AVG(R.stars) AS averageRate, COUNT(R.stars) AS rateCount, COUNT(PV.id) AS viewCount');
 		$this->db->from('jobs AS J');
 		$this->db->where('J.id', $id);
@@ -117,11 +117,6 @@ class job extends CI_Model
 		return  $this->db->get('jobs')->result_array();	
 	}
 
-	public function submitForRenewal($id){
-		$this->db->where('id', $id);
-		return $this->db->update('jobs', array('submitedrenewal' => 1));
-	}
-
 	
 	public function getActiveJobsCountByCategoryId($id){
 		return $this->db->select('*')->from('jobs')->where('category_id', $id)->where('status', 1)->where('expiring_at >', time())->count_all_results();
@@ -130,7 +125,7 @@ class job extends CI_Model
 	{
 		$this->db->select('J.id, J.user_id, J.job_type, J.fullname, J.phone, J.email, J.website, J.location_id, J.address, J.zipcode, J.category_id, J.subcategory_id,
 		J.slug, J.shorttext_en, J.shorttext_ru, J.largetext_en, J.largetext_ru, J.imgfilename1, J.imgfilename2, J.imgfilename3, J.imgfilename4, J.imgfilename5, 
-		J.submitedrenewal, J.created_at, J.expiring_at, J.isinitial, J.status, C.category_en, C.category_ru, SC.subcategory_en, SC.subcategory_ru, L.location,
+		J.created_at, J.expiring_at, J.isinitial, J.status, C.category_en, C.category_ru, SC.subcategory_en, SC.subcategory_ru, L.location,
 		AVG(R.stars) AS averageRate, COUNT(R.stars) AS rateCount');
 		$this->db->from('jobs AS J');
 		$this->db->where('J.category_id', $categoryid);
@@ -153,7 +148,7 @@ class job extends CI_Model
 	{
 		$this->db->select('J.id, J.user_id, J.job_type, J.fullname, J.phone, J.email, J.website, J.location_id, J.address, J.zipcode, J.category_id, J.subcategory_id,
 		J.slug, J.shorttext_en, J.shorttext_ru, J.largetext_en, J.largetext_ru, J.imgfilename1, J.imgfilename2, J.imgfilename3, J.imgfilename4, J.imgfilename5, 
-		J.submitedrenewal, J.created_at, J.expiring_at, J.isinitial, J.status, C.category_en, C.category_ru, SC.subcategory_en, SC.subcategory_ru, L.location, 
+		J.created_at, J.expiring_at, J.isinitial, J.status, C.category_en, C.category_ru, SC.subcategory_en, SC.subcategory_ru, L.location, 
 		AVG(R.stars) AS averageRate, COUNT(R.stars) AS rateCount');
 		$this->db->from('jobs AS J');
 		$this->db->where('J.subcategory_id', $subcategoryid);
@@ -176,7 +171,7 @@ class job extends CI_Model
 	{
 		$this->db->select('J.id, J.user_id, J.job_type, J.fullname, J.phone, J.email, J.website, J.location_id, J.address, J.zipcode, J.category_id, J.subcategory_id,
 		J.slug, J.shorttext_en, J.shorttext_ru, J.largetext_en, J.largetext_ru, J.imgfilename1, J.imgfilename2, J.imgfilename3, J.imgfilename4, J.imgfilename5, 
-		J.submitedrenewal, J.created_at, J.expiring_at, J.isinitial, J.status, C.category_en, C.category_ru, SC.subcategory_en, SC.subcategory_ru, L.location,
+		J.created_at, J.expiring_at, J.isinitial, J.status, C.category_en, C.category_ru, SC.subcategory_en, SC.subcategory_ru, L.location,
 		AVG(R.stars) AS averageRate, COUNT(R.stars) AS rateCount');
 		$this->db->from('jobs AS J');
 		$this->db->where('J.location_id', $locationid);
@@ -208,7 +203,7 @@ class job extends CI_Model
 	{
 		$this->db->select('J.id, J.user_id, J.job_type, J.fullname, J.phone, J.email, J.website, J.location_id, J.address, J.zipcode, J.category_id, J.subcategory_id,
 		J.slug, J.shorttext_en, J.shorttext_ru, J.largetext_en, J.largetext_ru, J.imgfilename1, J.imgfilename2, J.imgfilename3, J.imgfilename4, J.imgfilename5, 
-		J.submitedrenewal, J.created_at, J.expiring_at, J.isinitial, J.status, C.category_en, C.category_ru, SC.subcategory_en, SC.subcategory_ru, L.location, 
+		J.created_at, J.expiring_at, J.isinitial, J.status, C.category_en, C.category_ru, SC.subcategory_en, SC.subcategory_ru, L.location, 
 		AVG(R.stars) AS averageRate, COUNT(R.stars) AS rateCount');
 		$this->db->from('jobs AS J');
 		$this->db->group_start();
@@ -236,7 +231,7 @@ class job extends CI_Model
 	public function getAllJobs(){//$limit, $start  //for admin panel, used datatable
 		$this->db->select('J.id, J.user_id, J.job_type, J.fullname, J.phone, J.email, J.website, J.location_id, J.address, J.zipcode, J.category_id, J.subcategory_id,
 		J.slug, J.shorttext_en, J.shorttext_ru, J.largetext_en, J.largetext_ru, J.imgfilename1, J.imgfilename2, J.imgfilename3, J.imgfilename4, J.imgfilename5, 
-		J.submitedrenewal, J.created_at, J.expiring_at, J.isinitial, J.status, C.category_en, C.category_ru, SC.subcategory_en, SC.subcategory_ru, L.location, 
+		J.created_at, J.expiring_at, J.isinitial, J.status, C.category_en, C.category_ru, SC.subcategory_en, SC.subcategory_ru, L.location, 
 		JT.job_type_en, U.fullname AS user_fullname, U.email AS user_email');
 		$this->db->from('jobs AS J');
 		$this->db->join('categories AS C', 'J.category_id = C.id');
@@ -246,6 +241,17 @@ class job extends CI_Model
 		$this->db->join('users AS U', 'J.user_id = U.id');
 		//$this->db->limit($limit, $start);
 		return $this->db->get()->result();
+	}
+
+
+	public function activateJob($id, $activationTime){
+		$this->db->where('id', $id);
+		return $this->db->update('jobs', array('status' => 1, 'expiring_at' => $activationTime));
+	}
+
+	public function renewJob($id, $activationTime){
+		$this->db->where('id', $id);
+		return $this->db->update('jobs', array('expiring_at' => $activationTime));
 	}
 
 
