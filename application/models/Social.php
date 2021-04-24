@@ -5,7 +5,7 @@ class social extends CI_Model
 
    public function getSocials()
 	{
-		return $this->db->select('*')->from('socials')->get()->result();
+		return $this->db->select('*')->from('socials')->get()->row();
 	}
 
    public function updateSocials($facebook, $instagram, $linkedin, $google, $twitter)

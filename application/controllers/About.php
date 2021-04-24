@@ -10,8 +10,12 @@ class About extends CI_Controller {
 		$data['iconPath'] = base_url($this->config->item('categoryIconUploadConfig')['upload_path']);
 		$data['bgPath'] = base_url($this->config->item('bgImagesUploadConfig')['upload_path']);
 		$this->load->model('image');
+		$this->load->model('aboutus');      
+		$this->load->model('social');      
 		$data['images'] = $this->image->getImageNames();
 		$data['pageN'] = 2;
+      $data['aboutUs'] = $this->aboutus->getAboutus();
+		$data['socials'] = $this->social->getSocials();
 		$this->load->view('about', $data);
 	}
 

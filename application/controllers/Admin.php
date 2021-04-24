@@ -15,15 +15,15 @@ class Admin extends CI_Controller {
 
 	public function index()
 	{
-      $this->dashboard();
+      $this->users();
 	}
 
    
-   public function dashboard()
-	{
-      $data['pageN'] = 1;
-		return $this->load->view('admin/dashboard', $data);
-	}
+   // public function dashboard()
+	// {
+   //    $data['pageN'] = 1;
+	// 	return $this->load->view('admin/dashboard', $data);
+	// }
 
 
    public function users()
@@ -530,11 +530,11 @@ class Admin extends CI_Controller {
          if ($this->form_validation->run()) {
             //if data saved set flash message
             if($this->social->updateSocials(
-               strlen($this->input->post('facebook', true))?$this->input->post('facebook', true):null,
-               strlen($this->input->post('instagram', true))?$this->input->post('instagram', true):null,
-               strlen($this->input->post('linkedin', true))?$this->input->post('linkedin', true):null,
-               strlen($this->input->post('google', true))?$this->input->post('google', true):null,
-               strlen($this->input->post('twitter', true))?$this->input->post('twitter', true):null)){
+               strlen($this->input->post('facebook', true))?(substr($this->input->post('facebook',true),0,4)==="http"? $this->input->post('facebook', true):'https://'.$this->input->post('facebook', true)):null,
+               strlen($this->input->post('instagram', true))?(substr($this->input->post('instagram',true),0,4)==="http"? $this->input->post('instagram', true):'https://'.$this->input->post('instagram', true)):null,
+               strlen($this->input->post('linkedin', true))?(substr($this->input->post('linkedin',true),0,4)==="http"? $this->input->post('linkedin', true):'https://'.$this->input->post('linkedin', true)):null,
+               strlen($this->input->post('google', true))?(substr($this->input->post('google', true),0,4)==="http"? $this->input->post('google', true):'https://'.$this->input->post('google', true)):null,
+               strlen($this->input->post('twitter', true))?(substr($this->input->post('twitter', true),0,4)==="http"? $this->input->post('twitter', true):'https://'.$this->input->post('twitter', true)):null)){
                   $this->session->set_flashdata('socialResult', array('status' => true, 'message' => "Social links updated successfully"));
                   return redirect('admin/socials');
             }else{
@@ -587,6 +587,38 @@ class Admin extends CI_Controller {
       }
       $data['jobTypes'] = $this->jobtype->getJobTypes();
       $this->load->view('admin/jobtypes', $data);
+   }
+
+
+   public function aboutus(){
+      $data['pageN'] = 12;
+      $this->load->model('aboutus');
+      if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST'){
+         $this->form_validation->set_rules('title_en', 'Title English', 'required');
+         $this->form_validation->set_rules('title_ru', 'Title Russian', 'required');
+         $this->form_validation->set_rules('subtitle_en', 'Subtitle English', 'required');
+         $this->form_validation->set_rules('subtitle_ru', 'Subtitle Russian', 'required');
+         $this->form_validation->set_rules('aboutus_en', 'About us English', 'required');
+         $this->form_validation->set_rules('aboutus_ru', 'About us Russian', 'required');
+         if ($this->form_validation->run()) {
+            //if data saved set flash message
+            if($this->aboutus->editAboutus(
+                  $this->input->post('title_en', true), 
+                  $this->input->post('title_ru', true),
+                  $this->input->post('subtitle_en', true),
+                  $this->input->post('subtitle_ru', true),
+                  $this->input->post('aboutus_en'),
+                  $this->input->post('aboutus_ru')
+               )){
+               $this->session->set_flashdata('aboutusResult', array('status' => true, 'message' => "About us updated successfully"));
+               return redirect('admin/aboutus');
+            }else{
+               $this->session->set_flashdata('aboutusResult', array('status' => false, 'message' => "Error updating About us"));
+            }
+         }
+      }
+      $data['aboutUs'] = $this->aboutus->getAboutus();
+      $this->load->view('admin/aboutus', $data);
    }
 
 

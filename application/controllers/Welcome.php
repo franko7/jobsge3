@@ -3,6 +3,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Welcome extends CI_Controller {
 
+	public function __construct(){
+		parent::__construct();
+		$currentURL = current_url();
+		echo $currentURL.'<br>';
+		echo $this->router->fetch_class().'<br>'; // class = controller
+		echo $this->router->fetch_method().'<br>';
+		$callUrl = str_replace(site_url(),'', current_url());
+		
+
+	}
+
 	/**
 	 * Index Page for this controller.
 	 *
@@ -21,5 +32,15 @@ class Welcome extends CI_Controller {
 	public function index()
 	{
 		$this->load->view('welcome_message');
+	}
+
+	public function test1()
+	{
+		echo "test 1 <br>";
+	}
+
+	public function test2()
+	{
+		echo "test 2 <br>";
 	}
 }

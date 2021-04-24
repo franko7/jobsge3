@@ -34,41 +34,40 @@
                   <div class="form-group row">
                      <label for="facebook" class="col-sm-3 col-form-label">Facebook</label>
                      <div class="col-sm-9">
-                        <input type="text" class="form-control" name="facebook" placeholder="Facebook link" value="<?php echo $socials[0]->facebook;?>">
+                        <input type="text" class="form-control" name="facebook" placeholder="Facebook link" value="<?php echo $socials->facebook;?>">
                         <small style="color:red"><?php echo form_error('facebook'); ?></small>
                      </div>
                   </div>
                   <div class="form-group row">
                      <label for="instagram" class="col-sm-3 col-form-label">Instagram</label>
                      <div class="col-sm-9">
-                        <input type="text" class="form-control" name="instagram" placeholder="Instagram link" value="<?php echo $socials[0]->instagram;?>">
+                        <input type="text" class="form-control" name="instagram" placeholder="Instagram link" value="<?php echo $socials->instagram;?>">
                         <small style="color:red"><?php echo form_error('instagram'); ?></small>
                      </div>
                   </div>
                   <div class="form-group row">
                      <label for="linkedin" class="col-sm-3 col-form-label">Linkedin</label>
                      <div class="col-sm-9">
-                        <input type="text" class="form-control" name="linkedin" placeholder="Linkedin link" value="<?php echo $socials[0]->linkedin;?>">
+                        <input type="text" class="form-control" name="linkedin" placeholder="Linkedin link" value="<?php echo $socials->linkedin;?>">
                         <small style="color:red"><?php echo form_error('linkedin'); ?></small>
                      </div>
                   </div>
                   <div class="form-group row">
                      <label for="google" class="col-sm-3 col-form-label">Google+</label>
                      <div class="col-sm-9">
-                        <input type="text" class="form-control" name="google" placeholder="Google+ link" value="<?php echo $socials[0]->google;?>">
+                        <input type="text" class="form-control" name="google" placeholder="Google+ link" value="<?php echo $socials->google;?>">
                         <small style="color:red"><?php echo form_error('google'); ?></small>
                      </div>
                   </div>
                   <div class="form-group row">
                      <label for="twitter" class="col-sm-3 col-form-label">Twitter</label>
                      <div class="col-sm-9">
-                        <input type="text" class="form-control" name="twitter" placeholder="Twitter link" value="<?php echo $socials[0]->twitter;?>">
+                        <input type="text" class="form-control" name="twitter" placeholder="Twitter link" value="<?php echo $socials->twitter;?>">
                         <small style="color:red"><?php echo form_error('twitter'); ?></small>
                      </div>
                   </div>
                   <div class="form-group row">
                      <button type="submit" class="btn btn-success mt-3"> Update links </button>
-                     </div>
                   </div>
                <?php echo form_close();?>
             </div>            

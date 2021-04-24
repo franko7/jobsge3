@@ -8,11 +8,21 @@
                   <div class="widget">                     
                      <h5 class="mb-4 text-white"> <?php echo lang('ourSocials')?> </h5>
                      <ul class="list-inline mb-4">
-                        <li><a href="javascript:void(0);" class="site-button white facebook circle "><i class="fab fa-facebook-f"></i></a></li>
-                        <li><a href="javascript:void(0);" class="site-button white google-plus circle "><i class="fab fa-google-plus-g"></i></a></li>
-                        <li><a href="javascript:void(0);" class="site-button white linkedin circle "><i class="fab fa-linkedin-in"></i></a></li>
-                        <li><a href="javascript:void(0);" class="site-button white instagram circle "><i class="fab fa-instagram"></i></a></li>
-                        <li><a href="javascript:void(0);" class="site-button white twitter circle "><i class="fab fa-twitter"></i></a></li>
+                        <?php if ($socials->facebook):?>
+                           <li><a href="<?php echo $socials->facebook;?>" class="site-button white facebook circle" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                        <?php endif;?>
+                        <?php if ($socials->google):?>
+                           <li><a href="<?php echo $socials->google;?>" class="site-button white google-plus circle "><i class="fab fa-google-plus-g"></i></a></li>
+                        <?php endif;?>
+                        <?php if ($socials->linkedin):?>
+                           <li><a href="<?php echo $socials->linkedin;?>" class="site-button white linkedin circle "><i class="fab fa-linkedin-in"></i></a></li>
+                        <?php endif;?>
+                        <?php if ($socials->instagram):?>
+                           <li><a href="<?php echo $socials->instagram;?>" class="site-button white instagram circle "><i class="fab fa-instagram"></i></a></li>
+                        <?php endif;?>
+                        <?php if ($socials->twitter):?>
+                           <li><a href="<?php echo $socials->twitter;?>" class="site-button white twitter circle "><i class="fab fa-twitter"></i></a></li>
+                        <?php endif;?> 
                      </ul>
                   </div>
                </div>

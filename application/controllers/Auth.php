@@ -15,10 +15,11 @@ class Auth extends CI_Controller
 		$this->load->config('appconfig');
 		$this->lang->load('home');
 		$this->load->model('image');
+		$this->load->model('social');
       $this->data['images'] = $this->image->getImageNames();
+      $this->data['socials'] = $this->social->getSocials();
       $this->data['uploadFolder'] = $this->config->item('uploadFolder');
       $this->data['bgPath'] = base_url($this->config->item('bgImagesUploadConfig')['upload_path']);
-		///$this->lang->load("home", "georgian");
 	}
 
 	
@@ -71,6 +72,14 @@ class Auth extends CI_Controller
 					$this->session->set_userdata($sessiondata);
 					if ($this->session->userdata('user_role' != 1)) redirect('/profile');
 					else redirect ('/admin');
+					// if($this->session->has_userdata('redirectURL')){
+					// 	$redirectURL = $this->session->userdata('redirectURL');
+					// 	$this->session->unset_userdata('redirectURL');
+					// 	redirect($redirectURL);
+					// }else{
+					// 	if ($this->session->userdata('user_role' != 1)) redirect('/profile');
+					// 	else redirect ('/admin');
+					// }
 				} else {
 					//invalid username or password
 					$this->session->set_flashdata('loginResult', array('status' => false, 'message' => 'Invalid username or password'));

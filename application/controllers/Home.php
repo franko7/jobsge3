@@ -9,12 +9,14 @@ class Home extends CI_Controller {
 		$this->load->model('category');
 		$this->load->model('subcategory');
 		$this->load->model('location');
+		$this->load->model('social');
 		$this->lang->load('home');
 		$data['categories'] = $this->category->getCategories();
 		$data['subcategories'] = $this->subcategory->getSubcategories();
 		$data['subcategoriesCount'] = $this->job->getCountByCatScat();
 		$data['categoriesCount'] = $this->job->getCountByCat();
 		$data['locations'] = $this->location->getLocations();
+		$data['socials'] = $this->social->getSocials();
 		$this->load->config('appconfig');
 		$data['iconPath'] = base_url($this->config->item('categoryIconUploadConfig')['upload_path']);
 		$data['bgPath'] = base_url($this->config->item('bgImagesUploadConfig')['upload_path']);

@@ -116,7 +116,7 @@
                         <div>
                            <select name="location" id="location">
                               <?php foreach($locations as $location): ?>
-                                 <option value="<?php echo $location->id;?>" <?php echo $currentJob->location==$location->id ? 'selected':'';?>> 
+                                 <option value="<?php echo $location->id;?>" <?php echo $currentJob->location_id==$location->id ? 'selected':'';?>> 
                                     <?php echo $location->location;?>
                                  </option>
                               <?php endforeach; ?>
@@ -215,14 +215,14 @@
 <script>
    $(document).ready(function(){
       $('#jobtype, #category, #subcategory, #location').select2();
-      getInitialPrice($('#jobtype').val());
+      //getInitialPrice($('#jobtype').val());
       getSubcategories($('#category').val());
       $('#category').change(function(){
          getSubcategories($('#category').val());
       });
       $('#jobtype').change(function(){
          $('#hjobtype').val($('#jobtype').val());
-         getInitialPrice($('#jobtype').val());
+         //getInitialPrice($('#jobtype').val());
       });
    });
    function getSubcategories(categoryid){
@@ -245,22 +245,22 @@
       });
    };
 
-   function getInitialPrice(jobType){
-      $.ajax({
-         url:'<?=base_url()?>home/getInitialFeeByType',
-         method: 'post',
-         data: {csrf_token: $('input[name=csrf_token]').val(), jobtype: jobType},
-         dataType: 'json',
-         success: function(response){
-            $('input[name=csrf_token]').val(response.token);
-            if(response['jobtype'][0]['initial_price'] > 0){
-               $('#payment').removeClass('displaynone');
-            }else{
-               $('#payment').addClass('displaynone');
-            }       
-         }
-      });
-   };
+   // function getInitialPrice(jobType){
+   //    $.ajax({
+   //       url:'<?=base_url()?>home/getInitialFeeByType',
+   //       method: 'post',
+   //       data: {csrf_token: $('input[name=csrf_token]').val(), jobtype: jobType},
+   //       dataType: 'json',
+   //       success: function(response){
+   //          $('input[name=csrf_token]').val(response.token);
+   //          if(response['jobtype'][0]['initial_price'] > 0){
+   //             $('#payment').removeClass('displaynone');
+   //          }else{
+   //             $('#payment').addClass('displaynone');
+   //          }       
+   //       }
+   //    });
+   // };
 
 </script>
 

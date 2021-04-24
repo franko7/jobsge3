@@ -114,7 +114,6 @@
 
                   <div class="form-group row">
                      <button type="submit" class="btn btn-success mt-3"> Save </button>
-                     </div>
                   </div>
                <?php echo form_close();?>
             </div>            

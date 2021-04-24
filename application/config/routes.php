@@ -53,6 +53,7 @@ $route['default_controller'] = 'home';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+$route['404_override'] = 'error404';
 
 // example: '/en/about' -> use controller 'about'
 $route['^en/(.+)$'] = "$1";

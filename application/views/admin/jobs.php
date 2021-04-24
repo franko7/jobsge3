@@ -58,13 +58,10 @@
                            </a>
                         </td>
                         <td>
-                           <?php if($job->status):?>
+                           <?php if($job->status && $job->expiring_at>time()):?>
                               <small class="badge badge-success">Active</small>
                            <?php else:?>
                               <small class="badge badge-danger">Inactive</small>
-                           <?php endif;?>
-                           <?php if($job->submitedrenewal):?>
-                              <small class="badge badge-warning">Pending</small>
                            <?php endif;?>
                         </td>
                         <td>
@@ -75,11 +72,11 @@
                               <button class="btn btn-sm btn-danger mr-1 data-toggle="tooltip" data-placement="top" title="Delete Application"  data-toggle="modal" data-target="#delJobModal<?php echo $job->id;?>">
                                  <i class="fas fa-trash-alt"></i>  
                               </button>
-                              <?php if($job->submitedrenewal):?>
+                              <!-- <?php if($job->submitedrenewal):?>
                                  <button class="btn btn-sm btn-warning mr-1 data-toggle="tooltip" data-placement="top" title="Renew Application"">
                                  <i class="far fa-calendar-plus"></i>  
                                  </button>
-                              <?php endif;?>
+                              <?php endif;?> -->
 
                               <!-- Modal -->
                               <div class="modal fade" id="delJobModal<?php echo $job->id;?>" tabindex="-1" role="dialog" aria-labelledby="delJobModal<?php echo $job->id;?>" aria-hidden="true">

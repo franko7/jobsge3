@@ -117,7 +117,7 @@
                               <tr>
                                  <td class="detais-header"><strong><i class="fas fa-eye"></i> <?php echo lang('views')?> </strong></td>
                                  <td><?php echo $jobDetails->viewCount;?></td>
-                              </tr>
+                              </tr>                              
                               <tr>
                                  <td class="detais-header"><strong><i class="fas fa-star"></i> <?php echo lang('rating')?> </strong></td>
                                  <td>                                    
@@ -131,7 +131,12 @@
                                     </span>                                    
                                     <span class="norating text-danger <?php echo $jobDetails->rateCount?'displaynone':'';?>"> <?php echo lang('noRatingYet')?>. </span>
                                  </td>
-                              </tr>        
+                              </tr> 
+                              <tr>
+                                 <td class="detais-header" colspan="2">
+                                    <a href="<?php echo site_url('profile/chat/'.$jobDetails->user_id);?>"><strong><i class="fas fa-sms"></i> Chat with <?php echo $jobDetails->fullname;?></strong></a>
+                                 </td>                                 
+                              </tr>       
                            </tbody>
                         </table>
                      </div>                     
@@ -139,9 +144,15 @@
                      <h5 class="font-weight-600 mt-5"> <?php echo lang('rating')?> </h5>
                      <div class="dez-divider divider-2px bg-gray-dark mb-2 mt-0"></div>
                      <div class="container d-flex p-0">
-                        <?php if($usersRate): ?>
-                           <div class="rating-label"><span class="mr-2"><?php echo lang('yourRate')?>: </span> <span id="userrate"><?php echo $usersRate;?></span></div>
-                        <?php else: ?>
+
+                        
+                        <div id="rateResult" class="<?php echo $usersRate?'':'displaynone'; ?>">
+                           <div class="rating-label">
+                              <span class="mr-2">
+                                 <?php echo lang('yourRate')?>: </span> <span id="userrate"><?php echo $usersRate;?></span></div>
+                        </div>
+                        
+                        <div id="newRate" class="<?php echo $usersRate?'displaynone':''; ?>">
                            <?php echo form_open(base_url(), array('class'=>'d-flex')); ?>
                               <div class="rating-label"><span> <?php echo lang('rateUser')?> </span></div>
                               <div class="starrating risingstar d-flex justify-content-center flex-row-reverse">                              
@@ -152,7 +163,8 @@
                                  <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star"></label>
                               </div>
                            <?php echo form_close(); ?>
-                        <?php endif; ?>
+                        </div>
+
                      </div>
                      <!-- Lightbox -->
                      <h5 class="font-weight-600 mt-5"> <?php echo lang('imgGallery')?> </h5>
@@ -218,6 +230,9 @@
                $('#numVotes').text(numRates + 1);
                $('.rating, .rating-details').removeClass('displaynone');
                $('.norating').addClass('displaynone');
+               $('#rateResult').removeClass('displaynone');
+               $('#newRate').addClass('displaynone');
+               $('#userrate').text(stars).html(getFullStars(stars));
             }
          });
       });

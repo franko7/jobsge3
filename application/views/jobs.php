@@ -9,7 +9,7 @@
             <h1 class="text-white"><?php echo lang('browseJobsList')?></h1>
             <div class="breadcrumb-row">
                <ul class="list-inline">
-                  <li><a href="<?php echo site_url($this->lang->lang());?>">Home</a></li>
+                  <li><a href="<?php echo site_url($this->lang->lang());?>"><?php echo lang('home')?></a></li>
                   <li><i class="fas fa-angle-right"></i></li>
                   <li><?php echo lang('browseJobsList')?></li>
                </ul>

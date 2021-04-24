@@ -10,7 +10,9 @@ class Contact extends CI_Controller {
 		$data['iconPath'] = base_url($this->config->item('categoryIconUploadConfig')['upload_path']);
 		$data['bgPath'] = base_url($this->config->item('bgImagesUploadConfig')['upload_path']);
 		$this->load->model('image');
+		$this->load->model('social');
 		$data['images'] = $this->image->getImageNames();
+		$this->data['socials'] = $this->social->getSocials();
 		$data['pageN'] = 3;
 		$this->load->view('contact', $data);
 	}	

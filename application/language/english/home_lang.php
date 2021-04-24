@@ -7,6 +7,8 @@ $lang['aboutUs'] = "About Us";
 $lang['contact'] = "Contact";
 $lang['ourSocials'] = "Our social pages";
 $lang['usefulLinks'] = "Useful links";
+$lang['pageNotFound'] = "Page Not Found";
+$lang['back2Home'] = "Back To Home";
 
 // Home
 $lang['searchMoreThen'] = "Search Between More Then";

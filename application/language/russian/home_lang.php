@@ -57,6 +57,8 @@ $lang['changePassword']= "Измени пароль";
 $lang['oldPassword']= "Старый пароль";
 $lang['newPassword']= "Новый пароль";
 $lang['updPassword']= "Обновить пароль";
+$lang['pageNotFound'] = "Страница не найдена";
+$lang['back2Home'] = "Вернуться домой";
 
 // Profile
 $lang['AddNewApp'] = "Добавить новое объявление";

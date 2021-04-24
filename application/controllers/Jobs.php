@@ -12,7 +12,9 @@ class Jobs extends CI_Controller {
       $this->load->config('appconfig');
       $this->lang->load('home');
       $this->load->model('image');
+      $this->load->model('social');
       $this->data['images'] = $this->image->getImageNames();
+      $this->data['socials'] = $this->social->getSocials();
       $this->data['uploadFolder'] = $this->config->item('uploadFolder');
       $this->data['bgPath'] = base_url($this->config->item('bgImagesUploadConfig')['upload_path']);
       $this->data['pageN'] = 1;

@@ -100,6 +100,13 @@
                <p class="ml-1"> Socials </p>
             </a>
          </li>
+         <!-- About us -->
+         <li class="nav-item">
+            <a href="<?php echo base_url('admin/aboutus');?>" class="nav-link <?php echo $pageN==12?'active':'';?>" class="nav-link">
+               <i class="far fa-question-circle"></i>
+               <p class="ml-1"> About us </p>
+            </a>
+         </li>
          <li class="nav-item">
             <a href="<?php echo base_url('admin/changepassword');?>" class="nav-link <?php echo $pageN==20?'active':'';?>" class="nav-link">
                <i class="fas fa-key"></i>

@@ -7,6 +7,8 @@ class Profile extends CI_Controller {
 
    public function __construct() {
       parent::__construct();
+      $callUrl = str_replace(site_url(),'', current_url());
+		if (strpos($callUrl, 'profile') !== false) $this->session->set_userdata('redirectURL', $callUrl);
       if (!$this->session->userdata('logged_in')) redirect('auth/login');
       $this->load->library('form_validation');
       $this->load->library('pagination');
@@ -15,9 +17,11 @@ class Profile extends CI_Controller {
       $this->lang->load('home');
       $this->load->model('job');
       $this->load->model('image');
+      $this->load->model('social');
       $this->data['images'] = $this->image->getImageNames();
       $this->data['uploadFolder'] = $this->config->item('uploadFolder');
       $this->data['bgPath'] = base_url($this->config->item('bgImagesUploadConfig')['upload_path']);
+      $this->data['socials'] = $this->social->getSocials();
    }
 
 	public function index(){
