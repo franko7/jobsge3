@@ -76,6 +76,19 @@
                </div>
 
                <div class="form-group row">
+                  <label for="job" class="col-sm-3 col-form-label d-flex align-items-center"><?php echo $images[4]->description;?></label>
+                  <div class="col-2 d-none d-md-block">
+                     <?php if($images[4]->filename):?>
+                        <img src="<?php echo $bgPath.$images[4]->filename;?>" style="width:140px" alt="<?php echo $images[4]->description;?>">
+                     <?php endif; ?>
+                  </div>
+                  <div class="col-xs-12 col-md-7 pl-md-5 d-flex align-items-center">
+                     <input type="file" class="form-control" name="banner" >
+                     <small style="color:red"><?php echo form_error('banner'); ?></small>
+                  </div>
+               </div>
+
+               <div class="form-group row">
                   <button type="submit" class="btn btn-success mt-3"> Edit category </button>
                   </div>
                </div>

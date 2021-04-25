@@ -136,7 +136,7 @@
                </div>
                <div class="col-xl-3 col-lg-4 col-md-5">
                   <div class="sticky-top">
-                     <img src="<?php echo base_url('assets/uploads/covers/banner.png');?>">
+                     <img src="<?php echo $bgPath.$images[4]->filename;?>">
                   </div>
                </div>
             </div>

@@ -508,6 +508,16 @@ class Admin extends CI_Controller {
          if($_FILES['favicon']['name'])
             if ($this->upload->do_upload('favicon'))
                $this->image->editImage(4, $filename.'.'.$ext);
+
+         $filename = 'banner';
+         $config = $this->config->item('bgImagesUploadConfig');
+         $config['file_name'] = $filename;
+         $this->load->library('upload');
+         $this->upload->initialize($config);
+         $ext = pathinfo($_FILES['banner']['name'], PATHINFO_EXTENSION);
+         if($_FILES['banner']['name'])
+            if ($this->upload->do_upload('banner'))
+               $this->image->editImage(5, $filename.'.'.$ext);
          
       }
       $data['bgPath'] = base_url($this->config->item('bgImagesUploadConfig')['upload_path']);

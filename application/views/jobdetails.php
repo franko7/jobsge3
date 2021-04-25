@@ -32,7 +32,7 @@
                            </div>
                         </div>
                         <div class="col-lg-12 col-md-6">
-                           <img src="<?php echo base_url($uploadFolder.'covers/banner.png');?>">
+                           <img src="<?php echo $bgPath.$images[4]->filename;?>">
                         </div>
                      </div>
                   </div>
