@@ -44,7 +44,7 @@
                            <small style="color:red"><?php echo form_error('email'); ?></small>
                         </div>
                         <div class="text-left">
-                           <button class="site-button button-lg outline outline-2"><?php echo lang('sendRecovEmail')?></button>
+                           <button class="site-button button-lg"><?php echo lang('sendRecovEmail')?></button>
                         </div>
                      <?php echo form_close(); ?>
                   </div>

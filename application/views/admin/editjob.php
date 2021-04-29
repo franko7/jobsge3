@@ -175,11 +175,11 @@
                               </ul>
                               <div class="tab-content" id="myTabContent">
                                  <div class="tab-pane fade show active" id="lgtxen" role="tabpanel" aria-labelledby="lgtxen-tab">
-                                    <textarea rows="6" name="largetexten" class="form-control notlbr" placeholder="Large description English"> <?php echo $currentJob->largetext_en;?> </textarea>
+                                    <textarea rows="6" name="largetexten" class="form-control notlbr summernote" placeholder="Large description English"> <?php echo $currentJob->largetext_en;?> </textarea>
                                     <small style="color:red"><?php echo form_error('largetexten'); ?></small>
                                  </div>
                                  <div class="tab-pane fade" id="lgtxru" role="tabpanel" aria-labelledby="lgtxru-tab">
-                                    <textarea rows="6" name="largetextru" class="form-control notlbr" placeholder="Large description Russian"> <?php echo $currentJob->largetext_ru;?> </textarea>
+                                    <textarea rows="6" name="largetextru" class="form-control notlbr summernote" placeholder="Large description Russian"> <?php echo $currentJob->largetext_ru;?> </textarea>
                                     <small style="color:red"><?php echo form_error('largetextru'); ?></small>
                                  </div>
                               </div>
@@ -225,6 +225,21 @@
          //getInitialPrice($('#jobtype').val());
       });
    });
+
+   $('.summernote').summernote({
+      tabsize: 3,
+      height: 150,
+      toolbar: [
+      ['font', ['bold', 'underline', 'clear']],
+      ['color', ['color']],
+      ['para', ['ul', 'ol', 'paragraph']],
+      ['table', ['table']],
+      ['insert', ['link', 'picture', 'video']],
+      ['view', ['fullscreen', 'codeview', 'help']]
+      ]
+   });
+
+
    function getSubcategories(categoryid){
       $.ajax({
          url:'<?=base_url()?>home/getSubcategories',

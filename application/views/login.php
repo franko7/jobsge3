@@ -1,4 +1,5 @@
-<?php $this->load->view('templates/header');?>
+<?php $data['title'] = lang('login'); ?>
+<?php $this->load->view('templates/header', $data);?>
 
 <!-- Content -->
 <div class="page-content">

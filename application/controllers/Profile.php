@@ -57,8 +57,6 @@ class Profile extends CI_Controller {
             (time() - ($myjob->expiring_at - $this->data['jobTypes'][$myjob->job_type - 1]->renewal_period))/($this->data['jobTypes'][$myjob->job_type - 1]->renewal_period)*100;
          $myjob->activePassed = $myjob->activePassed < 0 ? 0 : $myjob->activePassed;
          $myjob->activePassed = $myjob->activePassed > 100 ? 100 : $myjob->activePassed;
-         
-        
          // $myjob->activePassed = $this->setActivePassed(
          //    $myjob, 
          //    $this->data['jobTypes'][$myjob->job_type - 1]->initial_period, 
@@ -81,7 +79,6 @@ class Profile extends CI_Controller {
    //    }
    //    return null;           
    // }
-
 
 
 
@@ -209,6 +206,8 @@ class Profile extends CI_Controller {
                   // if current jobs initial price is freater then 0 remind user to activate it                  
                   $this->session->set_flashdata('addJobResult', array('status' => true, 'message' => 
                      $this->data['jobTypes'][$this->input->post('jobtype')-1]->initial_price > 0 ? lang('appSuccPay') : lang('appSucc')));
+                     // send email to subscribed users
+                     $this->checkSubscriptions($jobid, $this->input->post('category'), $this->input->post('subcategory'));
                }else{
                   $this->job->deleteJob($jobid);
                   foreach($newFiles as $newFile)
@@ -636,15 +635,15 @@ class Profile extends CI_Controller {
 
    public function sendMessage(){
       $this->load->model('chat');
-      $this->chat->sendMessage($this->session->userdata('user_id'), $this->input->post('to', true), $this->input->post('msg', true));
+      if ($this->session->userdata('user_id') != $this->input->post('to', true))
+         $this->chat->sendMessage($this->session->userdata('user_id'), $this->input->post('to', true), $this->input->post('msg', true));
       $data['token']= $this->security->get_csrf_hash();
       echo json_encode($data);
    }
 
 
 
-   public function getSubcategories()
-	{
+   public function getSubcategories(){
       $this->load->model('subcategory');
       $postData = $this->input->post();    
       //$data['subcategories'] = $this->subcategory->getSubcategoriesByCategoryId($postData['categoryid']);//
@@ -653,71 +652,42 @@ class Profile extends CI_Controller {
       echo json_encode($data);
 	}
 
-   public function getInitialFeeByType()
-	{
+   public function getInitialFeeByType(){
       // $postData = $this->input->post();
       $this->load->model('jobtype');
       $data['jobtype'] = $this->jobtype->getJobTypeById($_POST['jobtype']);//$postData['jobtype']
       $data['token']= $this->security->get_csrf_hash();
       echo json_encode($data);
-	}
-
-   
-
-   
+	}   
 
 
    private function checkSubscriptions($job_id, $category_id, $subcategory_id){
-      $this->load->model('subscription');      
+      $this->load->model('subscription');
+      $this->load->model('user');
+      $this->load->model('subcategory');
       $subscriptions = $this->subscription->getAllSubscriptions();
       foreach($subscriptions as $subsc){
-         if(($category_id==$subsc->category_id && $subsc->c_sc==1) || $category_id==$subsc->category_id && $subcategory_id==$subsc->subcategory_id && $subsc->c_sc==2){
-            //Send mail to this user
-            $this->load->model('user');  
-            $this->load->model('category');  
-            $this->load->model('subcategory');
-            $this->load->model('job');
-            
-            $this->load->library('phpmailer_lib');
-            $mail = $this->phpmailer_lib->load();
-            $mail->isSMTP();
-            $mail->Host     = $this->config->item('emailConfig')['host'];
-            $mail->SMTPAuth = $this->config->item('emailConfig')['SMTPAuth'];
-            $mail->Username = $this->config->item('emailConfig')['Username'];
-            $mail->Password = $this->config->item('emailConfig')['Password'];
-            $mail->SMTPSecure = $this->config->item('emailConfig')['SMTPSecure'];
-            $mail->Port     = $this->config->item('emailConfig')['port'];
-            // sender
-            $mail->setFrom($this->config->item('emailConfig')['senderEmail'], $this->config->item('emailConfig')['senderName']);
-            // recipient
-            $mail->addAddress($this->user->getUserdataById($subsc->user_id)->email);
-            // Email subject
-            $mail->Subject = 'New application';
-            // Set email format to HTML
-            $mail->isHTML(true);
-            // Email body content
+         if((($category_id==$subsc->category_id && $subsc->c_sc==1) || ($category_id==$subsc->category_id && $subcategory_id==$subsc->subcategory_id && $subsc->c_sc==2)) && 
+               $subsc->user_id != $this->session->userdata('user_id')){
+            $this->load->library('email');
+            $config = array ('mailtype' => 'html', 'charset' => 'utf-8', 'priority' => '1');
+            $this->email->initialize($config);
+            $this->email->from('no-reply@afishnik.com', 'Afishnik.com');
+            $this->email->to($this->user->getUserdataById($subsc->user_id)->email);
+            $this->email->subject('New application at afishnik.com');
             $data['category'] = $this->category->getCategoryById($category_id)->category_en;
-            $data['subcategory'] = $this->category->getSubcategoryById($subcategory_id)->subcategory_en;
-            $data['wantedSubcategory'] = $subsc->c_sc==2;
+            if($subsc->c_sc==2) $data['category'] .= ', '.$this->subcategory->getSubcategoryById($subcategory_id)->subcategory_en;
             $data['username'] = $this->user->getUserdataById($subsc->user_id)->fullname;
             $data['url'] = base_url('jobs/job/'.$this->job->getJobById($job_id)->id.'/'.$this->job->getJobById($job_id)->slug);
-            $mailContent = $this->load->view('emails/sendsubscriptionmail', $data, TRUE);;
-            $mail->Body = $mailContent;
-
-            // Send email
-            if($mail->send())
+            $mailContent = $this->load->view('emails/sendsubscriptionmail', $data, TRUE);
+            $this->email->message($mailContent);
+            if($this->email->send())
                return true;
             else
-               return false;		
+               return false;
          }
       }
    }
-
-   
-
-   
-  
-
 
    
 }

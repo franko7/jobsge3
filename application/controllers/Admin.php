@@ -467,8 +467,39 @@ class Admin extends CI_Controller {
 	{
       $data['pageN'] = 9;      
       $this->load->model('image'); 
-      if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST'){         
-         //set file upload config for images
+      if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST'){
+         //set file upload config for images         
+         $filename = 'favicon';
+         $config = $this->config->item('bgImagesUploadConfig');
+         $config['file_name'] = $filename;
+         $this->load->library('upload');
+         $this->upload->initialize($config);
+         $ext = pathinfo($_FILES['favicon']['name'], PATHINFO_EXTENSION);
+         if($_FILES['favicon']['name'])
+            if ($this->upload->do_upload('favicon'))
+               $this->image->editImage(3, $filename.'.'.$ext);
+
+         $filename = 'logo_en';
+         $config = $this->config->item('bgImagesUploadConfig');
+         $config['file_name'] = $filename;
+         $this->load->library('upload');
+         $this->upload->initialize($config);
+         $ext = pathinfo($_FILES['logo_en']['name'], PATHINFO_EXTENSION);
+         if($_FILES['logo_en']['name'])
+            if ($this->upload->do_upload('logo_en'))
+               $this->image->editImage(4, $filename.'.'.$ext);
+
+         $filename = 'logo_ru';
+         $config = $this->config->item('bgImagesUploadConfig');
+         $config['file_name'] = $filename;
+         $this->load->library('upload');
+         $this->upload->initialize($config);
+         $ext = pathinfo($_FILES['logo_ru']['name'], PATHINFO_EXTENSION);
+         if($_FILES['logo_ru']['name'])
+            if ($this->upload->do_upload('logo_ru'))
+               $this->image->editImage(5, $filename.'.'.$ext);
+               
+
          $filename = 'maincover';
          $config = $this->config->item('bgImagesUploadConfig');
          $config['file_name'] = $filename;
@@ -489,36 +520,9 @@ class Admin extends CI_Controller {
             if ($this->upload->do_upload('job'))
                $this->image->editImage(2, $filename.'.'.$ext);
 
-         $filename = 'logo';
-         $config = $this->config->item('bgImagesUploadConfig');
-         $config['file_name'] = $filename;
-         $this->load->library('upload');
-         $this->upload->initialize($config);
-         $ext = pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION);
-         if($_FILES['logo']['name'])
-            if ($this->upload->do_upload('logo'))
-               $this->image->editImage(3, $filename.'.'.$ext);
-         
-         $filename = 'favicon';
-         $config = $this->config->item('bgImagesUploadConfig');
-         $config['file_name'] = $filename;
-         $this->load->library('upload');
-         $this->upload->initialize($config);
-         $ext = pathinfo($_FILES['favicon']['name'], PATHINFO_EXTENSION);
-         if($_FILES['favicon']['name'])
-            if ($this->upload->do_upload('favicon'))
-               $this->image->editImage(4, $filename.'.'.$ext);
-
-         $filename = 'banner';
-         $config = $this->config->item('bgImagesUploadConfig');
-         $config['file_name'] = $filename;
-         $this->load->library('upload');
-         $this->upload->initialize($config);
-         $ext = pathinfo($_FILES['banner']['name'], PATHINFO_EXTENSION);
-         if($_FILES['banner']['name'])
-            if ($this->upload->do_upload('banner'))
-               $this->image->editImage(5, $filename.'.'.$ext);
-         
+         $this->image->editImage(6, $this->input->post('jobListBanner'));
+         $this->image->editImage(7, $this->input->post('detailListBanner'));
+         return redirect('admin/editimages');
       }
       $data['bgPath'] = base_url($this->config->item('bgImagesUploadConfig')['upload_path']);
       $data['images'] = $this->image->getImageNames();

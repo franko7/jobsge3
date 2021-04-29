@@ -52,7 +52,7 @@
                         <input type="hidden" name="userid" value="<?php echo $user_id;?>">
                         <input type="hidden" name="recstr" value="<?php echo $recstr;?>">
                         <div class="text-left">
-                           <button class="site-button button-lg outline outline-2"><?php echo lang('resetPassword')?></button>
+                           <button class="site-button button-lg"><?php echo lang('resetPassword')?></button>
                         </div>
                   <?php echo form_close(); ?>                  
                </div>

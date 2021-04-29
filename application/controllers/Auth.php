@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+// use PHPMailer\PHPMailer\PHPMailer;
+// use PHPMailer\PHPMailer\Exception;
 class Auth extends CI_Controller
 {
 	public $data = array();
@@ -68,10 +68,10 @@ class Auth extends CI_Controller
 						'user_role'		=> $userdata->role,
 						'user_email'	=> $userdata->email,
 						'logged_in' 	=> TRUE
-					);
+					);	
 					$this->session->set_userdata($sessiondata);
-					if ($this->session->userdata('user_role' != 1)) redirect('/profile');
-					else redirect ('/admin');
+					if ($this->session->userdata('user_role') == 2) redirect('/profile');
+					if ($this->session->userdata('user_role') == 1) redirect('/admin');
 					// if($this->session->has_userdata('redirectURL')){
 					// 	$redirectURL = $this->session->userdata('redirectURL');
 					// 	$this->session->unset_userdata('redirectURL');
@@ -123,7 +123,7 @@ class Auth extends CI_Controller
 			$userid = $userdata->id;
 			$username = $userdata->fullname;
 			//Send mail in following format: baseurl()/auth/recover/userid/randomstring
-			if ($this->sendRecoveryMail($email, $userid, $username, $random_string)){
+			if ($this->sendRecoveryMail2($email, $userid, $username, $random_string)){
 				$this->session->set_flashdata('sendRecoveryResult', array('status' => true, 'message' => "Email has been sent"));
 				return redirect('auth/sendrecovery');
 			}else{
@@ -216,13 +216,34 @@ class Auth extends CI_Controller
 		$data['recoveryString'] = $recoveryString;
 		$data['userid'] = $userid;
 		$data['username'] = $username;
-		$mailContent = $this->load->view('emails/sendrecoverymail', $data, TRUE);;
+		$mailContent = $this->load->view('emails/sendrecoverymail', $data, TRUE);
 		$mail->Body = $mailContent;
-
 		// Send email
 		if($mail->send())
 			return true;
 		else
 			return false;		
+	}
+
+	function sendRecoveryMail2($recipient, $userid, $username, $recoveryString){
+		$this->load->library('email');
+		$config = array (
+			'mailtype' => 'html',
+			'charset'  => 'utf-8',
+			'priority' => '1'
+			 );
+		$this->email->initialize($config);
+		$this->email->from('no-reply@afishnik.com', 'Afishnik.com');
+		$this->email->to($recipient);	
+		$this->email->subject('Recover password');
+		$data['recoveryString'] = $recoveryString;
+		$data['userid'] = $userid;
+		$data['username'] = $username;
+		$mailContent = $this->load->view('emails/sendrecoverymail', $data, TRUE);
+		$this->email->message($mailContent);
+		if($this->email->send())
+			return true;
+		else
+			return false;
 	}
 }

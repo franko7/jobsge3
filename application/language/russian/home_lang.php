@@ -7,6 +7,8 @@ $lang['aboutUs'] = "О нас";
 $lang['contact'] = "Контакт";
 $lang['ourSocials'] = "Наши социальные страницы";
 $lang['usefulLinks'] = "Полезные ссылки";
+$lang['pageNotFound'] = "Страница не найдена";
+$lang['back2Home'] = "Вернуться домой";
 
 // Home
 $lang['searchMoreThen'] = "Искать между более чем";
@@ -45,22 +47,21 @@ $lang['login']       = "Авторизация";
 $lang['password']    = "Пароль";
 $lang['confPassword']= "Подтвердить Пароль";
 $lang['forgotPwd']   = "Забыл пароль";
-$lang['recoverPwd']  = "Восстановить пароль";
+$lang['recoverPwd']  = "Воостановить пароль";
 $lang['register']    = "Регистрация";
 $lang['sendRecovEmail'] = "Отправить E-mail восстановления";
 $lang['createAccount'] = "Зарегистрироваться";
 $lang['resetPassword'] = "Сброс пароля";
 $lang['IAgree']         = "Я согласен";
+$lang['termsConditions'] = "условия использования";
 $lang['signOut'] = "Выйти";
-$lang['changePassword']= "Change Password";
 $lang['changePassword']= "Измени пароль";
 $lang['oldPassword']= "Старый пароль";
 $lang['newPassword']= "Новый пароль";
 $lang['updPassword']= "Обновить пароль";
-$lang['pageNotFound'] = "Страница не найдена";
-$lang['back2Home'] = "Вернуться домой";
 
 // Profile
+$lang['profile'] = "Профиль";
 $lang['AddNewApp'] = "Добавить новое объявление";
 $lang['updateApp'] = "Обновить Приложение";
 $lang['addJobSeekApp'] = "Добавить объявление соискателя";

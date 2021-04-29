@@ -1,4 +1,5 @@
-<?php $this->load->view('templates/header'); ?>
+<?php $data['title'] = lang('pageNotFound'); ?>
+<?php $this->load->view('templates/header', $data);?>
 
 <div class="page-content bg-white">
    <div class="dez-bnr-inr overlay-black-middle" style="background-image:url(<?php echo $bgPath . $images[1]->filename; ?>);">

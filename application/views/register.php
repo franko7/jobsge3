@@ -1,4 +1,5 @@
-<?php $this->load->view('templates/header');?>
+<?php $data['title'] = lang('register'); ?>
+<?php $this->load->view('templates/header', $data);?>
 
 <!-- Content -->
 <div class="page-content">
@@ -56,7 +57,7 @@
                            <small style="color:red"><?php echo form_error('terms'); ?></small>
                         </div>
                         <div class="text-left">
-                           <button class="site-button button-lg outline outline-2"> <?php echo lang('createAccount')?> </button>
+                           <button class="site-button button-lg"> <?php echo lang('createAccount')?> </button>
                         </div>
                   <?php echo form_close(); ?>
                   

@@ -4,8 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Afishnik | Dashboard</title>
-
-<!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet" href="<?php echo base_url('assets/admin/css/googlefonts.css');?>">
 <link rel="stylesheet" href="<?php echo base_url('assets/admin/css/fontawesome-all.min.css');?>">
 <link rel="stylesheet" href="<?php echo base_url('assets/admin/css/ionicons.min.css');?>">
@@ -17,6 +15,11 @@
 <link rel="stylesheet" href="<?php echo base_url('assets/admin/css/adminlte.min.css');?>">
 <link rel="stylesheet" href="<?php echo base_url('assets/admin/css/dataTables.bootstrap4.min.css');?>">
 <script src="<?php echo base_url('assets/admin/js/jquery.min.js');?>"></script>
+<script src="<?php echo base_url('assets/admin/js/bootstrap.bundle.min.js');?>"></script>
+<script src="<?php echo base_url('assets/admin/js/moment.min.js');?>"></script>
+<script src="<?php echo base_url('assets/admin/js/tempusdominus-bootstrap-4.min.js');?>"></script>
+<script src="<?php echo base_url('assets/admin/js/summernote-bs4.min.js');?>"></script>
+<script src="<?php echo base_url('assets/admin/tinymce/tinymce.min.js');?>"></script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">

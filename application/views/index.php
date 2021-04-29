@@ -1,4 +1,5 @@
-<?php $this->load->view('templates/header');?>
+<?php $data['title'] = lang('home'); ?>
+<?php $this->load->view('templates/header', $data);?>
 
 <div class="page-content">
    <!-- Section Banner -->

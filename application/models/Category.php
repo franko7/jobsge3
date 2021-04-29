@@ -47,7 +47,4 @@ class category extends CI_Model
 		return $categories;
 	}
 
-
-
-
 }

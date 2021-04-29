@@ -1,4 +1,5 @@
-<?php $this->load->view('templates/header');?>
+<?php $data['title'] = $jobDetails->{'category_'.$this->lang->lang()}; ?>
+<?php $this->load->view('templates/header', $data);?>
 
 <div class="page-content bg-white">
    <!-- Banner -->
@@ -32,7 +33,7 @@
                            </div>
                         </div>
                         <div class="col-lg-12 col-md-6">
-                           <img src="<?php echo $bgPath.$images[4]->filename;?>">
+                           <?php echo str_replace("../../", base_url(), $images[6]->filename);?>
                         </div>
                      </div>
                   </div>
@@ -131,12 +132,14 @@
                                     </span>                                    
                                     <span class="norating text-danger <?php echo $jobDetails->rateCount?'displaynone':'';?>"> <?php echo lang('noRatingYet')?>. </span>
                                  </td>
-                              </tr> 
-                              <tr>
-                                 <td class="detais-header" colspan="2">
-                                    <a href="<?php echo site_url('profile/chat/'.$jobDetails->user_id);?>"><strong><i class="fas fa-sms"></i> Chat with <?php echo $jobDetails->fullname;?></strong></a>
-                                 </td>                                 
-                              </tr>       
+                              </tr>
+                              <?php if($this->session->userdata('user_id')!=$jobDetails->user_id): ?>
+                                 <tr>
+                                    <td class="detais-header" colspan="2">
+                                       <a href="<?php echo site_url('profile/chat/'.$jobDetails->user_id);?>"><strong><i class="fas fa-sms"></i> Chat with <?php echo $jobDetails->fullname;?></strong></a>
+                                    </td>                                 
+                                 </tr>
+                              <?php endif; ?>
                            </tbody>
                         </table>
                      </div>                     

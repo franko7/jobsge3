@@ -1,7 +1,7 @@
 <?php
 
 // Header & Footer
-$lang['site_title'] = "Aphishnik";
+$lang['site_title'] = "Afishnik";
 $lang['home'] = "Home";
 $lang['aboutUs'] = "About Us";
 $lang['contact'] = "Contact";
@@ -61,6 +61,7 @@ $lang['newPassword']= "New Password";
 $lang['updPassword']= "Update Password";
 
 // Profile
+$lang['profile'] = "Profile";
 $lang['AddNewApp'] = "Add new application";
 $lang['updateApp'] = "Update Application";
 $lang['addJobSeekApp'] = "Add Job Seeker Application";
