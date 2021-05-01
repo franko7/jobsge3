@@ -100,6 +100,8 @@ $lang['send'] = "Send";
 $lang['backToProfile'] = "Back to Profile";
 $lang['renewApp'] = "Renew Application";
 $lang['activateApp'] = "Activate Application";
+$lang['delAppSucc'] = "Application deleted successfully";
+$lang['delAppFail'] = "Could not delete application";
 
 //Tables
 $lang['title'] = "Title";
@@ -114,7 +116,7 @@ $lang['delete'] = "Delete";
 $lang['close'] = "Close";
 
 // Flash messages
-$lang['appSucc'] = "Application added successfully";
-$lang['appSuccPay'] = "Application added successfully, but it is not active. Don't forget to activate it.";
+$lang['appSucc'] = "Application created successfully";
+$lang['appSuccPay'] = "Application has been created, but it is not active. Don't forget to activate it.";
 
 

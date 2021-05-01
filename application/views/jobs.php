@@ -136,7 +136,7 @@
                </div>
                <div class="col-xl-3 col-lg-4 col-md-5">
                   <div class="sticky-top">                  
-                     <?php echo str_replace("../../", base_url(), $images[5]->filename);?>
+                     <?php echo str_replace("../", base_url(), $images[5]->filename);?>
                   </div>
                </div>
             </div>

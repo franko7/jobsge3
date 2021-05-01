@@ -31,7 +31,7 @@ class MY_Lang extends CI_Lang {
      *
      * @var array
      */
-    public $special = ["admin", "api", "assets"];
+    public $special = ["admin", "api"];
 
     /**
      * where to redirect if no language in URI

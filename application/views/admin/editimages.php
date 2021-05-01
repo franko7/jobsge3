@@ -126,11 +126,13 @@
       ],
       toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
       toolbar2: "| responsivefilemanager | link unlink anchor | image media | forecolor backcolor  | print preview code ",
-      image_advtab: true ,
-
-      external_filemanager_path:"<?=base_url('assets/admin/filemanager/')?>",
+      image_advtab: true,
+      external_filemanager_path:"<?=base_url().'admin/filemanager/'?>",
       filemanager_title:"Filemanager" ,
       filemanager_access_key: "mKbq6ywj9YuJakAgzV2jc9JPJVnvY6PaFBqnYwwXkQh7ZuYbZB63BEuVrFffnF2E7gRGpYfzE9gfu63jyXXYugwJynALStfAkH7yxcHMbPTvxLrUAdvE6BYuNbQwuGVq",
-      external_plugins: { "filemanager" : "<?=base_url('assets/admin/filemanager/plugin.min.js')?>"}
+      external_plugins: { "filemanager" : "<?=base_url('assets/admin/js/plugin.min.js')?>"}
    });
+
+
+
 </script>

@@ -36,6 +36,15 @@
                            </button>
                         </div>
                      <?php endif; ?>
+                     <!-- delete job message -->
+                     <?php if ($this->session->flashdata('deleteJobResult')):?>
+                        <div class="alert alert-<?php echo $this->session->flashdata('deleteJobResult')['status']?'success':'danger';?> alert-dismissible fade show" role="alert">
+                           <strong><?php echo $this->session->flashdata('deleteJobResult')['message'];?></strong>
+                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                           <span aria-hidden="true">&times;</span>
+                           </button>
+                        </div>
+                     <?php endif; ?>
                      <!-- Payment process message -->
                      <?php if ($this->session->flashdata('transProcessResult')):?>
                         <div class="alert alert-<?php echo $this->session->flashdata('transProcessResult')['status']?'success':'danger';?> alert-dismissible fade show" role="alert">

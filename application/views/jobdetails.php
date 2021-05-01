@@ -33,7 +33,7 @@
                            </div>
                         </div>
                         <div class="col-lg-12 col-md-6">
-                           <?php echo str_replace("../../", base_url(), $images[6]->filename);?>
+                           <?php echo str_replace("../", base_url(), $images[6]->filename);?>
                         </div>
                      </div>
                   </div>

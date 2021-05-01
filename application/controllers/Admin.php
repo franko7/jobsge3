@@ -676,6 +676,14 @@ class Admin extends CI_Controller {
    }
 
   
+   // File manager integration into Codeigniter start
+   public function filemanager() {
+      $seg = $this->uri->segment(3);
+      if (file_exists("application/third_party/filemanager/" . $seg . ".php")) {
+         include "application/third_party/filemanager/" . $seg . ".php";
+      }
+   }
+   // File manager integration into Codeigniter end
 
 
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 23, 2021 at 10:34 AM
+-- Generation Time: Apr 29, 2021 at 12:11 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -21,6 +21,31 @@ SET time_zone = "+00:00";
 --
 -- Database: `jobsge3`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `aboutus`
+--
+
+DROP TABLE IF EXISTS `aboutus`;
+CREATE TABLE IF NOT EXISTS `aboutus` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title_en` varchar(250) NOT NULL,
+  `title_ru` varchar(250) NOT NULL,
+  `subtitle_en` varchar(250) NOT NULL,
+  `subtitle_ru` varchar(250) NOT NULL,
+  `aboutus_en` text NOT NULL,
+  `aboutus_ru` text DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `aboutus`
+--
+
+INSERT INTO `aboutus` (`id`, `title_en`, `title_ru`, `subtitle_en`, `subtitle_ru`, `aboutus_en`, `aboutus_ru`) VALUES
+(1, 'About us English', 'О нас  russki', 'g hidden in the middle of text. All the Lorem Ipsum generators on the ', ' Если вам нужен Lorem Ipsum для серьёзного проекта, вы наверняка не', '<h2><span style=\"color: rgb(0, 0, 0); font-family: \" open=\"\" sans\",=\"\" arial,=\"\" sans-serif;=\"\" font-size:=\"\" 14px;=\"\" text-align:=\"\" justify;\"=\"\">There are many variations of p</span></h2><h3><span style=\"color: rgb(0, 0, 0); font-family: \" open=\"\" sans\",=\"\" arial,=\"\" sans-serif;=\"\" font-size:=\"\" 14px;=\"\" text-align:=\"\" justify;\"=\"\">assages of Lorem Ipsum available, but the majority have suff</span></h3><p><span style=\"color: rgb(0, 0, 0); font-family: \" open=\"\" sans\",=\"\" arial,=\"\" sans-serif;=\"\" font-size:=\"\" 14px;=\"\" text-align:=\"\" justify;\"=\"\">ered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem <script>console.log(\"hello\");</script> Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</span><span style=\"color: rgb(0, 0, 0); font-family: \" open=\"\" sans\",=\"\" arial,=\"\" sans-serif;=\"\" font-size:=\"\" 14px;=\"\" text-align:=\"\" justify;\"=\"\">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words &lt;script&gt;console.log(\"hello\");&lt;/script&gt; etc.</span></p><p><span style=\"color: rgb(0, 0, 0); font-family: \" open=\"\" sans\",=\"\" arial,=\"\" sans-serif;=\"\" font-size:=\"\" 14px;=\"\" text-align:=\"\" justify;\"=\"\"><br></span></p><p></p>', '<p><span style=\"color: rgb(0, 0, 0); font-family: \"Open Sans\", Arial, sans-serif; font-size: 14px; text-align: justify;\">Есть много вариантов Lorem Ipsum, но большинство из них имеет не всегда приемлемые модификации, например, юмористические вставки или слова, которые даже отдалённо не напоминают латынь. Если вам нужен Lorem Ipsum для серьёзного проекта, вы наверняка не хотите какой-нибудь шутки, скрытой в середине абзаца. Также все другие известные генераторы Lorem Ipsum используют один и тот же текст, который они просто повторяют, пока не достигнут нужный объём. Это делает предлагаемый здесь генератор единственным настоящим Lorem Ipsum генератором. Он использует словарь из более чем 200 латинских слов, а также набор моделей предложений. В результате сгенерированный Lorem Ipsum выглядит правдоподобно, не имеет повторяющихся абзацей или \"невозможных\" слов.</span><span style=\"color: rgb(0, 0, 0); font-family: \"Open Sans\", Arial, sans-serif; font-size: 14px; text-align: justify;\">Есть много вариантов Lorem Ipsum, но большинство из них имеет не всегда приемлемые модификации, например, юмористические вставки или слова, которые даже отдалённо не напоминают латынь. Если вам нужен Lorem Ipsum для серьёзного проекта, вы наверняка не хотите какой-нибудь шутки, скрытой в середине абзаца. Также все другие известные генераторы Lorem Ipsum используют один и тот же текст, который они просто повторяют, пока не достигнут нужный объём. Это делает предлагаемый здесь генератор единственным настоящим Lorem Ipsum генератором. Он использует словарь из более чем 200 латинских слов, а также набор моделей предложений. В результате сгенерированный Lorem Ipsum выглядит правдоподобно, не имеет повторяющихся абзацей или \"невозможных\" слов.</span><br></p>');
 
 -- --------------------------------------------------------
 
@@ -63,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `chats` (
   `sent_at` int(11) NOT NULL,
   `new` tinyint(4) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=188 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=189 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `chats`
@@ -141,7 +166,7 @@ INSERT INTO `chats` (`id`, `from_id`, `to_id`, `message`, `sent_at`, `new`) VALU
 (174, 1, 2, 'სდფ სდფ', 1618818459, 0),
 (175, 1, 2, 'სდფ სდფ სდფსდ', 1618818469, 0),
 (176, 1, 2, 'dfg dfg dfgdf', 1618818538, 0),
-(177, 2, 4, 'fg ffgh', 1618823298, 1),
+(177, 2, 4, 'fg ffgh', 1618823298, 0),
 (178, 2, 5, 'sfd sd sdkjfhsdjk', 1618825411, 1),
 (179, 2, 8, ' gfh fgh fgh', 1618825606, 1),
 (180, 2, 9, 'sdfsdf', 1618825896, 1),
@@ -151,7 +176,8 @@ INSERT INTO `chats` (`id`, `from_id`, `to_id`, `message`, `sent_at`, `new`) VALU
 (184, 2, 10, 's fsdfsd', 1618826539, 0),
 (185, 1, 2, 'f sdf', 1618826680, 0),
 (186, 1, 2, 'asaaaaaaaaaa', 1618826741, 0),
-(187, 1, 2, 'sdf sdfkljsd', 1618826803, 0);
+(187, 1, 2, 'sdf sdfkljsd', 1618826803, 0),
+(188, 3, 1, 'Hi', 1619321124, 0);
 
 -- --------------------------------------------------------
 
@@ -162,10 +188,10 @@ INSERT INTO `chats` (`id`, `from_id`, `to_id`, `message`, `sent_at`, `new`) VALU
 DROP TABLE IF EXISTS `images`;
 CREATE TABLE IF NOT EXISTS `images` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `filename` varchar(200) NOT NULL,
+  `filename` text DEFAULT NULL,
   `description` varchar(200) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `images`
@@ -174,8 +200,12 @@ CREATE TABLE IF NOT EXISTS `images` (
 INSERT INTO `images` (`id`, `filename`, `description`) VALUES
 (1, 'maincover.jpg', 'Main page image'),
 (2, 'jobscover.jpg', 'Jobs page image'),
-(3, 'logo.png', 'Site logo'),
-(4, 'favicon.ico', 'Favicon');
+(3, 'favicon.ico', 'Favicon'),
+(4, 'logo_en.png', 'Site logo English'),
+(5, 'logo_ru.png', 'Site logo Russian'),
+(6, '<p>sdfh ksdjfhlsdkjfhsldkjf hsldkjfhsldkjhlkj&nbsp; ksdjhf lskdjfh sldkjfh lsdkjfh lsdkjfh&nbsp;</p>', 'Application listing banner'),
+(7, '<p>It is a long established fact<strong> that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'C</strong>ontent he</p>\r\n<p><img src=\"../../assets/uploads/covers/LED-RED-factoryforward-1-458x458.png\" alt=\"LED-RED-factoryforward-1-458x458\" width=\"261\" height=\"261\" /></p>\r\n<p>re, content here\', making it look like<span style=\"color: #0000ff;\"> readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their defaul</span>t model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>', 'Application details banner'),
+(8, NULL, '-');
 
 -- --------------------------------------------------------
 
@@ -215,7 +245,7 @@ CREATE TABLE IF NOT EXISTS `jobs` (
   `status` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=95 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=97 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `jobs`
@@ -247,8 +277,10 @@ INSERT INTO `jobs` (`id`, `user_id`, `job_type`, `fullname`, `phone`, `email`, `
 (77, 2, 3, 'jemal bagashvili', '45656456', 'jemala@gmail.com', 'www.jlkajsdlk.re', NULL, '1', 'ng through the cites of the word in classical literature,67', '345343', 2, 9, 'opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing ge edi', '', 'majority have suffered alteration in some form, by injected humour, or randomised words which don\'t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn\'t anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reaso', '', 'opposed-to-using-content-here-content-here-making-it-look-like-readable-english-many-desktop-publishing-ge-edi', 'JOB00000771.jpg', 'JOB00000772.png', 'JOB00000773.jpg', 'JOB00000774.jpg', NULL, 0, 1617026405, 1648562405, 1, 1),
 (78, 11, 2, 'accusantium doloremque', '43534 53453', 'accus@gmail.com', 'www.top.ge', '', '1', 'ith content hourly on the day of going live. Hoe', '34234', 1, 3, 'ith content hourly on the day of going live. However, reviewers tend to be distracted by comprehensible content, say, a random text copied from a ne', '', 'In a professional context it often happens that private or corporate clients corder a publication to be made and presented with the actual content still not being ready. Think of a news blog that\'s filled with content hourly on the day of going live. However, reviewers tend to be distracted by comprehensible content, say, a random text copied from a newspaper or the internet. The are likely to focus on the text, disregarding the layout and its elements. Besides, random text risks to be unintendedly humorous or offensive, an unacceptable risk in corporate environments. Lorem ipsum and its many variants have been employed since the early 1960ies, and quite likely since the sixteenth century', '', 'ith-content-hourly-on-the-day-of-going-live-however-reviewers-tend-to-be-distracted-by-comprehensible-content-say-a-random-text-copied-from-a-ne', 'JOB00000781.jpg', 'JOB00000782.jpg', 'JOB00000783.png', 'JOB00000784.jpg', NULL, 0, 1617649728, 1625425728, 1, 1),
 (79, 1, 1, 'jondo jaani', '4580349', 'jondo@gmail.com', 'www.mycompany.fd', 'mycompany', '9', 'nsectetur in classical Latin searched for citings of co 56', '38400', 3, 12, 'searched for citings of consectetur in classical Latin', '', '<span xss=removed>In a professional context it often happens that private or corporate clients corder a publication to be made and presented w</span><span xss=removed><font color=\"#000000\">ith the actual content still not being ready. Think of a news blog that\'s filled with content hourly on the day of going live. </font><font color=\"#ff0000\">However, reviewers tend to be distracted by comprehensible content, say, a random text copied from a newspaper or the internet. The are likely to focus o</font></span><span xss=removed><font color=\"#ff0000\">n the text</font><font color=\"#000000\">, disregarding the layout and its elements. Besides, </font><b xss=removed>random text risks to be unintendedly humorous or offensive</b><font color=\"#000000\">, an unacceptable risk in corporate environments. </font></span><strong xss=removed>Lorem ipsum</strong><span xss=removed> and its many variants have been employed since the early 1960ies, and quite likely since the sixteenth century</span>', '', 'searched-for-citings-of-consectetur-in-classical-latin', 'JOB00000791.jpg', 'JOB00000792.jpg', NULL, NULL, NULL, 0, 1617730704, 1620322704, 1, 1),
+(96, 1, 2, 'jondo jaani', '34534534', 'jondo@gmail.com', 'www.asdas.ds', 'jemala co', '8', 'g ready. Think of a news blog that\'s filled 67', '456456', 3, 14, 'g ready. Think of a news blog that\'s filled wi', '', '<span xss=removed>n a professional context it often happens that private or corporate clients corder a publication to be made and presented with the actual content still not being ready. Think of a news blog that\'s filled with content hourly on the day of going live. However, reviewers tend to be distracted by comprehensible content, say, a random text copied from a newspaper or the internet. The are likely to focus on the text, disregarding the layout and its elements. Besides, random text risks to be unintendedly humorous or off</span>', '', 'g-ready-think-of-a-news-blog-that-s-filled-wi', 'JOB00000961.png', 'JOB00000962.jpg', NULL, NULL, NULL, 0, 1619618168, 1627394168, 1, 1),
+(95, 1, 2, 'jondo jaani', '98798', 'jondo@gmail.com', 'www.hsdkjfhsd.com', 'www.hsdkjfhsd.com', '6', 'is est eligendi optio, cumque nihil impedit, quo  56', '3456', 2, 8, 'is est eligendi optio, cumque nihil impedit, quo', '', '<span xss=removed>ut I must explain to you how all this mistaken idea of reprobating pleasure and extolling pain arose. To do so, I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness. No one rejects, dislikes or avoids pleasure itself, because it is pleasure, but because those who do not know how to pursue pleasure rationally encounter consequences that are extremely painful. Nor again is there anyone who </span><u xss=removed>loves or pursues or desires to obtain pain of itself, because it is pain, but</u><span xss=removed> occasionally </span><u xss=removed>circumstances occur in which toil and pain can procure him some great</u><span xss=removed> pleasure. </span><u xss=removed>To take a trivial example, which of us ever</u><span xss=removed> undertakes </span><u xss=removed>laborious physical exercise, except to obtain some advantage from it? But who</u><span xss=removed> has any right to </span><u xss=removed>find fault</u><span xss=removed> with a man who </span><u xss=removed>chooses to enjoy a pleasure</u><span xss=removed> that has no annoying consequences, or </span><u xss=removed>one</u><span xss=removed> who </span><u xss=removed>avoids a pain</u><span xss=removed> that </span><u xss=removed>produces no</u><span xss=removed> resultant pleasure? [33] On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so </span><u xss=removed>blinded by desire, that they cannot foresee</u><span xss=removed> the pain and trouble that are bound to ensue; and equal </span><u xss=removed>blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil</u><span xss=removed> and pain. These cases are pe</span>', '', 'is-est-eligendi-optio-cumque-nihil-impedit-quo', 'JOB00000951.png', 'JOB00000952.jpg', 'JOB00000953.jpg', 'JOB00000954.jpg', NULL, 0, 1619598796, 1627374796, 1, 1),
 (93, 1, 3, 'jondo jaani', '45334534', 'jondo@gmail.com', 'www.bricklaying.com', 'shdfkjsdhfkj', '8', 'e and time (in almost any standard', '4355', 4, 20, 'e and time (in almost any standard e and time (in almost any standard', '', '<p>e and time (in almost adard e and time (in almost any stan ny standard e and time (in almost any standard e and time (in almost any standard e and time (in almost any standard e and time (in almost any standard e and time (in almost any standard e and time (in almard e and time (in almost any standard e and time (in almost any standard e and time (in alm ost any stand st any stan dard e and time (in almost any standard e and time (in almost any standard e and time (in almost any standard </p>', '', 'e-and-time-in-almost-any-standard-e-and-time-in-almost-any-standard', 'JOB00000931.png', 'JOB00000932.png', 'JOB00000933.png', 'JOB00000934.png', NULL, 0, 1619169063, 1682241138, 1, 1),
-(94, 1, 3, 'jondo jaani', '534534', 'jondo@gmail.com', 'www.top.ge', 'hkjfhksdjh', '8', 'um has been the industry\'s standard dummy text ever since the 150', '46456', 3, 14, 'to make a type specimen book. It has survived not only five centuries, but also the le', '', '<span xss=removed>sum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</span>', '', 'to-make-a-type-specimen-book-it-has-survived-not-only-five-centuries-but-also-the-le', 'JOB00000941.jpg', 'JOB00000942.jpg', 'JOB00000943.jpg', 'JOB00000944.jpg', NULL, 0, 1619173232, 1650709232, 1, 0),
+(94, 1, 3, 'jondo jaani', '534534', 'jondo@gmail.com', 'www.top.ge', 'hkjfhksdjh', '5', 'um has been the industry\'s standard dummy text ever since the 150', '46456', 3, 15, 'to make a type specimen book. It has survived not only five centuries, but also the le', '', '<span xss=removed>sum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</span>', '', 'to-make-a-type-specimen-book-it-has-survived-not-only-five-centuries-but-also-the-le', 'JOB00000941.jpg', 'JOB00000942.jpg', 'JOB00000943.jpg', 'JOB00000944.jpg', NULL, 0, 1619173232, 1650709232, 1, 0),
 (91, 2, 3, 'jemal bagashvili', '8450938', 'jemala@gmail.com', 'www.brick.co', 'brick co', '5', 'ndard dummy text ever since the 15', '456', 4, 20, 'it to make a type specimen book. It has survived not only five centuries, bu', '', '<span xss=removed>it to make a type specimen book. I<b>t has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It</b> was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem</span>', '', 'it-to-make-a-type-specimen-book-it-has-survived-not-only-five-centuries-bu', 'JOB00000911.png', 'JOB00000912.jpg', 'JOB00000913.jpg', NULL, NULL, 0, 1619101501, 1650637501, 1, 0),
 (92, 1, 2, 'jondo jaani', '345645098', 'jondo@gmail.com', 'www.couriers.com', 'couriers co', '8', 'noted above, be careful when manipulating the DateT', '567', 3, 14, 'nove, be careful when manoted abipulating the 56', '', 'It should be noted above, be careful when manipulating the DateTime object with unix timestamps.&nbsp;In the above examples you will get varying results dependent on your current timezone, method used, and version of PHP.It should be noted above, be careful when manipulating the DateTime object with unix timestamps.&nbsp;In the above examples you will get varying results dependent on your current timezone, method used, and version of PHP.&nbsp; varying results dependent on your current timezone, method used, and version of PHP.It should be noted above,&nbsp;&nbsp;&nbsp;varying results dependent on your current timezone, method used, and version of PHP.It should be noted above,&nbsp;', '', 'nove-be-careful-when-manoted-abipulating-the-56', 'JOB00000921.jpg', 'JOB00000922.jpg', 'JOB00000923.jpg', 'JOB00000924.jpg', NULL, 0, 1619168509, 1658480509, 1, 1);
 
@@ -327,13 +359,76 @@ CREATE TABLE IF NOT EXISTS `pageviews` (
   `ip` varchar(30) NOT NULL,
   `viewed_at` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=422 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=485 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `pageviews`
 --
 
 INSERT INTO `pageviews` (`id`, `job_id`, `ip`, `viewed_at`) VALUES
+(484, 68, '::1', 1619694094),
+(483, 79, '::1', 1619679444),
+(482, 79, '::1', 1619679185),
+(481, 79, '::1', 1619679134),
+(480, 79, '::1', 1619679133),
+(479, 96, '::1', 1619618200),
+(478, 58, '::1', 1619494310),
+(477, 58, '::1', 1619494301),
+(476, 58, '::1', 1619494141),
+(475, 78, '::1', 1619492283),
+(474, 78, '::1', 1619492226),
+(473, 78, '::1', 1619492225),
+(472, 78, '::1', 1619492220),
+(471, 78, '::1', 1619491479),
+(470, 58, '::1', 1619491476),
+(469, 58, '::1', 1619491431),
+(468, 76, '::1', 1619491419),
+(467, 57, '::1', 1619491412),
+(466, 74, '::1', 1619491396),
+(465, 64, '::1', 1619491380),
+(464, 63, '::1', 1619321085),
+(463, 57, '::1', 1619270072),
+(462, 57, '::1', 1619267827),
+(461, 57, '::1', 1619267806),
+(460, 60, '::1', 1619266593),
+(459, 77, '::1', 1619265880),
+(458, 77, '::1', 1619265874),
+(457, 57, '::1', 1619262052),
+(456, 78, '::1', 1619261994),
+(455, 64, '::1', 1619261894),
+(454, 78, '::1', 1619261886),
+(453, 78, '::1', 1619257170),
+(452, 59, '::1', 1619257144),
+(451, 62, '::1', 1619257027),
+(450, 62, '::1', 1619256587),
+(449, 93, '::1', 1619256321),
+(448, 93, '::1', 1619256313),
+(447, 68, '::1', 1619256295),
+(446, 75, '::1', 1619256286),
+(445, 60, '::1', 1619256271),
+(444, 60, '::1', 1619256258),
+(443, 58, '::1', 1619256251),
+(442, 76, '::1', 1619256247),
+(441, 57, '::1', 1619256243),
+(440, 79, '::1', 1619256106),
+(439, 79, '::1', 1619256094),
+(438, 50, '::1', 1619256085),
+(437, 50, '::1', 1619255938),
+(436, 50, '::1', 1619255937),
+(435, 50, '::1', 1619255929),
+(434, 43, '::1', 1619255919),
+(433, 43, '::1', 1619255904),
+(432, 70, '::1', 1619255732),
+(431, 70, '::1', 1619255670),
+(430, 70, '::1', 1619255653),
+(429, 70, '::1', 1619255404),
+(428, 70, '::1', 1619255391),
+(427, 69, '::1', 1619254854),
+(426, 69, '::1', 1619254805),
+(425, 69, '::1', 1619254703),
+(424, 69, '::1', 1619254681),
+(423, 69, '::1', 1619254262),
+(422, 63, '::1', 1619235909),
 (421, 94, '::1', 1619173247),
 (420, 93, '::1', 1619169083),
 (419, 92, '::1', 1619168524),
@@ -447,13 +542,24 @@ CREATE TABLE IF NOT EXISTS `ratings` (
   `stars` int(11) DEFAULT NULL,
   `rated_at` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=183 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=194 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `ratings`
 --
 
 INSERT INTO `ratings` (`id`, `job_id`, `ip`, `stars`, `rated_at`) VALUES
+(193, 78, '::1', 2, 1619257173),
+(192, 59, '::1', 2, 1619257147),
+(191, 62, '::1', 3, 1619256590),
+(190, 93, '::1', 2, 1619256317),
+(189, 68, '::1', 5, 1619256299),
+(188, 60, '::1', 4, 1619256262),
+(187, 79, '::1', 3, 1619256099),
+(186, 50, '::1', 4, 1619255933),
+(185, 43, '::1', 2, 1619255911),
+(184, 70, '::1', 4, 1619255659),
+(183, 69, '::1', 4, 1619254692),
 (182, 79, '127.0.0.1', 3, 1618915623),
 (181, 71, '127.0.0.1', 3, 1618905225),
 (180, 46, '::1', 3, 1618139265),
@@ -508,7 +614,7 @@ CREATE TABLE IF NOT EXISTS `socials` (
 --
 
 INSERT INTO `socials` (`id`, `facebook`, `instagram`, `linkedin`, `google`, `twitter`) VALUES
-(1, 'www.facebook.com/asjdlkasjalskdjdd', NULL, NULL, NULL, NULL);
+(1, 'https://www.facebook.com/asjdlkasjalskdjdd', 'https://www.instagram.com/sdfjhskdjfhksjdh', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -569,21 +675,15 @@ CREATE TABLE IF NOT EXISTS `subscriptions` (
   `subcategory_id` int(11) DEFAULT NULL,
   `c_sc` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `subscriptions`
 --
 
 INSERT INTO `subscriptions` (`id`, `user_id`, `category_id`, `subcategory_id`, `c_sc`) VALUES
-(6, 1, 3, 12, 1),
-(5, 1, 1, 19, 2),
-(7, 1, 2, 0, 1),
-(13, 1, 3, 0, 1),
-(14, 1, 4, 0, 1),
-(15, 1, 1, 5, 2),
-(20, 1, 1, 3, 2),
-(19, 1, 2, 0, 1);
+(22, 12, 3, 14, 2),
+(21, 12, 2, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -630,18 +730,18 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `fullname`, `email`, `password`, `recoverystring`, `role`, `created_at`) VALUES
-(1, 'jondo jaani', 'user01@gmail.com', '$2y$10$c8n0Nq.zVoJ8b2/7Ss4che0S2EtaHsGr4z7QXB9YUIkerafuFewJO', NULL, 2, NULL),
-(2, 'jemal bagashvili', 'user02@gmail.com', '$2y$10$c8n0Nq.zVoJ8b2/7Ss4che0S2EtaHsGr4z7QXB9YUIkerafuFewJO', '3Vvzvylt09dlUWjGH0TnJ7z1438rJ1M2zXyxtdvVMvEr1DDeBUY76QbHgg4oBQSLJaGxBpPJ8sI1iL3nFWVYr3s7IctpHTT2BxvaanNPxwYBDof90K3lB6YpmMnvrxPd', 2, NULL),
+(1, 'jondo jaani', 'jondo@gmail.com', '$2y$10$c8n0Nq.zVoJ8b2/7Ss4che0S2EtaHsGr4z7QXB9YUIkerafuFewJO', NULL, 2, NULL),
+(2, 'jemal bagashvili', 'jemala@gmail.com', '$2y$10$c8n0Nq.zVoJ8b2/7Ss4che0S2EtaHsGr4z7QXB9YUIkerafuFewJO', '3Vvzvylt09dlUWjGH0TnJ7z1438rJ1M2zXyxtdvVMvEr1DDeBUY76QbHgg4oBQSLJaGxBpPJ8sI1iL3nFWVYr3s7IctpHTT2BxvaanNPxwYBDof90K3lB6YpmMnvrxPd', 2, NULL),
 (3, 'Admin', 'admin@admin.com', '$2y$10$c8n0Nq.zVoJ8b2/7Ss4che0S2EtaHsGr4z7QXB9YUIkerafuFewJO', NULL, 1, NULL),
 (4, 'jiork', 'jiork@gmail.com', '$2y$10$c8n0Nq.zVoJ8b2/7Ss4che0S2EtaHsGr4z7QXB9YUIkerafuFewJO', NULL, 2, NULL),
-(5, 'sdfsdfsd sdfsdf', 'user03@gmail.com', '$2y$10$c8n0Nq.zVoJ8b2/7Ss4che0S2EtaHsGr4z7QXB9YUIkerafuFewJO', NULL, 2, NULL),
-(6, 'hg fgh fgh fgh', 'vndassb@admin.com', '$2y$10$c8n0Nq.zVoJ8b2/7Ss4che0S2EtaHsGr4z7QXB9YUIkerafuFewJO', '', 2, NULL),
-(7, 'werwe wer  yrtrtyrtrt', 'user04@gmail.com', '$2y$10$c8n0Nq.zVoJ8b2/7Ss4che0S2EtaHsGr4z7QXB9YUIkerafuFewJO', NULL, 2, NULL),
-(8, 'sdfsdf sdfdfyjhvbn ', 'user05@gmail.com', '$2y$10$c8n0Nq.zVoJ8b2/7Ss4che0S2EtaHsGr4z7QXB9YUIkerafuFewJO', NULL, 2, NULL),
+(5, 'sdfsdfsd sdfs df', 'sdf sdf sdf sdfsdf', 'sdf sdf sdfsdf sd', NULL, 2, NULL),
+(6, 'hg fgh fgh fgh', 'vndassb@admin.com', '$2y$10$sD3lwAppOxqSvy1lz1gN7O2hSQeq9he0U22FBQxuPTbQP.HRR8c/S', '', 2, NULL),
+(7, 'werwe wer     yrt rtyrt rt', 'f ghghfg h fgh fgh', 'sd dfdr sdf sdf sdf', NULL, 2, NULL),
+(8, 'sdf sdf sdf dfyj hvbn ', ' nbmmbnmjhkhj nb ghj gh', 'gh gbdsvgvsdf', NULL, 2, NULL),
 (9, 'gioh jull', 'jull@gmail.com', '$2y$10$c8n0Nq.zVoJ8b2/7Ss4che0S2EtaHsGr4z7QXB9YUIkerafuFewJO', NULL, 2, NULL),
 (10, 'tiaon', 'tiaon@gmail.com', '$2y$10$c8n0Nq.zVoJ8b2/7Ss4che0S2EtaHsGr4z7QXB9YUIkerafuFewJO', NULL, 2, NULL),
-(11, 'accusantium doloremque', 'accus@gmail.com', '$2y$10$c8n0Nq.zVoJ8b2/7Ss4che0S2EtaHsGr4z7QXB9YUIkerafuFewJO', NULL, 2, NULL),
-(12, 'ilia dzidzishvili', 'ilia.dzidzishvili@gmail.com', '$2y$10$c8n0Nq.zVoJ8b2/7Ss4che0S2EtaHsGr4z7QXB9YUIkerafuFewJO', NULL, 2, NULL);
+(11, 'accusantium doloremque', 'accus@gmail.com', '$2y$10$ZN8Tq2mx8TyUVxil9xZ3VuIa/5WTBKwPJ0RmH50r6pibTuRZ0us2i', NULL, 2, NULL),
+(12, 'ilia dzidzishvili', 'ilia.dzidzishvili@gmail.com', '$2y$10$4jEq9GLLhKyIyma7IVu7gOiYtFWE2SP2DBndEekDTncnqQAveXZja', NULL, 2, NULL);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

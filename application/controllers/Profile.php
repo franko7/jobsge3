@@ -203,11 +203,13 @@ class Profile extends CI_Controller {
                //else delete data to database and delete uploaded images
                if (!count($notUploadedFiles)){
                   $this->job->updateImages($jobid, $newFiles);
-                  // if current jobs initial price is freater then 0 remind user to activate it                  
-                  $this->session->set_flashdata('addJobResult', array('status' => true, 'message' => 
-                     $this->data['jobTypes'][$this->input->post('jobtype')-1]->initial_price > 0 ? lang('appSuccPay') : lang('appSucc')));
-                     // send email to subscribed users
+                  // if current jobs initial price is greater then 0 remind user to activate it and sen email to subscribed users
+                  if($this->data['jobTypes'][$this->input->post('jobtype')-1]->initial_price > 0){
+                     $this->session->set_flashdata('addJobResult', array('status' => true, 'message' => lang('appSuccPay')));
+                  }else{
                      $this->checkSubscriptions($jobid, $this->input->post('category'), $this->input->post('subcategory'));
+                     $this->session->set_flashdata('addJobResult', array('status' => true, 'message' => lang('appSucc')));
+                  }
                }else{
                   $this->job->deleteJob($jobid);
                   foreach($newFiles as $newFile)
@@ -366,9 +368,14 @@ class Profile extends CI_Controller {
                }
             }
             // Then record from DB
-            $this->job->deleteJob($id);
+            if($this->job->deleteJob($id)){
+               $this->session->set_flashdata('deleteJobResult', array('status' => true, 'message' => lang('delAppSucc')));
+            }else{
+               $this->session->set_flashdata('deleteJobResult', array('status' => false, 'message' => lang('delAppFail')));
+            }
          }
-      }      
+      }
+      return redirect('profile');
    }
 
 
@@ -470,6 +477,8 @@ class Profile extends CI_Controller {
                   // Activate application
                   $activationTime = $this->jobtype->getJobTypeById($this->job->getJobById($jobId)->job_type)->initial_period;
                   $this->job->activateJob($jobId, time() + $activationTime);
+                  // Application created, Send email to subscribed users
+                  $this->checkSubscriptions($jobId, $this->job->getJobById($jobId)->category_id, $this->job->getJobById($jobId)->subcategory_id);
                }
                $this->session->set_flashdata('transProcessResult', array('status' => true, 'message' => "Payment was successfully"));
                redirect('/profile');
@@ -672,7 +681,7 @@ class Profile extends CI_Controller {
             $this->load->library('email');
             $config = array ('mailtype' => 'html', 'charset' => 'utf-8', 'priority' => '1');
             $this->email->initialize($config);
-            $this->email->from('no-reply@afishnik.com', 'Afishnik.com');
+            $this->email->from('no-reply@afishnik.com', 'afishnik.com');
             $this->email->to($this->user->getUserdataById($subsc->user_id)->email);
             $this->email->subject('New application at afishnik.com');
             $data['category'] = $this->category->getCategoryById($category_id)->category_en;

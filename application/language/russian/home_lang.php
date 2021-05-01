@@ -100,6 +100,8 @@ $lang['send'] = "Послать";
 $lang['backToProfile'] = "Назад к профилю";
 $lang['renewApp'] = "Продлить Приложение";
 $lang['activateApp'] = "Активировать Приложение";
+$lang['delAppSucc'] = "Объявление успешно удалено";
+$lang['delAppFail'] = "Не удалось удалить объявление";
 
 //Tables
 $lang['title'] = "Названые";
