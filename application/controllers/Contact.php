@@ -11,8 +11,10 @@ class Contact extends CI_Controller {
 		$data['bgPath'] = base_url($this->config->item('bgImagesUploadConfig')['upload_path']);
 		$this->load->model('image');
 		$this->load->model('social');
+		$this->load->model('contactus');
 		$data['images'] = $this->image->getImageNames();
 		$data['socials'] = $this->social->getSocials();
+		$data['contacts'] = $this->contactus->getContacts();
 		$data['pageN'] = 3;
 		$this->load->library('form_validation');
 		$this->load->helper('security');

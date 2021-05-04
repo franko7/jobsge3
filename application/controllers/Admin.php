@@ -636,6 +636,36 @@ class Admin extends CI_Controller {
    }
 
 
+   public function contact(){
+      $data['pageN'] = 13;
+      $this->load->model('contactus');
+      if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST'){
+         $this->form_validation->set_rules('address_en', 'Address English', 'xss_clean');
+         $this->form_validation->set_rules('address_ru', 'Address Russian', 'xss_clean');
+         $this->form_validation->set_rules('email', 'Email', 'valid_email|xss_clean');
+         $this->form_validation->set_rules('phone', 'Phone', 'xss_clean');
+         $this->form_validation->set_rules('location', 'Location URL', 'valid_url|xss_clean');
+         if ($this->form_validation->run()) {
+            //if data saved set flash message
+            if($this->contactus->editContact(
+                  $this->input->post('address_en', true), 
+                  $this->input->post('address_ru', true),
+                  $this->input->post('email'),
+                  $this->input->post('phone', true),
+                  $this->input->post('location')
+               )){
+               $this->session->set_flashdata('contactusResult', array('status' => true, 'message' => "Contact details updated successfully"));
+               return redirect('admin/contact');
+            }else{
+               $this->session->set_flashdata('contactusResult', array('status' => false, 'message' => "Error updating Contact details"));
+            }
+         }
+      }
+      $data['contacts'] = $this->contactus->getContacts();
+      $this->load->view('admin/contact', $data);
+   }
+
+
    public function changepassword()
 	{
       $data['pageN'] = 20;
@@ -666,7 +696,6 @@ class Admin extends CI_Controller {
 		}
       return redirect('admin/changepassword');
 	}
-
 
       
    private function subCategoryValidation(){

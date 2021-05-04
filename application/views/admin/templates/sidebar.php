@@ -5,12 +5,12 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
          <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
          <!-- Dashboard -->
-         <li class="nav-item">
+         <!-- <li class="nav-item">
             <a href="<?php echo base_url('admin/dashboard');?>" class="nav-link <?php echo $pageN==1?'active':'';?>">
                <i class="fas fa-chart-line mr-1"></i>
                <p class="ml-1"> Dashboard </p>
             </a>
-         </li>
+         </li> -->
          <!-- Users -->
          <li class="nav-item">
             <a href="<?php echo base_url('admin/users');?>" class="nav-link <?php echo $pageN==2?'active':'';?>">
@@ -105,6 +105,13 @@
             <a href="<?php echo base_url('admin/aboutus');?>" class="nav-link <?php echo $pageN==12?'active':'';?>" class="nav-link">
                <i class="far fa-question-circle"></i>
                <p class="ml-1"> About us </p>
+            </a>
+         </li>
+          <!-- Contact us -->
+          <li class="nav-item">
+            <a href="<?php echo base_url('admin/contact');?>" class="nav-link <?php echo $pageN==13?'active':'';?>" class="nav-link">
+               <i class="fas fa-envelope-open-text"></i>
+               <p class="ml-1"> Contact us </p>
             </a>
          </li>
          <li class="nav-item">

@@ -30,27 +30,37 @@
                   <h4 class="m-b10"><?php echo lang('quickContact');?></h4>
                   <p><?php echo lang('useContact');?></p>
                   <ul class="no-margin">
-                     <li class="icon-bx-wraper left m-b30">
-                        <div class="icon-bx-xs border-1"> <a href="#" class="icon-cell"><i class="fas fa-map-marker-alt"></i></a> </div>
-                        <div class="icon-content">
-                           <h6 class="text-uppercase m-tb0 dez-tilte"><?php echo lang('address');?>:</h6>
-                           <p>123 West Street, Melbourne Victoria 3000 Australia</p>
-                        </div>
-                     </li>
-                     <li class="icon-bx-wraper left  m-b30">
-                        <div class="icon-bx-xs border-1"> <a href="#" class="icon-cell"><i class="far fa-envelope"></i></a> </div>
-                        <div class="icon-content">
-                           <h6 class="text-uppercase m-tb0 dez-tilte">Email:</h6>
-                           <p>info@example.com</p>
-                        </div>
-                     </li>
+
+                     <?php if ($contacts->{'addr_'.$this->lang->lang()}):?>
+                        <li class="icon-bx-wraper left m-b30">
+                           <div class="icon-bx-xs border-1"> <a href="#" class="icon-cell"><i class="fas fa-map-marker-alt"></i></a> </div>
+                           <div class="icon-content">
+                              <h6 class="text-uppercase m-tb0 dez-tilte"><?php echo lang('address');?>:</h6>
+                              <p><?php echo $contacts->{'addr_'.$this->lang->lang()};?></p>
+                           </div>
+                        </li>
+                     <?php endif;?>
+
+                     <?php if ($contacts->email):?>
+                        <li class="icon-bx-wraper left  m-b30">
+                           <div class="icon-bx-xs border-1"> <a href="#" class="icon-cell"><i class="far fa-envelope"></i></a> </div>
+                           <div class="icon-content">
+                              <h6 class="text-uppercase m-tb0 dez-tilte">Email:</h6>
+                              <p><?php echo $contacts->email;?></p>
+                           </div>
+                        </li>
+                     <?php endif;?>
+
+                  <?php if ($contacts->phone):?>
                      <li class="icon-bx-wraper left">
                         <div class="icon-bx-xs border-1"> <a href="#" class="icon-cell"><i class="fas fa-phone"></i></a> </div>
                         <div class="icon-content">
                            <h6 class="text-uppercase m-tb0 dez-tilte"><?php echo lang('phone');?></h6>
-                           <p>+61 3 8376 6284</p>
+                           <p><?php echo $contacts->phone;?></p>
                         </div>
                      </li>
+                  <?php endif;?>
+
                   </ul>
                   <div class="m-t20">
                      <ul class="dez-social-icon dez-social-icon-lg">
@@ -113,9 +123,11 @@
                   <?php echo form_close(); ?>
                </div>
             </div>
-            <div class="col-lg-12 col-md-12 d-lg-flex m-b30">
-               <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7086.275721032715!2d44.82700263026252!3d41.6900423965233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ska!2s!4v1620021637074!5m2!1ska!2s" class="align-self-stretch radius-sm" style="border:0; width:100%; min-height:350px;" allowfullscreen=""></iframe>
-            </div>
+            <?php if ($contacts->location):?>
+               <div class="col-lg-12 col-md-12 d-lg-flex m-b30">
+                  <iframe src="<?php echo $contacts->location;?>" class="align-self-stretch radius-sm" style="border:0; width:100%; min-height:350px;" allowfullscreen=""></iframe>
+               </div>
+            <?php endif;?>
          </div>
       </div>
    </div>
