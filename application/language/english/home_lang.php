@@ -59,6 +59,7 @@ $lang['changePassword']= "Change Password";
 $lang['oldPassword']= "Old Password";
 $lang['newPassword']= "New Password";
 $lang['updPassword']= "Update Password";
+$lang['invOldPwd']= "Invalid old password";
 
 // Profile
 $lang['profile'] = "Profile";
@@ -103,6 +104,15 @@ $lang['activateApp'] = "Activate Application";
 $lang['delAppSucc'] = "Application deleted successfully";
 $lang['delAppFail'] = "Could not delete application";
 
+//Contact
+$lang['quickContact'] = "Quick Contact";
+$lang['useContact'] = "If you have any questions simply use the following contact details.";
+$lang['sendMsgUs'] = "Send Message Us";
+$lang['yourName'] = "Your Name";
+$lang['yourEmail'] = "Your Email Address";
+$lang['yourMessage'] = "Your Message...";
+$lang['submit'] = "Submit";
+
 //Tables
 $lang['title'] = "Title";
 $lang['expiryDate'] = "Expiry Date";
@@ -118,5 +128,9 @@ $lang['close'] = "Close";
 // Flash messages
 $lang['appSucc'] = "Application created successfully";
 $lang['appSuccPay'] = "Application has been created, but it is not active. Don't forget to activate it.";
+$lang['errAddApp'] = "Error adding application.";
+$lang['appEditSucc'] = "Application has been edited successfully.";
+$lang['paySucc'] = "Payment was successful.";
+
 
 

@@ -55,10 +55,11 @@ $lang['resetPassword'] = "Сброс пароля";
 $lang['IAgree']         = "Я согласен";
 $lang['termsConditions'] = "условия использования";
 $lang['signOut'] = "Выйти";
-$lang['changePassword']= "Измени пароль";
-$lang['oldPassword']= "Старый пароль";
-$lang['newPassword']= "Новый пароль";
-$lang['updPassword']= "Обновить пароль";
+$lang['changePassword'] = "Измени пароль";
+$lang['oldPassword'] = "Старый пароль";
+$lang['newPassword'] = "Новый пароль";
+$lang['updPassword'] = "Обновить пароль";
+$lang['invOldPwd'] = "Неверный старый пароль";
 
 // Profile
 $lang['profile'] = "Профиль";
@@ -103,6 +104,15 @@ $lang['activateApp'] = "Активировать Приложение";
 $lang['delAppSucc'] = "Объявление успешно удалено";
 $lang['delAppFail'] = "Не удалось удалить объявление";
 
+//Contact
+$lang['quickContact'] = "Быстрый контакт";
+$lang['useContact'] = "Если у вас есть вопросы, используйте следующие контактные данные.";
+$lang['sendMsgUs'] = "Отправьте нам сообщение";
+$lang['yourName'] = "Ваша имя";
+$lang['yourEmail'] = "Ваша электронная почта";
+$lang['yourMessage'] = "Ваше сообщение...";
+$lang['submit'] = "Отправит";
+
 //Tables
 $lang['title'] = "Названые";
 $lang['expiryDate'] = "Дата срока";
@@ -116,5 +126,9 @@ $lang['delete'] = "Удалить";
 $lang['close'] = "Закрыть";
 
 // Flash messages
-$lang['appSucc'] = "Application added successfully";
-$lang['appSuccPay'] = "Application added successfully, but it is not active. <a href='%1$'>click here</a> to activate it.";
+$lang['appSucc'] = "Объявление успешно добавлено";
+$lang['appSuccPay'] = "Объявление создано, но неактивно. Не забудьте активировать его.";
+$lang['errAddApp'] = "Ошибка при добавлении объявление.";
+$lang['appEditSucc'] = "Объявление успешно отредактирована.";
+$lang['paySucc'] = "Оплата прошла успешно.";
+

@@ -47,8 +47,8 @@
                                           <?php endif;?>
                                        <?php endforeach; ?>
                                     </select>
-                                    <small style="color:red"><?php echo form_error('jobtype'); ?></small>
-                                    <input type="hidden" name="hjobtype" id="hjobtype">
+                                    <small style="color:red"><?php echo form_error('jobtype');?></small>
+                                    <input type="hidden" name="hjobtype" id="hjobtype" value="<?php echo set_value('hjobtype');?>">
                                  </div>
                               </div>                       
                               <div class="col-lg-6 col-md-6"><!-- category -->
@@ -140,13 +140,12 @@
                                        <div class="tab-content p-2" id="myTabContent">
                                           <div class="tab-pane fade show active" id="smtxen" role="tabpanel" aria-labelledby="smtxen-tab">
                                              <input type="text" name="shorttexten" class="form-control" placeholder="<?php echo lang('shortTxtEng')?>" value="<?php echo set_value('shorttexten');?>">
-                                             <small style="color:red"><?php echo form_error('shorttexten'); ?></small>
                                           </div>
                                           <div class="tab-pane fade" id="smtxru" role="tabpanel" aria-labelledby="smtxru-tab">
-                                             <input type="text" name="shorttextru" class="form-control" placeholder="<?php echo lang('shortTxtRus')?>" value="<?php echo set_value('shorttextru');?>">
-                                             <small style="color:red"><?php echo form_error('shorttexten'); ?></small>
+                                             <input type="text" name="shorttextru" class="form-control" placeholder="<?php echo lang('shortTxtRus')?>" value="<?php echo set_value('shorttextru');?>">                                             
                                           </div>
                                        </div>
+                                       <small style="color:red"><?php echo form_error('shorttexten'); ?></small>
                                     </div>                              
                                  </div>
                               </div>
@@ -165,13 +164,12 @@
                                        <div class="tab-content p-2" id="myTabContent">
                                           <div class="tab-pane fade show active" id="lgtxen" role="tabpanel" aria-labelledby="lgtxen-tab">
                                              <textarea name="largetexten" class="form-control summernote" placeholder="<?php echo lang('largeTxtEng')?>"> <?php echo set_value('largetexten');?> </textarea>
-                                             <small style="color:red"><?php echo form_error('largetexten'); ?></small>
                                           </div>
                                           <div class="tab-pane fade" id="lgtxru" role="tabpanel" aria-labelledby="lgtxru-tab">
-                                             <textarea name="largetextru" class="form-control summernote" placeholder="<?php echo lang('largeTxtRus')?>"> <?php echo set_value('largetextru');?> </textarea>
-                                             <small style="color:red"><?php echo form_error('largetextru'); ?></small>
+                                             <textarea name="largetextru" class="form-control summernote" placeholder="<?php echo lang('largeTxtRus')?>"> <?php echo set_value('largetextru');?> </textarea>                                             
                                           </div>
                                        </div>
+                                       <small style="color:red"><?php echo form_error('largetexten'); ?></small>
                                     </div>                              
                                  </div>
                               </div>
@@ -234,7 +232,7 @@
          $('#fullnamewrapper').addClass('col-lg-12');
          $('.appbuttons').addClass('displaynone');
          $('#formwrapper').removeClass('displaynone');
-         // $('#hjobtype').val(1);
+         $('#hjobtype').val(1);
       });
       $('#addSGApp').click(function(){
          $('.appbuttons').addClass('displaynone');
@@ -242,6 +240,9 @@
          $('#images4').removeClass('displaynone');
          $('#hjobtype').val($('#jobtype').val());
       });
+
+      if ($('#hjobtype').val()>1) $('#images4').removeClass('displaynone');
+
       // getInitialPrice($('#jobtype').val());
       getSubcategories($('#category').val());
 

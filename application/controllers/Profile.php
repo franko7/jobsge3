@@ -91,6 +91,7 @@ class Profile extends CI_Controller {
       $this->data['categories'] = $this->category->getCategories();
       
       if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST'){
+         
          $this->form_validation->set_rules('fullname', 'Full name', 'trim|required|xss_clean|min_length[2]|max_length[200]');
          $this->form_validation->set_rules('category', 'Category', 'required|integer');
          $this->form_validation->set_rules('subcategory', 'Subcategory', 'required|integer|greater_than[0]');
@@ -181,7 +182,7 @@ class Profile extends CI_Controller {
                $notUploadedFiles = array();
                $uploadFolder = $this->config->item('uploadFolder');
                //get numbers of files to be uploaded
-               $images_count = $this->input->post('hjobtype')==1 ? 1 : 5;
+               $images_count = 5; //$images_count = $this->input->post('hjobtype')==1 ? 1 : 5;
                for ($i=1; $i<=$images_count; $i++){                  
                   $filename = 'JOB'.str_repeat('0', 7-strlen($jobid)).$jobid.$i;
                   $config = $this->config->item('fileUploadConfig');
@@ -214,10 +215,10 @@ class Profile extends CI_Controller {
                   $this->job->deleteJob($jobid);
                   foreach($newFiles as $newFile)
                      unlink($uploadFolder . $newFile);
-                  $this->session->set_flashdata('addJobResult', array('status' => false, 'message' => "Error adding application"));
+                  $this->session->set_flashdata('addJobResult', array('status' => false, 'message' => lang('errAddApp')));
                }
             }else{
-               $this->session->set_flashdata('addJobResult', array('status' => false, 'message' => "Error adding application"));
+               $this->session->set_flashdata('addJobResult', array('status' => false, 'message' => lang('errAddApp')));
             }
             return redirect('profile/myjobs');
          }
@@ -341,9 +342,9 @@ class Profile extends CI_Controller {
                   //if there is any new files, update file names in database
                   if (count($newFiles))
                      $this->job->updateImages($id, $newFiles);                  
-                  $this->session->set_flashdata('editJobResult', array('status' => true, 'message' => "Application has been edited successfully"));
+                  $this->session->set_flashdata('editJobResult', array('status' => true, 'message' => lang('appEditSucc')));
                }else{
-                  $this->session->set_flashdata('editJobResult', array('status' => false, 'message' => "Error editing job"));
+                  $this->session->set_flashdata('editJobResult', array('status' => false, 'message' => lang('errAddApp')));
                }
                return redirect('profile/myjobs');
             }
@@ -480,7 +481,7 @@ class Profile extends CI_Controller {
                   // Application created, Send email to subscribed users
                   $this->checkSubscriptions($jobId, $this->job->getJobById($jobId)->category_id, $this->job->getJobById($jobId)->subcategory_id);
                }
-               $this->session->set_flashdata('transProcessResult', array('status' => true, 'message' => "Payment was successfully"));
+               $this->session->set_flashdata('transProcessResult', array('status' => true, 'message' => lang('paySucc')));
                redirect('/profile');
             }else{return redirect('/profile');} // transaction already processed          
          }else{return redirect('/profile');} // transaction does not contain SUBJECT & AMT data
@@ -555,7 +556,7 @@ class Profile extends CI_Controller {
 				}
 			}
 			else{
-				$this->session->set_flashdata('profPwdChng', array('status' => false, 'message' => "Invalid old password"));
+				$this->session->set_flashdata('profPwdChng', array('status' => false, 'message' => lang('invOldPwd')));
 			}
 		}
 		$this->changepassword();

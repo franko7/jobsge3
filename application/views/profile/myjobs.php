@@ -55,7 +55,7 @@
                         </div>
                      <?php endif; ?>
                      <!-- end messages -->
-                     <?php if(count($myJobs)): ?>                     
+                     <?php if(count($myJobs)): ?>
                         <table class="table-responsive">
                            <thead>
                               <tr>
