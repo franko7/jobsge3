@@ -16,12 +16,13 @@ $lang['openListings'] = "Open Listings";
 $lang['JobTitleKeywordPhrase'] = "Job Title, Keyword or Phrase";
 $lang['selectLocation'] = "Select Location";
 $lang['search'] = "Search";
+$lang['showMore'] = "Show more";
 
 // Jobs
 $lang['browseJobsList'] = "Browse Jobs List";
 $lang['found']          = "Found";
 $lang['applications']   = "Applications";
-$lang['noJobsWereFound'] = "No Jobs Were Found";
+$lang['noJobsWereFound'] = "No Jobs Were Found in This Category";
 $lang['details']        = "Details";
 
 // Details
@@ -59,7 +60,10 @@ $lang['changePassword']= "Change Password";
 $lang['oldPassword']= "Old Password";
 $lang['newPassword']= "New Password";
 $lang['updPassword']= "Update Password";
+$lang['updProfile']= "Update Profile";
 $lang['invOldPwd']= "Invalid old password";
+$lang['dbErr']= "Database error";
+$lang['regSucc']= "You have successfully registered, please log in.";
 
 // Profile
 $lang['profile'] = "Profile";
@@ -101,8 +105,6 @@ $lang['send'] = "Send";
 $lang['backToProfile'] = "Back to Profile";
 $lang['renewApp'] = "Renew Application";
 $lang['activateApp'] = "Activate Application";
-$lang['delAppSucc'] = "Application deleted successfully";
-$lang['delAppFail'] = "Could not delete application";
 
 //Contact
 $lang['quickContact'] = "Quick Contact";
@@ -112,6 +114,11 @@ $lang['yourName'] = "Your Name";
 $lang['yourEmail'] = "Your Email Address";
 $lang['yourMessage'] = "Your Message...";
 $lang['submit'] = "Submit";
+$lang['messageSent'] = "Email has been sent";
+$lang['messageNotSent'] = "Could not send email";
+
+//Contact
+$lang['termsAndCond'] = "Terms and Conditions";
 
 //Tables
 $lang['title'] = "Title";
@@ -129,8 +136,9 @@ $lang['close'] = "Close";
 $lang['appSucc'] = "Application created successfully";
 $lang['appSuccPay'] = "Application has been created, but it is not active. Don't forget to activate it.";
 $lang['errAddApp'] = "Error adding application.";
-$lang['appEditSucc'] = "Application has been edited successfully.";
+$lang['appEditSucc'] = "Application has been updated successfully.";
 $lang['paySucc'] = "Payment was successful.";
-
-
-
+$lang['delAppSucc'] = "Application deleted successfully";
+$lang['delAppFail'] = "Could not delete application";
+$lang['profUpdSucc'] = "Profile updated successfully";
+$lang['errUpdProf'] = "Error updating profile";

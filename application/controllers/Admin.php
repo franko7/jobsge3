@@ -297,10 +297,10 @@ class Admin extends CI_Controller {
 	{
       $data['pageN'] = 99;
       if($id && filter_var($id, FILTER_VALIDATE_INT)){
-         $this->load->model('category');
+         $this->load->model(['category', 'subcategory']);
          $category = $this->category->getCategoryById($id);
          if ($category){
-            if($this->category->deleteCategory($id)){
+            if($this->category->deleteCategory($id) && $this->subcategory->deleteSubcategoryByCategoryId($id)){
                unlink($this->config->item('categoryIconUploadConfig')['upload_path'] . $category->filename);
                $this->session->set_flashdata('flashMsg', array('status' => true, 'message' => "job added successfully"));
             }else{
@@ -664,6 +664,33 @@ class Admin extends CI_Controller {
       $data['contacts'] = $this->contactus->getContacts();
       $this->load->view('admin/contact', $data);
    }
+
+
+   public function terms(){
+      $data['pageN'] = 14;
+      $this->load->model('term');
+      if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST'){
+         $this->form_validation->set_rules('terms_en', 'Terms in English', 'xss_clean|required');
+         $this->form_validation->set_rules('terms_ru', 'Terms in Russian', 'xss_clean|required');
+         if ($this->form_validation->run()) {
+            //if data saved set flash message
+            if($this->term->editTerms($this->input->post('terms_en', true), $this->input->post('terms_ru', true))){
+               $this->session->set_flashdata('termsResult', array('status' => true, 'message' => "Terms updated successfully"));
+               return redirect('admin/terms');
+            }else{
+               $this->session->set_flashdata('termsResult', array('status' => false, 'message' => "Error updating Terms"));
+            }
+         }
+      }
+      $data['terms'] = $this->term->getTerms();
+      $this->load->view('admin/terms', $data);
+   }
+
+
+
+
+
+
 
 
    public function changepassword()

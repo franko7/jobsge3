@@ -33,4 +33,8 @@ class subcategory extends CI_Model
 	public function deleteSubcategory($id){
 		return $this->db->where('id', $id)->delete('subcategories');
 	}
+
+	public function deleteSubcategoryByCategoryId($id){
+		return $this->db->where('category_id', $id)->delete('subcategories');
+	}
 }

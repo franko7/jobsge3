@@ -48,30 +48,33 @@
             <h5 class="font-weight-700 pull-left text-uppercase">2269 Applications Found</h5>
          </div> -->
          <ul class="post-job-bx browse-job-grid row">
-            <?php foreach($categoriesCount as $cc): ?>
+            <?php foreach($categories as $cat): ?>
                <li class="col-lg-4 col-md-6 d-flex">                     
                   <div class="category-image">
-                     <img src="<?php echo $iconPath.$categories[$cc['category']-1]->filename;?>" alt="<?php echo $categories[$cc['category']-1]->category_en;?>">
+                     <img src="<?php echo $iconPath.$cat['filename'];?>" alt="<?php echo $cat['category_en'];?>">
                   </div>
                   <div class="cat-subcat">
                      <h5 class="d-inline">
-                        <a href="<?php echo site_url('jobs/category/'.$categories[$cc['category']-1]->id.'/'.strtolower(preg_replace('/[^A-Za-z0-9-]+/', '-',$categories[$cc['category']-1]->category_en))); ?>">
-                           <?php echo $categories[$cc['category']-1]->{'category_'.$this->lang->lang()};?>                        
+                        <a href="<?php echo site_url('jobs/category/'.$cat['id'].'/'.strtolower(preg_replace('/[^A-Za-z0-9-]+/', '-', $cat['category_en']))); ?>">
+                           <?php echo $cat['category_'.$this->lang->lang()];?>                        
                         </a>
                      </h5>
-                     <small class="text-muted"><?php echo ' - '. $cc['num_jobs']; ?></small>                        
-                     <ul>
-                        <?php foreach($subcategoriesCount as $scc): ?>
-                           <?php if($scc['category'] == $cc['category']): ?>
-                              <li>
-                                 <a href="<?php echo  site_url('jobs/subcategory/'.$subcategories[$scc['subcategory']-1]->id.'/'.strtolower(preg_replace('/[^A-Za-z0-9-]+/', '-',$subcategories[$scc['subcategory']-1]->subcategory_en))); ?>">
-                                    <?php echo $subcategories[$scc['subcategory']-1]->{'subcategory_'.$this->lang->lang()}; ?>
-                                 </a>
-                                 <small class="text-muted"><?php echo ' - '. $scc['num_jobs']; ?></small>  
-                              </li>
-                           <?php endif; ?>
+                     <small class="text-muted"><?php echo ' - '. $cat['c_count']; ?></small>                        
+                     <ul class="content hideContent">
+                        <?php foreach($cat['subcategories'] as $scat): ?>
+                           <li>
+                              <a href="<?php echo  site_url('jobs/subcategory/'.$scat['sc_id'].'/'.strtolower(preg_replace('/[^A-Za-z0-9-]+/', '-', $scat['sc_en']))); ?>">
+                                 <?php echo $scat['sc_'.$this->lang->lang()]; ?>
+                              </a>
+                              <small class="text-muted"><?php echo ' - '. $scat['sc_count']; ?></small>  
+                           </li>                        
                         <?php endforeach; ?>
                      </ul>
+                     <?php if(count($cat['subcategories'])>5): ?>
+                        <div class="show-more">
+                           <button type="button" class="showmore"><?php echo lang('showMore')?> <i class="fas fa-angle-down ml-1"></i></button>
+                        </div>
+                     <?php endif; ?>
                   </div>
                </li>
             <?php endforeach; ?>                      
@@ -80,5 +83,17 @@
    </div>
 </div>
 <!-- Content END-->
+<script>
+   $(".show-more button").on("click", function() {
+      
+      var $this = $(this); 
+      var $content = $this.parent().prev("ul .content");
+      console.log($content);
+   
+         $content.removeClass("hideContent", 400);
+         $content.addClass("showContent", 400);
+         $this.parent().css( "display", "none");
 
+   });
+</script>
 <?php $this->load->view('templates/footer');?>

@@ -53,7 +53,7 @@
                         </div>
                         <div class="form-check form-group">
                            <input class="form-check-input position-static" type="checkbox" name="terms" value="termscb">
-                           <?php echo lang('IAgree')?> <a href="#"><?php echo lang('termsConditions')?></a>.
+                           <?php echo lang('IAgree')?> <a href="<?php echo site_url('terms'); ?>"><?php echo lang('termsConditions')?></a>.
                            <small style="color:red"><?php echo form_error('terms'); ?></small>
                         </div>
                         <div class="text-left">

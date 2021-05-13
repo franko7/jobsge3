@@ -5,16 +5,32 @@ class Home extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->model('job');
-		$this->load->model('category');
-		$this->load->model('subcategory');
-		$this->load->model('location');
-		$this->load->model('social');
+		$this->load->model(['job', 'category', 'subcategory', 'location', 'social']);
 		$this->lang->load('home');
-		$data['categories'] = $this->category->getCategories();
-		$data['subcategories'] = $this->subcategory->getSubcategories();
-		$data['subcategoriesCount'] = $this->job->getCountByCatScat();
-		$data['categoriesCount'] = $this->job->getCountByCat();
+		$categories = $this->category->getCategories();
+		$subcategories = $this->subcategory->getSubcategories();
+		$categoriesCount = $this->job->getCountByCat();
+		$datasubcategoriesCount = $this->job->getCountByCatScat();		
+		$cat = array();
+		foreach($categories as $c){
+			$cat[$c->id] = array('id'=>$c->id, 'category_en'=>$c->category_en, 'category_ru'=>$c->category_ru , 'filename'=>$c->filename, 'c_count'=>0);
+			// $cat[$c->id]['id'] = $c->id;
+			// $cat[$c->id]['category_en'] = $c->category_en;
+			// $cat[$c->id]['category_ru'] = $c->category_ru;
+			// $cat[$c->id]['filename'] = $c->filename;
+			// $cat[$c->id]['c_count'] = 0;
+		}
+		foreach($subcategories as $sc){
+			$cat[$sc->category_id]['subcategories'][$sc->id] = array('sc_id'=>$sc->id, 'sc_en'=>$sc->subcategory_en, 'sc_ru'=>$sc->subcategory_ru, 'sc_count'=>0);
+		}
+		foreach ($categoriesCount as $cc){
+			$cat[$cc['category']]['c_count'] = $cc['num_jobs'];
+		}
+		foreach ($datasubcategoriesCount as $scc){
+			$cat[$scc['category']]['subcategories'][$scc['subcategory']]['sc_count'] = $scc['num_jobs'];
+		}
+		
+		$data['categories'] = $cat;
 		$data['locations'] = $this->location->getLocations();
 		$data['socials'] = $this->social->getSocials();
 		$this->load->config('appconfig');

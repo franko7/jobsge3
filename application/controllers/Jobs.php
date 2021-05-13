@@ -7,12 +7,10 @@ class Jobs extends CI_Controller {
 
    public function __construct(){
       parent::__construct();
-      $this->load->model('job');
+      $this->load->model(['job', 'image', 'social']);
       $this->load->library('pagination');
       $this->load->config('appconfig');
       $this->lang->load('home');
-      $this->load->model('image');
-      $this->load->model('social');
       $this->data['images'] = $this->image->getImageNames();
       $this->data['socials'] = $this->social->getSocials();
       $this->data['uploadFolder'] = $this->config->item('uploadFolder');
@@ -22,7 +20,7 @@ class Jobs extends CI_Controller {
 
    public function category($id, $slug='')
 	{
-      $this->load->model('location');
+      $this->load->model(['location', 'category']);
 		$this->data['locations'] = $this->location->getLocations();
       if($id && filter_var($id, FILTER_VALIDATE_INT)){
          $total_rows = $this->job->getActiveJobsCountByCategoryId($id);
@@ -34,6 +32,8 @@ class Jobs extends CI_Controller {
          $this->data['page'] = $page;
          $this->data['jobs'] = $this->job->getActiveJobsByCategoryId($id, $config["per_page"], $page);
          $this->data['links'] = $this->pagination->create_links();
+         $category = $this->category->getCategoryById($id);
+         $this->data['title'] = $category->{'category_'.$this->lang->lang()};
          $this->data['numSearchResult'] = $total_rows;
          $this->load->view('jobs', $this->data);
       }else{return redirect ('/');}
@@ -41,7 +41,7 @@ class Jobs extends CI_Controller {
 
    public function subcategory($id, $slug='')
 	{
-      $this->load->model('location');
+      $this->load->model(['location', 'subcategory']);
 		$this->data['locations'] = $this->location->getLocations();
       if($id && filter_var($id, FILTER_VALIDATE_INT)){
          $total_rows = $this->job->getActiveJobsCountBySubcategoryId($id);
@@ -53,6 +53,8 @@ class Jobs extends CI_Controller {
          $this->data['page'] = $page;
          $this->data['jobs'] = $this->job->getActiveJobsBySubcategoryId($id, $config["per_page"], $page);
          $this->data['links'] = $this->pagination->create_links();
+         $subcategory = $this->subcategory->getSubcategoryById($id);
+         $this->data['title'] = $subcategory->{'subcategory_'.$this->lang->lang()};
          $this->data['numSearchResult'] = $total_rows;
          $this->load->view('jobs', $this->data);
       }else{return redirect ('/');}
@@ -100,10 +102,10 @@ class Jobs extends CI_Controller {
       $this->load->helper("security");
       $this->form_validation->set_data($_GET);
       $this->form_validation->set_rules('keyword', 'Keyword', 'xss_clean|max_length[100]');
-      $this->form_validation->set_rules('location', 'Location', 'required|integer');
+      if ($this->input->get('location')) $this->form_validation->set_rules('location', 'Location', 'required|integer');
       if ($this->form_validation->run()) {
          $keyword = $this->input->get('keyword', true);
-         $location = $this->input->get('location', true);
+         $location = $this->input->get('location', true)?$this->input->get('location', true):'';
          $total_rows = $this->job->getActiveJobsCountByKeywordLocationId($keyword, $location);
          $config = $this->config->item('searchPaginationConfig');
          $config['suffix'] =  $this->input->get('keyword')? '?'.http_build_query($_GET, '', "&") : '?keyword=&location='.$location;
@@ -123,11 +125,13 @@ class Jobs extends CI_Controller {
 
    public function job($id, $slug){
       if($id && filter_var($id, FILTER_VALIDATE_INT)){
-         $this->data['jobDetails'] = $this->job->getJobById($id);
-         if($this->data['jobDetails']){
+         $job = $this->job->getJobById($id);
+         $this->data['jobDetails'] = $job;
+         if($job){
             $this->trackViews($id);
             $this->load->model('rating');
-            $this->data['usersRate'] = $this->rating->getCurrentUsersRates($id, $this->getUserIP());            
+            $this->data['usersRate'] = $this->rating->getCurrentUsersRates($id, $this->getUserIP());
+            $this->data['title'] = $job->{'shorttext_'.$this->lang->lang()}?$job->{'shorttext_'.$this->lang->lang()}:$job->shorttext_en;
             $this->load->view('jobdetails', $this->data);
          }else{return redirect ('/');}         
       }else{return redirect ('/');}
@@ -141,53 +145,47 @@ class Jobs extends CI_Controller {
       // $jobId = $postData['jobId'];
       $stars = $_POST['star'];
       $jobId = $_POST['jobId'];
-      $this->load->model('rating');
-      $this->rating->addRating($jobId, $this->getUserIP(), $stars);
+      $job = $this->job->getJobById($jobId);
+      if($job && $job->status && $job->expiring_at>time()){
+         $this->load->model('rating');
+         $this->rating->addRating($jobId, $this->getUserIP(), $stars);
+      }
       echo json_encode(null);
 	}
 
-
+   
    private function getUserIP() {
       $ipaddress = '';
       if (isset($_SERVER['HTTP_CLIENT_IP']))
-         $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+      $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
       else if(isset($_SERVER['HTTP_X_FORWARDED_FOR']))
-         $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+      $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
       else if(isset($_SERVER['HTTP_X_FORWARDED']))
-         $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+      $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
       else if(isset($_SERVER['HTTP_X_CLUSTER_CLIENT_IP']))
-         $ipaddress = $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'];
+      $ipaddress = $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'];
       else if(isset($_SERVER['HTTP_FORWARDED_FOR']))
-         $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+      $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
       else if(isset($_SERVER['HTTP_FORWARDED']))
-         $ipaddress = $_SERVER['HTTP_FORWARDED'];
+      $ipaddress = $_SERVER['HTTP_FORWARDED'];
       else if(isset($_SERVER['REMOTE_ADDR']))
-         $ipaddress = $_SERVER['REMOTE_ADDR'];
+      $ipaddress = $_SERVER['REMOTE_ADDR'];
       else
-         $ipaddress = 'UNKNOWN';
+      $ipaddress = 'UNKNOWN';
       return $ipaddress;
    }
-
-
+   
+   
    private function trackViews($jobid){
-      $this->load->model('pageview');
-      // if visists at specific job from specific ip in allowed period is less then allowed count
-      if ($this->pageview->countLastViews($jobid, $this->getUserIP(), $this->config->item('lastVisitsPeriod')) < $this->config->item('lastPeriodAllowedVisitCount'))
-         $this->pageview->addPageView($jobid, $this->getUserIP());
+      $job = $this->job->getJobById($jobid);
+      if($job && $job->status && $job->expiring_at>time()){
+         $this->load->model('pageview');
+         // if visists at specific job from specific ip in allowed period is less then allowed count
+         if ($this->pageview->countLastViews($jobid, $this->getUserIP(), $this->config->item('lastVisitsPeriod')) < $this->config->item('lastPeriodAllowedVisitCount'))
+            $this->pageview->addPageView($jobid, $this->getUserIP());
+      }
    }
 
-   public function test()
-	{
-      $this->load->model('category');
-      var_dump($this->category->test());
-      
-	}
-   public function testtest()
-	{
-      $this->load->model('job');
-      var_dump($this->job->getActiveJobsByKeywordLocation('', 0, 1000, 0));
-      
-	}
 }
 
 

@@ -95,10 +95,10 @@ class Profile extends CI_Controller {
          $this->form_validation->set_rules('fullname', 'Full name', 'trim|required|xss_clean|min_length[2]|max_length[200]');
          $this->form_validation->set_rules('category', 'Category', 'required|integer');
          $this->form_validation->set_rules('subcategory', 'Subcategory', 'required|integer|greater_than[0]');
-         $this->form_validation->set_rules('jobtype', 'Job type', 'required|integer|greater_than[0]|less_than['.(count($this->data['jobTypes'])+1).']');
+         $this->form_validation->set_rules('hjobtype', 'Job type', 'required|integer|greater_than[0]|less_than['.(count($this->data['jobTypes'])+1).']');
          $this->form_validation->set_rules('phone', 'Phone', 'trim|required|xss_clean');
          $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|xss_clean|min_length[5]|max_length[100]');
-         $this->form_validation->set_rules('website', 'Website', 'trim|required|valid_url|xss_clean|min_length[5]|max_length[200]');
+         $this->form_validation->set_rules('website', 'Website', 'trim|valid_url|xss_clean|min_length[5]|max_length[200]');
          $this->form_validation->set_rules('location', 'Location', 'required|integer');
          $this->form_validation->set_rules('zip', 'Zip code', 'alpha_dash|required|xss_clean');
          $this->form_validation->set_rules('address', 'Address', 'trim|required|xss_clean|min_length[4]|max_length[200]');
@@ -115,28 +115,12 @@ class Profile extends CI_Controller {
          if (empty($_FILES['file1']['name'])){
             $this->form_validation->set_rules('file1', 'Image', 'required');
          }
-         // if selected jobtype has initial_price
-         //$appPrice = $this->data['jobTypes'][$this->input->post('jobtype')-1]->initial_price;
-
-         // if($appPrice > 0){
-         //    if($this->input->post('paypaltoken')){
-         //       // Validate token ?
-         //    }
-         //    else{
-         //       $year = date("Y");
-         //       $this->form_validation->set_rules('cardholder', 'Card holder', 'trim|required');
-         //       $this->form_validation->set_rules('cardnumber', 'Card number', 'trim|required|numeric');
-         //       $this->form_validation->set_rules('cardmonth', 'Card expiration month', 'required|integer|greater_than[0]|less_than[13]');
-         //       $this->form_validation->set_rules('cardyear', 'Card expiration year', 'required|integer|greater_than['.($year-1).']|less_than['.($year+11).']');
-         //       $this->form_validation->set_rules('cardcvv', 'Card CVV number', 'trim|required|numeric|min_length[3]|max_length[4]');
-         //    }
-         // }
 
          //if validation passed save data to db
          if ($this->form_validation->run()) {
             $jobid = $this->job->addJob(
                $this->session->userdata('user_id'),
-               $this->input->post('jobtype'),
+               $this->input->post('hjobtype'),
                $this->input->post('fullname', true),
                $this->input->post('phone', true),
                $this->input->post('email', true),
@@ -156,24 +140,6 @@ class Profile extends CI_Controller {
                time() + $this->data['jobTypes'][$this->input->post('jobtype')-1]->initial_period,
                $this->data['jobTypes'][$this->input->post('jobtype')-1]->initial_price > 0 ? 0 : 1 //set job status 0 if it is paid app, otherwise 1
             );
-
-            //if either card data or paypal data is present save data to database
-            // if($jobid && $this->data['jobTypes'][$this->input->post('hjobtype')-1]->initial_price > 0){
-            //    $this->load->model('payment');
-            //    if($this->input->post('paypaltoken')){
-            //       $this->payment->addPPPayment(
-            //          $jobid, 
-            //          $this->input->post('paypaltoken'));
-            //    }else{
-            //       $cardmonth = $this->input->post('cardmonth')<10?'0'.$this->input->post('cardmonth'):$this->input->post('cardmonth');
-            //       $this->payment->addCCPayment(
-            //          $jobid, 
-            //          $this->input->post('cardholder', true), 
-            //          $this->input->post('cardnumber'), 
-            //          $cardmonth . '/' . $this->input->post('cardyear'), 
-            //          $this->input->post('cardcvv', true));
-            //    }
-            // }
             
             //if data saved try to upload images
             if($jobid){
@@ -204,9 +170,10 @@ class Profile extends CI_Controller {
                //else delete data to database and delete uploaded images
                if (!count($notUploadedFiles)){
                   $this->job->updateImages($jobid, $newFiles);
-                  // if current jobs initial price is greater then 0 remind user to activate it and sen email to subscribed users
+                  // if current jobs initial price is greater then 0 remind user to activate it and send email to subscribed users
                   if($this->data['jobTypes'][$this->input->post('jobtype')-1]->initial_price > 0){
                      $this->session->set_flashdata('addJobResult', array('status' => true, 'message' => lang('appSuccPay')));
+                     return redirect('profile/renewjob/'.$jobid);
                   }else{
                      $this->checkSubscriptions($jobid, $this->input->post('category'), $this->input->post('subcategory'));
                      $this->session->set_flashdata('addJobResult', array('status' => true, 'message' => lang('appSucc')));
@@ -228,10 +195,7 @@ class Profile extends CI_Controller {
 
    public function editjob($id){
       if($id && filter_var($id, FILTER_VALIDATE_INT)){
-         $this->load->model('jobtype');
-         $this->load->model('location');
-         $this->load->model('category');
-         $this->load->model('subcategory');
+         $this->load->model(['jobtype', 'location', 'category', 'subcategory']);
          $this->data['jobTypes'] = $this->jobtype->getJobTypes();
          $this->data['locations'] = $this->location->getLocations();
          $this->data['categories'] = $this->category->getCategories();
@@ -243,7 +207,7 @@ class Profile extends CI_Controller {
             $this->form_validation->set_rules('jobtype', 'Job type', 'required|integer|less_than['.(count($this->data['jobTypes'])+1).']');
             $this->form_validation->set_rules('phone', 'Phone', 'trim|required|xss_clean');
             $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|xss_clean|min_length[5]|max_length[100]');
-            $this->form_validation->set_rules('website', 'Website', 'trim|required|valid_url|xss_clean|min_length[5]|max_length[200]');
+            $this->form_validation->set_rules('website', 'Website', 'trim|valid_url|xss_clean|min_length[5]|max_length[200]');
             $this->form_validation->set_rules('location', 'Location', 'required|integer');
             $this->form_validation->set_rules('zip', 'Zip code', 'alpha_dash|required|xss_clean');
             $this->form_validation->set_rules('address', 'Address', 'trim|required|xss_clean|min_length[4]|max_length[200]');
@@ -255,31 +219,15 @@ class Profile extends CI_Controller {
                $this->form_validation->set_rules('company', 'Company', 'xss_clean|min_length[2]|max_length[100]');
             else
                $this->form_validation->set_rules('company', 'Company', 'required|xss_clean|min_length[2]|max_length[100]');
-            // if (empty($_FILES['file1']['name'])){
-            //    $this->form_validation->set_rules('file1', 'Image', 'required');
-            // }
 
             // if selected jobtype has initial_price
-            $appPrice = $this->data['jobTypes'][$this->input->post('jobtype')-1]->initial_price;
-            // if($appPrice > 0){
-            //    if($this->input->post('paypaltoken')){
-            //       // Validate token ?
-            //    }
-            //    else{
-            //       $year = date("Y");
-            //       $this->form_validation->set_rules('cardholder', 'Card holder', 'trim|required');
-            //       $this->form_validation->set_rules('cardnumber', 'Card number', 'trim|required|numeric');
-            //       $this->form_validation->set_rules('cardmonth', 'Card expiration month', 'required|integer|greater_than[0]|greater_than[0]|less_than[13]');
-            //       $this->form_validation->set_rules('cardyear', 'Card expiration year', 'required|integer|greater_than['.($year-1).']|less_than['.($year+11).']');
-            //       $this->form_validation->set_rules('cardcvv', 'Card CVV number', 'trim|required|numeric|min_length[3]|max_length[4]');
-            //    }
-            // }
+//            $appPrice = $this->data['jobTypes'][$this->input->post('jobtype')-1]->initial_price;echo $appPrice;exit;
+
             
             //if validation passed save data to db
             if ($this->form_validation->run()) {
                $jobid = $this->job->editJob(
                   $id,
-                  $this->input->post('jobtype'),
                   $this->input->post('fullname', true),
                   $this->input->post('phone', true),
                   $this->input->post('email', true),
@@ -294,28 +242,9 @@ class Profile extends CI_Controller {
                   $this->input->post('shorttextru', true), 
                   $this->input->post('largetexten', true),
                   $this->input->post('largetextru', true), 
-                  strtolower(preg_replace('/[^A-Za-z0-9-]+/', '-', $this->input->post('shorttexten', true))),
-                  $this->data['jobTypes'][$this->input->post('jobtype')-1]->initial_price > 0 ? 0 : 1
+                  strtolower(preg_replace('/[^A-Za-z0-9-]+/', '-', $this->input->post('shorttexten', true)))
                );
 
-               //if either card data or paypal data is present save data to database
-               // if($jobid && $appPrice > 0){
-               //    $this->load->model('payment');
-               //    if($this->input->post('paypaltoken')){
-               //       $this->payment->addPPPayment(
-               //          $jobid, 
-               //          $this->input->post('paypaltoken'));
-               //    }else{
-               //       $cardmonth = $this->input->post('cardmonth')<10?'0'.$this->input->post('cardmonth'):$this->input->post('cardmonth');
-               //       $this->payment->addCCPayment(
-               //          $jobid, 
-               //          $this->input->post('cardholder', true), 
-               //          $this->input->post('cardnumber'), 
-               //          $cardmonth . '/' . $this->input->post('cardyear'), 
-               //          $this->input->post('cardcvv', true));
-               //    }
-               // }
-                
                //if data saved try to upload images
                if($jobid){                  
                   $newFiles = array();
@@ -539,27 +468,42 @@ class Profile extends CI_Controller {
    }
 
 
-   public function changepassword(){
-		$this->load->view('profile/changepassword', $this->data);
+   public function profile(){
+      $this->load->model('user');
+		$this->data['user'] = $this->user->getUserdataById($this->session->userdata('user_id'));
+		$this->load->view('profile/profile', $this->data);
 	}
 
-   public function changepassword_process(){
-      $this->form_validation->set_rules('oldpassword', 'Old Password', 'required');
-		$this->form_validation->set_rules('newpassword', 'New Password', 'required|min_length[6]|max_length[32]');
-		$this->form_validation->set_rules('confpassword', 'Confirm Password', 'required|min_length[6]|max_length[32]|matches[newpassword]');
+   public function profile_process(){
+      $this->form_validation->set_rules('fullname', 'Full name', 'trim|required|xss_clean|min_length[4]|max_length[64]');
+      if($this->input->post('newpassword')||$this->input->post('confpassword')){
+         $this->form_validation->set_rules('oldpassword', 'Old Password', 'required');
+         $this->form_validation->set_rules('newpassword', 'New Password', 'required|min_length[6]|max_length[32]');
+         $this->form_validation->set_rules('confpassword', 'Confirm Password', 'required|min_length[6]|max_length[32]|matches[newpassword]');
+      }
 		if ($this->form_validation->run()) {
 			$this->load->model('user');
 			$userdata = $this->user->getUserdataById($this->session->userdata('user_id'));
-			if ($userdata && password_verify($this->input->post('oldpassword'), $userdata->password)){
-				if($this->user->updatePassword($this->session->userdata('user_id'), password_hash($this->input->post('newpassword'), PASSWORD_BCRYPT))){
-					$this->session->set_flashdata('profPwdChng', array('status' => true, 'message' => "Password updated successfully"));
-				}
-			}
-			else{
-				$this->session->set_flashdata('profPwdChng', array('status' => false, 'message' => lang('invOldPwd')));
-			}
+
+         if($this->input->post('newpassword')){
+            // update fullname and password
+            if ($userdata && password_verify($this->input->post('oldpassword'), $userdata->password)){
+               if($this->user->updateNamePassword($this->session->userdata('user_id'), $this->input->post('fullname', true), password_hash($this->input->post('newpassword'), PASSWORD_BCRYPT))){
+                  $this->session->set_flashdata('profPwdChng', array('status' => true, 'message' => lang('profUpdSucc')));
+               }
+            }
+            else{
+               $this->session->set_flashdata('profPwdChng', array('status' => false, 'message' => lang('invOldPwd')));
+            }
+         }else{
+            //update only fullname
+            if($this->user->updateName($this->session->userdata('user_id'), $this->input->post('fullname', true)))
+               $this->session->set_flashdata('profPwdChng', array('status' => true, 'message' => "Profile updated successfully"));
+            else
+               $this->session->set_flashdata('profPwdChng', array('status' => true, 'message' => lang('errUpdProf')));
+         }
 		}
-		$this->changepassword();
+		$this->profile();
 	}
 
 
@@ -654,8 +598,8 @@ class Profile extends CI_Controller {
 
 
    public function getSubcategories(){
+      
       $this->load->model('subcategory');
-      $postData = $this->input->post();    
       //$data['subcategories'] = $this->subcategory->getSubcategoriesByCategoryId($postData['categoryid']);//
       $data['subcategories'] = $this->subcategory->getSubcategoriesByCategoryId($_POST['categoryid']);//$postData['categoryid']
       $data['token']= $this->security->get_csrf_hash();

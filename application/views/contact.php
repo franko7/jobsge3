@@ -89,8 +89,17 @@
             <div class="col-lg-8 col-md-7">
                <div class="p-a30 m-b30 radius-sm bg-gray clearfix">
                   <h4><?php echo lang('sendMsgUs');?></h4>
-                  <div class="dzFormMsg"></div>
-                  <?php echo form_open('contact/index', array("class"=>"dzForm")); ?>
+                  <div></div>
+                  <!-- Email send message -->
+                  <?php if ($this->session->flashdata('sendGuestMail')):?>
+                        <div class="alert alert-<?php echo $this->session->flashdata('sendGuestMail')['status']?'success':'danger';?> alert-dismissible fade show" role="alert">
+                           <strong><?php echo $this->session->flashdata('sendGuestMail')['message'];?></strong>
+                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                           <span aria-hidden="true">&times;</span>
+                           </button>
+                        </div>
+                     <?php endif; ?>
+                  <?php echo form_open('contact/index'); ?>
                      <div class="row">
                         <div class="col-lg-12">
                            <div class="form-group">

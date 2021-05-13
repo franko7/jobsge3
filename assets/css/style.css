@@ -181,7 +181,7 @@ table {
 	width: 100%;
 }
 table thead th {
-	color: #333;
+	color: #fefefe;/*fr1105*/
 }
 table td {
 	padding: 15px 10px;
@@ -2938,10 +2938,11 @@ blockquote:before {
 	.site-header .is-fixed .navbar-toggler{
 		/* margin: 18px 0 14px 10px; */
 		outline:none!important;
+		z-index: 4;
 	}
 	.site-header .extra-nav,
 	.site-header .is-fixed .extra-nav{
-		padding: 11px 0;
+		padding: 16px 0;
 	}
 }
 /*---------------------------------------------------------------
@@ -3737,7 +3738,7 @@ blockquote:before {
 }
 @media only screen and (max-width: 991px) {
 	.is-fixed .header-nav .nav > li > a {
-		padding: 10px 15px;
+		padding: 160px 15px;
 	}
 }
 @media only screen and (max-width: 767px) {
@@ -6221,7 +6222,7 @@ ol.comment-list li.comment .comment-respond .comment-form p {
 .widget-testimonial .testimonial-position{
 	text-transform:uppercase;
 	font-family: "Montserrat",sans-serif;
-	color:#888q;
+	color:#888;
 	font-size:12px;
 	font-style: inherit;
 }

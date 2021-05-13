@@ -25,14 +25,14 @@ class job extends CI_Model
 		return $this->db->update('jobs', array('imgfilename'.$fileid => null));
 	}
 
-	public function editJob($id, $jobtype, $fullname, $phone, $email, $website, $company, $location, $address, $zip, $category, $subcategory,   
-		$shorttexten, $shorttextru, $largetexten, $largetextru, $slug, $status)
+	public function editJob($id, $fullname, $phone, $email, $website, $company, $location, $address, $zip, $category, $subcategory,   
+		$shorttexten, $shorttextru, $largetexten, $largetextru, $slug)
 	{
 		$this->db->where('id', $id);
-		return $this->db->update('jobs', array('job_type' => $jobtype, 'fullname' => $fullname, 'phone' => $phone, 'email' => $email, 'website' => $website, 
+		return $this->db->update('jobs', array('fullname' => $fullname, 'phone' => $phone, 'email' => $email, 'website' => $website, 
 			'company' => $company, 'location_id' => $location, 'address' => $address, 'zipcode' => $zip, 'category_id' => $category, 'subcategory_id' => $subcategory,			
 			'shorttext_en' => $shorttexten, 'shorttext_ru' => $shorttextru, 'largetext_en' => $largetexten, 'largetext_ru' => $largetextru, 
-			'slug' => $slug, 'status' => $status));
+			'slug' => $slug));
 	}
 
 	public function editJobAdmin($id, $jobtype, $fullname, $phone, $email, $website, $company, $location, $address, $zip, $category, $subcategory,   

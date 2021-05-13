@@ -15,6 +15,16 @@
                         <h5 class="font-weight-700 pull-left text-uppercase"><?php echo $action;?></h5>
                      </div>
 
+                     <!-- add job message -->
+                     <?php if ($this->session->flashdata('addJobResult')):?>
+                        <div class="alert alert-<?php echo $this->session->flashdata('addJobResult')['status']?'success':'danger';?> alert-dismissible fade show" role="alert">
+                           <strong><?php echo $this->session->flashdata('addJobResult')['message'];?></strong>
+                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                           <span aria-hidden="true">&times;</span>
+                           </button>
+                        </div>
+                     <?php endif; ?>
+
                      <div class="mb-2 ml-1"> Request Details </div>
                      <div class="table-responsive job-details mb-4">
                         <table class="table mb-0">                           

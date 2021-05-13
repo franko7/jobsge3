@@ -72,12 +72,10 @@
                      <li>
                         <div class="post-bx">
                            <div class="d-flex m-b20">
-                              <div class="job-post-company">
-                                 <a href="javascript:void(0);">
-                                    <span class="mt-4">
-                                       <img alt="" src="<?php echo base_url($uploadFolder.$job->imgfilename1);?>" alt="<?php echo $job->shorttext_en;?>"/>
-                                    </span>
-                                 </a>
+                              <div class="job-post-company">                                 
+                                 <span class="mt-4">
+                                    <img alt="" src="<?php echo base_url($uploadFolder.$job->imgfilename1);?>" alt="<?php echo $job->shorttext_en;?>"/>
+                                 </span>                                 
                               </div>
                               <div class="job-post-info mt-3">
                                  <h4>

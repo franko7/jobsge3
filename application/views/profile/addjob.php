@@ -222,10 +222,10 @@
          getSubcategories($('#category').val());
          
       });
-      // $('#jobtype').change(function(){
-      //    $('#hjobtype').val($('#jobtype').val());
-      //    getInitialPrice($('#jobtype').val());
-      // });
+      $('#jobtype').change(function(){
+         $('#hjobtype').val($('#jobtype').val());
+         //getInitialPrice($('#jobtype').val());
+      });
       $('#addJobSeeker').click(function(){
          $('#jobtypewrapper').addClass('displaynone');  
          $('#fullnamewrapper').removeClass('col-lg-6 col-md-6');

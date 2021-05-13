@@ -143,13 +143,12 @@ function contactForm(){
 			success:function(t){
 				1==t.status&&(e='<div class="gen alert alert-success">'+t.msg+"</div>"),
 				0==t.status&&(e='<div class="err alert alert-danger">'+t.msg+"</div>"),
-				$(".dzFormMsg").html(e);
+				$(".dzFormMsg").html(e);	
+				$(".dzFormMsg .alert").hide(1e3),$(".dzForm")[0].reset();				
 			}
 		})
-	}),
-	setInterval(function(){
-		$(".dzFormMsg .alert").hide(1e3),$(".dzForm")[0].reset();
-	},1e4)
+	})
+
 }
 
 function init_map(){

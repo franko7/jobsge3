@@ -1,4 +1,4 @@
-<?php $data['title'] = $jobDetails->{'category_'.$this->lang->lang()}; ?>
+<?php $data['title'] = $title; ?>
 <?php $this->load->view('templates/header', $data);?>
 
 <div class="page-content bg-white">

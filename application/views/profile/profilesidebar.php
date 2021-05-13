@@ -40,10 +40,10 @@
             </a>
          </li>
          <li>
-            <a href="<?php echo site_url('profile/changepassword');?>" class="<?php echo $activeitem==4?'active':'';?>">
-               <i class="fa fa-key" aria-hidden="true"></i> 
+            <a href="<?php echo site_url('profile/profile');?>" class="<?php echo $activeitem==4?'active':'';?>">
+               <i class="fas fa-user-tie"></i>
                <span>
-                  <?php echo lang('changePassword');?>
+                  <?php echo lang('profile');?>
                </span>
             </a>
          </li>

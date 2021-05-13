@@ -17,7 +17,7 @@
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
    <link rel="preconnect" href="https://fonts.gstatic.com">   
    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-   <script type="text/javascript" src="<?php echo base_url('assets/js/jquery.3.1.1.min.js');?>"></script>
+   <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-3.6.0.min.js');?>"></script>
 </head>
 <body>
 
@@ -34,6 +34,12 @@
                      <a href="<?php echo base_url();?>">
                         <img src="<?php echo $this->lang->lang()!='en'?$bgPath.$images[4]->filename:$bgPath.$images[3]->filename;?>" class="logo" alt="">
                      </a>
+                  </div>
+                  <div class="logo-header mostion headersearch d-none d-sm-flex">
+                     <form method="get" action="<?php echo site_url($this->lang->lang().'/jobs/search');?>">
+                        <input type="text" name="keyword">
+                        <button type="submit" id="navsearch"><?php echo lang('search');?></button>
+                     </form>
                   </div>
                   <!-- nav toggle buttons -->
                   <button class="navbar-toggler collapsed navicon justify-content-end" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -58,8 +64,7 @@
                         </li>
                         <!-- <li>
                            <a href="<?php echo site_url('profile/addjob');?>" title="Add application" class="site-button"><i class="fas fa-file-medical"></i> <?php echo lang('addApplication')?> </a>
-                        </li> -->
-                        
+                        </li> -->                        
                         <li>
                            <a href="#" class="site-button"><?php echo lang('profile');?><i class="fa fa-chevron-down"></i></a>
                            <ul class="sub-menu">
@@ -76,7 +81,7 @@
                               </li>
                               <?php endif; ?>
                            </ul>
-                        </li>                       
+                        </li>
 
                                                 
 
@@ -108,10 +113,3 @@
       <!-- main header END -->
    </header>
    <!-- header END -->
-
-
-
-
-
-
-   

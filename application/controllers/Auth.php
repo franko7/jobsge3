@@ -32,7 +32,7 @@ class Auth extends CI_Controller
 
 	public function register_process()
 	{
-		$this->form_validation->set_rules('fullname', 'Name', 'trim|required|xss_clean');
+		$this->form_validation->set_rules('fullname', 'Name', 'trim|required|xss_clean|min_length[4]|max_length[64]');
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|xss_clean|valid_email|is_unique[users.email]');
 		$this->form_validation->set_rules('password', 'Password', 'required|min_length[6]|max_length[32]');
 		$this->form_validation->set_rules('cpassword', 'Password Confirmation', 'required|min_length[6]|max_length[32]|matches[password]');
@@ -40,10 +40,10 @@ class Auth extends CI_Controller
 
 		if ($this->form_validation->run()) {
 			if($this->user->addUser($this->input->post('fullname'), $this->input->post('email'), password_hash($this->input->post('password'), PASSWORD_BCRYPT))){
-				$this->session->set_flashdata('registerResult', array('status' => true, 'message' => "You have successfully registered, please log in."));
+				$this->session->set_flashdata('registerResult', array('status' => true, 'message' => lang('regSucc')));
 				return redirect('auth/login');
 			}else{
-				$this->session->set_flashdata('registerResult', array('status' => false, 'message' => "Database error"));
+				$this->session->set_flashdata('registerResult', array('status' => false, 'message' => lang('dbErr')));
 				$this->register();
 			}
 		} else {

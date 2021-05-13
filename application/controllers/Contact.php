@@ -31,10 +31,16 @@ class Contact extends CI_Controller {
 				$this->email->to('admin@afishnik.com');
 				$this->email->subject('Guest Email');
 				$this->email->message(
-					$this->input->post('guestName', TRUE) . ' (' . $this->input->post('guestEmail', TRUE) . ') wrote: ' .
-					$this->input->post('guestMessage', TRUE) 
+					$this->input->post('guestName', TRUE) . ' (' . $this->input->post('guestEmail', TRUE) . ') wrote: ' . $this->input->post('guestMessage', TRUE) 
 				);
-				$this->email->send();
+				
+				if($this->email->send()){
+					$this->session->set_flashdata('sendGuestMail', array('status' => true, 'message' => lang('messageSent')));
+					return redirect ('/contact');
+				}else{
+					$this->session->set_flashdata('sendGuestMail', array('status' => false, 'message' => lang('messageNotSent')));
+					return redirect ('/contact');
+				}
 			}
 		}
 		$this->load->view('contact', $data);

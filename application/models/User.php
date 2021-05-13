@@ -39,10 +39,16 @@ class user extends CI_Model
 		return $this->db->select('*')->from('users')->where('role !=', 1)->limit($limit, $start)->get()->result();
 	}
 
-	public function updatePassword($id, $password)
+	public function updateNamePassword($id, $fullname, $password)
 	{
 		$this->db->where('id', $id);
-		return $this->db->update('users', array('password' => $password));
+		return $this->db->update('users', array('fullname' => $fullname, 'password' => $password));
+	}
+
+	public function updateName($id, $fullname)
+	{
+		$this->db->where('id', $id);
+		return $this->db->update('users', array('fullname' => $fullname));
 	}
 
 	public function deleteUser($id){

@@ -18,14 +18,15 @@
                   </div>
                   <?php echo form_open_multipart('profile/editjob/'.$currentJob->id, array('class' => 'tab-pane active', 'id' => 'editjob')); ?>
                      <div class="row m-b30">                        
-                        <div class="col-lg-6 col-md-6"><!-- firstname -->
+                        <div class="col-lg-12 col-md-12"><!-- firstname -->
                            <div class="form-group">
                               <label><?php echo lang('fullname')?></label>
                               <input type="text" name="fullname" class="form-control" placeholder="Full name" value="<?php echo $currentJob->fullname;?>">
                               <small style="color:red"><?php echo form_error('fullname'); ?></small>
                            </div>
                         </div>
-                        <div class="col-lg-6 col-md-6"><!-- job type -->
+                        <!-- job type -->
+                        <!-- <div class="col-lg-6 col-md-6">
                            <div class="form-group">
                               <label><?php echo lang('jobType')?></label>
                               <select name="jobtype" id="jobtype">
@@ -37,8 +38,8 @@
                               </select>
                               <small style="color:red"><?php echo form_error('jobtype'); ?></small>
                            </div>
-                        </div>                       
-                        <div class="col-lg-6 col-md-6"><!-- category -->
+                        </div>    -->
+                        <div class="col-lg-6"><!-- category -->
                            <div class="form-group">
                               <label><?php echo lang('category')?></label>
                               <select name="category" id="category">
@@ -51,7 +52,7 @@
                               <small style="color:red"><?php echo form_error('category'); ?></small>
                            </div>
                         </div>
-                        <div class="col-lg-6 col-md-6"><!-- subcategory -->
+                        <div class="col-lg-6"><!-- subcategory -->
                            <div class="form-group">
                               <label><?php echo lang('subcategory')?></label>
                               <select name="subcategory" id="subcategory">
@@ -64,35 +65,35 @@
                               <small style="color:red"><?php echo form_error('subcategory'); ?></small>
                            </div>
                         </div>
-                        <div class="col-lg-6 col-md-6"><!-- company -->
+                        <div class="col-lg-6"><!-- company -->
                            <div class="form-group">
                               <label><?php echo lang('company')?></label>
                               <input type="text" name="company" class="form-control" placeholder="Company" value="<?php echo isset($currentJob->company)?$currentJob->company:'';?>">
                               <small style="color:red"><?php echo form_error('company'); ?></small>
                            </div>
                         </div>
-                        <div class="col-lg-6 col-md-6"><!-- phone -->
+                        <div class="col-lg-6"><!-- phone -->
                            <div class="form-group">
                               <label><?php echo lang('phone')?></label>
                               <input type="text" name="phone" class="form-control" placeholder="Phone number" value="<?php echo $currentJob->phone;?>">
                               <small style="color:red"><?php echo form_error('phone'); ?></small>
                            </div>
                         </div>
-                        <div class="col-lg-6 col-md-6"><!-- email -->
+                        <div class="col-lg-6"><!-- email -->
                            <div class="form-group">
                               <label>Email</label>
                               <input type="text" name="email" class="form-control" placeholder="Email" value="<?php echo $currentJob->email;?>">
                               <small style="color:red"><?php echo form_error('email'); ?></small>
                            </div>
                         </div>
-                        <div class="col-lg-6 col-md-6"><!-- website -->
+                        <div class="col-lg-6"><!-- website -->
                            <div class="form-group">
                               <label><?php echo lang('website')?></label>
                               <input type="text" name="website" class="form-control" placeholder="Website" value="<?php echo $currentJob->website;?>">
                               <small style="color:red"><?php echo form_error('website'); ?></small>
                            </div>
                         </div>
-                        <div class="col-lg-6 col-md-6"><!-- location -->
+                        <div class="col-lg-6"><!-- location -->
                            <div class="form-group">
                               <label><?php echo lang('location')?></label>
                               <select name="location">
@@ -333,7 +334,7 @@
 
    function getSubcategories(categoryid){
       $.ajax({
-         url:'<?=base_url()?>profile/getSubcategories',
+         url:'<?=site_url("profile/getSubcategories")?>',
          method: 'post',
          data: {csrf_token: $('input[name=csrf_token]').val(), categoryid: categoryid},
          dataType: 'json',
@@ -343,11 +344,11 @@
             for (var i = 0; i<response['subcategories'].length; i++){
                var opt = document.createElement('option');
                opt.value = response['subcategories'][i]['id'];
-               opt.innerHTML = response['subcategories'][i]['subcategory_en'];
+               opt.innerHTML = response['subcategories'][i]['subcategory_<?php echo $this->lang->lang();?>'];
                $("#subcategory").append(opt);
             }
             $("#subcategory").selectpicker("refresh");               
-         } 
+         }
       });
    };
 

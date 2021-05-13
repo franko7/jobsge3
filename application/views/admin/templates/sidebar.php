@@ -107,11 +107,18 @@
                <p class="ml-1"> About us </p>
             </a>
          </li>
-          <!-- Contact us -->
-          <li class="nav-item">
+         <!-- Contact us -->
+         <li class="nav-item">
             <a href="<?php echo base_url('admin/contact');?>" class="nav-link <?php echo $pageN==13?'active':'';?>" class="nav-link">
                <i class="fas fa-envelope-open-text"></i>
                <p class="ml-1"> Contact us </p>
+            </a>
+         </li>
+         <!-- Terms -->
+         <li class="nav-item">
+            <a href="<?php echo base_url('admin/terms');?>" class="nav-link <?php echo $pageN==14?'active':'';?>" class="nav-link">
+               <i class="far fa-file-alt"></i>
+               <p class="ml-1"> Terms & Conditions </p>
             </a>
          </li>
          <li class="nav-item">

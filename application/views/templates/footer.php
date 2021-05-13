@@ -48,7 +48,7 @@
 <script src="<?= base_url('assets/js/combining.js'); ?>" type="text/javascript"></script>
 <script src="<?= base_url('assets/js/main.js'); ?>" type="text/javascript"></script>
 <script src="<?= base_url('assets/js/venobox.min.js'); ?>" type="text/javascript"></script>
-<script src="<?= base_url('assets/js/bootstrap-select.min.js'); ?>" type="text/javascript"></script>
+<script src="<?= base_url('assets/js/bootstrap-select.js'); ?>" type="text/javascript"></script>
 <script src="<?= base_url('assets/js/summernote-bs4.min.js'); ?>" type="text/javascript"></script>
 <script>
    intervalToDatetime();
