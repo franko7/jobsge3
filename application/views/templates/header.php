@@ -53,7 +53,7 @@
                         <li class="sitelogo displaynone p-3">
                            <img src="<?php echo $this->lang->lang()!='en'?$bgPath.$images[4]->filename:$bgPath.$images[3]->filename;?>" style="height:70px">
                         </li>
-                        <li>
+                        <!-- <li>
                            <a href="<?php echo site_url($this->lang->lang());?>" class="site-button"> <?php echo lang('home')?> </a>                           
                         </li>
                         <li>
@@ -61,10 +61,10 @@
                         </li>
                         <li>
                            <a href="<?php echo site_url('contact');?>" class="site-button"> <?php echo lang('contact')?> </a>                           
-                        </li>
-                        <!-- <li>
+                        </li> -->
+                        <li>
                            <a href="<?php echo site_url('profile/addjob');?>" title="Add application" class="site-button"><i class="fas fa-file-medical"></i> <?php echo lang('addApplication')?> </a>
-                        </li> -->                        
+                        </li>                      
                         <li>
                            <a href="#" class="site-button"><?php echo lang('profile');?><i class="fa fa-chevron-down"></i></a>
                            <ul class="sub-menu">
@@ -74,10 +74,10 @@
                                  <li><a href="<?php echo site_url('auth/logout');?>" class="dez-page"><?php echo lang('signOut');?></a></li>
                               <?php else: ?>
                               <li>
-                                 <a href="<?php echo site_url('auth/register');?>" title="Sign up" class="dez-page"><?php echo lang('register')?></a>
+                                 <a href="<?php echo site_url('auth/register');?>" title="Sign up" class="dez-page"><i class="fas fa-user-plus mr-2"></i><?php echo lang('register')?></a>
                               </li>
                               <li>
-                                 <a href="<?php echo site_url('auth/login');?>" title="Log in" class="dez-page"><?php echo lang('login')?></a>
+                                 <a href="<?php echo site_url('auth/login');?>" title="Log in" class="dez-page"><i class="fas fa-user mr-2"></i><?php echo lang('login')?></a>
                               </li>
                               <?php endif; ?>
                            </ul>
@@ -98,12 +98,12 @@
                            </li>
                         <?php endif; ?> -->
 
-
                         <?php if ($this->lang->lang()=='en'): ?>
                            <li class="lang"><?php echo anchor($this->lang->switch_uri('ru'),'RU');?></li>
                         <?php else: ?>
                            <li class="lang"><?php echo anchor($this->lang->switch_uri('en'),'EN');?></li>
                         <?php endif; ?>
+
                         <li class="displaynone spacer"></li>
                      </ul>			
                   </div>

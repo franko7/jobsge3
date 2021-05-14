@@ -2908,7 +2908,7 @@ blockquote:before {
 
 .is-fixed .logo-header,
 .is-fixed.header-curve .logo-header {
-	height: 70px;
+	height: 80px;
 	width: 140px;
 	transition:all 0.5s;
 	-webkit-transition:all 0.5s;
@@ -3548,8 +3548,10 @@ blockquote:before {
 		color: #FEFEFE;
 	}
 	.header-nav .nav i {
-		margin-top: 5px;
 		color: #FEFEFE;
+	}
+	.header-nav .nav i.fa-chevron-down {
+		margin-top: 5px;
 	}
 	.header-nav .nav > li ul.mega-menu ul {
 		display: none;

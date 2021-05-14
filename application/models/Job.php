@@ -32,7 +32,7 @@ class job extends CI_Model
 		return $this->db->update('jobs', array('fullname' => $fullname, 'phone' => $phone, 'email' => $email, 'website' => $website, 
 			'company' => $company, 'location_id' => $location, 'address' => $address, 'zipcode' => $zip, 'category_id' => $category, 'subcategory_id' => $subcategory,			
 			'shorttext_en' => $shorttexten, 'shorttext_ru' => $shorttextru, 'largetext_en' => $largetexten, 'largetext_ru' => $largetextru, 
-			'slug' => $slug));
+			'slug' => $slug, 'isinitial' => 0));
 	}
 
 	public function editJobAdmin($id, $jobtype, $fullname, $phone, $email, $website, $company, $location, $address, $zip, $category, $subcategory,   

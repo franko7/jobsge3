@@ -7,17 +7,12 @@ class Profile extends CI_Controller {
 
    public function __construct() {
       parent::__construct();
-      $callUrl = str_replace(site_url(),'', current_url());
-		if (strpos($callUrl, 'profile') !== false) $this->session->set_userdata('redirectURL', $callUrl);
       if (!$this->session->userdata('logged_in')) redirect('auth/login');
-      $this->load->library('form_validation');
-      $this->load->library('pagination');
+      $this->load->library(['form_validation', 'pagination']);
       $this->load->helper("security");
       $this->load->config('appconfig');
       $this->lang->load('home');
-      $this->load->model('job');
-      $this->load->model('image');
-      $this->load->model('social');
+      $this->load->model(['job', 'image', 'social']);
       $this->data['images'] = $this->image->getImageNames();
       $this->data['uploadFolder'] = $this->config->item('uploadFolder');
       $this->data['bgPath'] = base_url($this->config->item('bgImagesUploadConfig')['upload_path']);
@@ -30,14 +25,11 @@ class Profile extends CI_Controller {
 
 
    public function myjobs(){
-      $this->load->model('jobtype');
-      $this->load->model('location');
-      $this->load->model('category');
-      $this->load->model('chat');
+      $this->load->model(['jobtype', 'location', 'category', 'chat']);
       $this->data['jobTypes'] = $this->jobtype->getJobTypes();
       $this->data['locations'] = $this->location->getLocations();
       $this->data['categories'] = $this->category->getCategories();
-      $this->data['chatCout'] = $this->chat->getNewChatCount($this->session->userdata('user_id'));
+      $this->data['chatCount'] = $this->chat->getNewChatCount($this->session->userdata('user_id'));
       
       $config = $this->config->item('profilePaginationConfig');
       $config['base_url'] = site_url('profile/myjobs');
@@ -83,9 +75,7 @@ class Profile extends CI_Controller {
 
 
    public function addjob(){
-      $this->load->model('jobtype');
-      $this->load->model('location');
-      $this->load->model('category');
+      $this->load->model(['jobtype', 'location', 'category']);
       $this->data['jobTypes'] = $this->jobtype->getJobTypes();
       $this->data['locations'] = $this->location->getLocations();
       $this->data['categories'] = $this->category->getCategories();
@@ -327,39 +317,7 @@ class Profile extends CI_Controller {
                $this->data['action'] = lang('activateApp');
             }
             $this->config->load('paypal');
-            $this->data['ClientID'] = $this->config->item('ClientID');
-
-         //    if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST'){
-         //       // check is paypal or CC data submited
-         //       if($this->input->post('paypaltoken')){
-         //          // Validate token ?
-         //          // if validated no need to submit for renewal
-         //       }
-         //       else{
-         //          $year = date("Y");
-         //          $this->form_validation->set_rules('cardholder', 'Card holder', 'trim|required');
-         //          $this->form_validation->set_rules('cardnumber', 'Card number', 'trim|required|numeric');
-         //          $this->form_validation->set_rules('cardmonth', 'Card expiration month', 'required|integer|greater_than[0]|less_than[13]');
-         //          $this->form_validation->set_rules('cardyear', 'Card expiration year', 'required|integer|greater_than['.($year-1).']|less_than['.($year+11).']');
-         //          $this->form_validation->set_rules('cardcvv', 'Card CVV number', 'trim|required|numeric|min_length[3]|max_length[4]');
-
-         //          if ($this->form_validation->run()) {
-         //             $this->load->model('payment');
-         //             if($this->job->submitForRenewal($id) &&
-         //                $this->payment->addCCPayment(
-         //                   $id,
-         //                   $this->input->post('cardholder', true), 
-         //                   $this->input->post('cardnumber'), 
-         //                   $this->input->post('cardmonth') . '/' . $this->input->post('cardyear'), 
-         //                   $this->input->post('cardcvv', true))
-         //             ){
-         //                $this->session->set_flashdata('sentRenewalResult', array('status' => true, 'message' => "job sent for renewal successfully"));
-         //             }else{
-         //                $this->session->set_flashdata('sentRenewalResult', array('status' => false, 'message' => "error sending job for renewal"));
-         //             }
-         //          }
-         //       }               
-         //    }            
+            $this->data['ClientID'] = $this->config->item('ClientID');          
             $this->load->view('profile/renewjob', $this->data);
          }
       }else{
@@ -375,19 +333,17 @@ class Profile extends CI_Controller {
 			'Sandbox' => $this->config->item('Sandbox'), 'APIUsername' => $this->config->item('APIUsername'),'APIPassword' => $this->config->item('APIPassword'),
 			'APISignature' => $this->config->item('APISignature'),'APISubject' => '','APIVersion' => $this->config->item('APIVersion'));
 		$this->load->library('Paypal_pro', $config);
-		$GTDFields = array('transactionid' => $transactionID);					
-		$PayPalRequestData = array('GTDFields' => $GTDFields);		
+		$GTDFields = array('transactionid' => $transactionID);
+		$PayPalRequestData = array('GTDFields' => $GTDFields);
 		$PayPalResult = $this->paypal_pro->GetTransactionDetails($PayPalRequestData);
       // If transaction was successful
 		if($this->paypal_pro->APICallSuccessful($PayPalResult['ACK']))
 		{
          if($PayPalResult['SUBJECT'] && $PayPalResult['AMT']){
             $jobId = $PayPalResult['SUBJECT'];
-            $this->load->model('payment');
-            $this->load->model('job');
-            $this->load->model('jobtype');
+            $this->load->model(['payment', 'job', 'jobtype']);
             $jobStatus = $this->job->getJobById($jobId)->status;
-            if(!$this->payment->getCountByTransactionID($transactionID)){               
+            if(!$this->payment->getCountByTransactionID($transactionID)){
                // Add data to payment table
                $this->payment->addPayment(
                   $transactionID,
@@ -419,10 +375,8 @@ class Profile extends CI_Controller {
 
 
    public function subscriptions(){
-      $this->load->model('subscription');
-      $this->load->model('category');
-      $this->data['categories'] = $this->category->getCategories();
-      
+      $this->load->model(['subscription', 'category']);
+      $this->data['categories'] = $this->category->getCategories();      
       if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST'){
          $c_sc = 0;
          $this->form_validation->set_rules('category', 'Category', 'required|integer|greater_than[0]');
@@ -474,6 +428,7 @@ class Profile extends CI_Controller {
 		$this->load->view('profile/profile', $this->data);
 	}
 
+   
    public function profile_process(){
       $this->form_validation->set_rules('fullname', 'Full name', 'trim|required|xss_clean|min_length[4]|max_length[64]');
       if($this->input->post('newpassword')||$this->input->post('confpassword')){
@@ -498,7 +453,7 @@ class Profile extends CI_Controller {
          }else{
             //update only fullname
             if($this->user->updateName($this->session->userdata('user_id'), $this->input->post('fullname', true)))
-               $this->session->set_flashdata('profPwdChng', array('status' => true, 'message' => "Profile updated successfully"));
+               $this->session->set_flashdata('profPwdChng', array('status' => true, 'message' => lang('profUpdSucc')));
             else
                $this->session->set_flashdata('profPwdChng', array('status' => true, 'message' => lang('errUpdProf')));
          }
@@ -518,11 +473,11 @@ class Profile extends CI_Controller {
       if(count($array['chat'])) $this->chat->markRead($array['chatUsers'][0]['user'], $this->session->userdata('user_id'));
       if(filter_var($toId, FILTER_VALIDATE_INT) && $toId>0 && !$inArray) {
          $this->data['toId'] = $toId;
-         $this->load->model('chat');
          $this->data['toName'] = $this->user->getUserdataById($toId)->fullname;
       }
       $this->load->view('profile/chat', $this->data);
    }
+
 
    public function refreshChat(){
       $user = $this->input->post('user', true);
@@ -540,11 +495,11 @@ class Profile extends CI_Controller {
       echo json_encode($data);
    }
 
+
    function get_chat($toUser=0){
       $userId = $this->session->userdata('user_id');
-      $this->load->model('chat');
+      $this->load->model(['user', 'chat']);
       $chatHistory = $this->chat->getChatByUserId($userId);      
-      $this->load->model('user');
       $users = $this->user->getUsers();      
       $chats = array();
       $chatUsers = array();
@@ -596,9 +551,7 @@ class Profile extends CI_Controller {
    }
 
 
-
-   public function getSubcategories(){
-      
+   public function getSubcategories(){      
       $this->load->model('subcategory');
       //$data['subcategories'] = $this->subcategory->getSubcategoriesByCategoryId($postData['categoryid']);//
       $data['subcategories'] = $this->subcategory->getSubcategoriesByCategoryId($_POST['categoryid']);//$postData['categoryid']
@@ -616,9 +569,7 @@ class Profile extends CI_Controller {
 
 
    private function checkSubscriptions($job_id, $category_id, $subcategory_id){
-      $this->load->model('subscription');
-      $this->load->model('user');
-      $this->load->model('subcategory');
+      $this->load->model(['subscription', 'user', 'subcategory']);
       $subscriptions = $this->subscription->getAllSubscriptions();
       foreach($subscriptions as $subsc){
          if((($category_id==$subsc->category_id && $subsc->c_sc==1) || ($category_id==$subsc->category_id && $subcategory_id==$subsc->subcategory_id && $subsc->c_sc==2)) && 

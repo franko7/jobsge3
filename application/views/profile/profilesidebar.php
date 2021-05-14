@@ -35,7 +35,7 @@
                <i class="fas fa-sms" aria-hidden="true"></i>
                <span>
                   <?php echo lang('chat'); ?>
-                  <?php echo isset($chatCout)&&$chatCout>0?'<span class="badge badge-pill badge-info">'.$chatCout.'</span>':''; ?> 
+                  <?php echo isset($chatCount)&&$chatCount>0?'<span class="badge badge-pill badge-info">'.$chatCount.'</span>':''; ?> 
                </span>
             </a>
          </li>
