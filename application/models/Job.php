@@ -244,6 +244,60 @@ class job extends CI_Model
 	}
 
 
+	public function getAllJobsAdminCount($keyword, $jobtype, $category, $status){
+		$this->db->select('*')->from('jobs');		
+		if (strlen($keyword)){
+			$this->db->group_start();
+			$this->db->like('largetext_en', $keyword)->or_like('largetext_ru', $keyword);
+			$this->db->group_end();
+		}
+		if ($jobtype>0) $this->db->where('job_type', $jobtype);
+		if ($category>0) $this->db->where('category_id', $category);
+		if ($status==1){
+			$this->db->group_start();
+			$this->db->where('status', 0)->or_where('expiring_at<', time());
+			$this->db->group_end();
+		}
+		if ($status==2){
+			$this->db->group_start();
+			$this->db->where('status', 1)->where('expiring_at>', time());
+			$this->db->group_end();
+		}
+		return $this->db->count_all_results();
+	}
+	public function getAllJobsAdmin($keyword, $jobtype, $category, $status, $limit, $start){
+		$this->db->select('J.id, J.user_id, J.job_type, J.fullname, J.phone, J.email, J.website, J.location_id, J.address, J.zipcode, J.category_id, J.subcategory_id,
+		J.slug, J.shorttext_en, J.shorttext_ru, J.largetext_en, J.largetext_ru, J.imgfilename1, J.imgfilename2, J.imgfilename3, J.imgfilename4, J.imgfilename5, 
+		J.created_at, J.expiring_at, J.isinitial, J.status, C.category_en, C.category_ru, SC.subcategory_en, SC.subcategory_ru, L.location, 
+		JT.job_type_en, U.fullname AS user_fullname, U.email AS user_email');
+		$this->db->from('jobs AS J');
+		if (strlen($keyword)){
+			$this->db->group_start();
+			$this->db->like('J.largetext_en', $keyword)->or_like('J.largetext_ru', $keyword);
+			$this->db->group_end();
+		}
+		if ($jobtype>0) $this->db->where('J.job_type', $jobtype);
+		if ($category>0) $this->db->where('J.category_id', $category);
+		if ($status==1){
+			$this->db->group_start();
+			$this->db->where('J.status', 0)->or_where('J.expiring_at<', time());
+			$this->db->group_end();
+		}
+		if ($status==2){
+			$this->db->group_start();
+			$this->db->where('J.status', 1)->where('J.expiring_at>', time());
+			$this->db->group_end();
+		}
+		$this->db->join('categories AS C', 'J.category_id = C.id');
+		$this->db->join('subcategories AS SC', 'J.subcategory_id = SC.id');
+		$this->db->join('locations AS L', 'J.location_id = L.id');
+		$this->db->join('jobtypes AS JT', 'J.job_type = JT.id');
+		$this->db->join('users AS U', 'J.user_id = U.id');
+		$this->db->limit($limit, $start);
+		return $this->db->get()->result();
+	}
+
+
 	public function activateJob($id, $activationTime){
 		$this->db->where('id', $id);
 		return $this->db->update('jobs', array('status' => 1, 'expiring_at' => $activationTime));

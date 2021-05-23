@@ -14,17 +14,6 @@
 .table td, .table th {
    vertical-align: middle;
 }
-.pagination .page-item a,
-.pagination .navlink span{
-position: relative;
-display: block;
-padding: .5rem .75rem;
-margin-left: -1px;
-line-height: 1.25;
-color: #007bff;
-background-color: #fff;
-border: 1px solid #dee2e6;
-}
 
 .select2-container .select2-selection--single {
    height: 38px;
@@ -138,3 +127,32 @@ textarea.notlbr{
    outline:none;
    cursor:default;
 }
+
+ul.pagination li,
+ul.pagination li.navlink
+{
+border: solid #7e9ea07d 1px;
+display: flex;
+align-items: center;
+width: 35px;
+height: 38px;
+text-align: center;
+background-color: #fefefe;
+color: white;
+justify-content: center;
+}
+ul.pagination li a{
+   color:#005960;
+   width: 100%;
+}
+ul.pagination li.navlink span{
+   color:#005960;
+}
+ul.pagination li.active{
+   background-color:#005960
+}
+ul.pagination li.active a{
+   color:white
+}
+
+/*005960*/

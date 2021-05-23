@@ -45,54 +45,44 @@ class Admin extends CI_Controller {
 
 
    public function jobs()
-	{
-      
+	{      
       $data['pageN'] = 3;
-      $this->load->model('jobtype');
-      $data['jobTypes'] = $this->jobtype->getJobTypes();  
-      $this->load->model('job');
-
-
-      // $this->form_validation->set_data($_GET);
-      // $this->form_validation->set_rules('searchText', 'Keyword', 'xss_clean|max_length[100]');      
+      $this->load->model(['jobtype', 'category', 'job']);
+      $data['jobTypes'] = $this->jobtype->getJobTypes();
+      $data['categories'] = $this->category->getCategories();
+      
+      // $this->form_validation->set_data($_GET);     
+      // $this->form_validation->set_rules('keyword', 'Keyword', 'xss_clean|max_length[100]');      
+      // $this->form_validation->set_rules('jobtype', 'Job type', 'integer');   
+      // $this->form_validation->set_rules('category', 'Category', 'integer');   
+      // $this->form_validation->set_rules('status', 'Status', 'integer');
+      
       // if ($this->form_validation->run()) {
-      //    $searchText = $this->input->get('searchText', true);
-      //    $jobType = filter_var($this->input->get('jobType'), FILTER_VALIDATE_INT)?$this->input->get('jobType'):0;
-      //    $jobStatus = $this->input->get('jobStatus');
-      //    $subRenewal = $this->input->get('subRenewal');
-
-      //    echo $searchText.'*'.$jobType.'*'.$jobStatus.'*'.$subRenewal;
-
-
-         // $location = $this->input->get('location', true);
-         // $total_rows = $this->job->getActiveJobsCountByKeywordLocationId($keyword, $location);
-         // $config = $this->config->item('searchPaginationConfig');
-         // $config['suffix'] =  $this->input->get('keyword')? '?'.http_build_query($_GET, '', "&") : '?keyword=&location='.$location;
-         // $config["base_url"] = base_url('jobs/search');
-         // $config['first_url'] = $config['base_url'].'?'.http_build_query($_GET);         
-         // $config["total_rows"] = $total_rows;
-         // $this->pagination->initialize($config);
-         // $data['links'] = $this->pagination->create_links();
-         // $page = $this->uri->segment(3) ? $this->uri->segment(3) : $page = 0;
-         // $data['jobs'] = $this->job->getActiveJobsByKeywordLocation($keyword, $location, $config["per_page"], $page);
-         // $data['numSearchResult'] = $total_rows;
-         // $data['keyword'] = $keyword;
-         // $data['location'] = $location;
-         // $this->load->model('image');
-		   // $data['images'] = $this->image->getImageNames();
-         // $data['bgPath'] = base_url($this->config->item('bgImagesUploadConfig')['upload_path']);
-         // $this->load->view('jobs', $data); 
-      // }else{return redirect ('/');}
-
-      // $config = $this->config->item('adminPaginationConfig');
-      // $config['base_url'] = base_url('admin/jobs');
-      // $config['total_rows'] =  $this->job->getAllJobsCount();
-      // $this->pagination->initialize($config);
-      // $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
-      // $data['links'] = $this->pagination->create_links();
-      // $data['page'] = $page;
-      // $data['jobs'] = $this->job->getAllJobs($config["per_page"], $page);
-      $data['jobs'] = $this->job->getAllJobs();
+         $keyword    = $this->input->get('keyword', true);
+         $jobtype    = filter_var($this->input->get('jobtype'), FILTER_VALIDATE_INT)?$this->input->get('jobtype'):0;
+         $category   = filter_var($this->input->get('category'), FILTER_VALIDATE_INT)?$this->input->get('category'):0;
+         $status     = filter_var($this->input->get('status'), FILTER_VALIDATE_INT)?$this->input->get('status'):0;
+         $total_rows = $this->job->getAllJobsAdminCount($keyword, $jobtype, $category, $status);                 
+         $config = $this->config->item('searchPaginationConfig');
+         $config['suffix'] =  $this->input->get('keyword')? '?'.http_build_query($_GET, '', "&") : '?keyword=&jobtype='.$jobtype.'&category='.$category.'&status='.$status;
+         $config["base_url"] = base_url('admin/jobs');
+         $config['first_url'] = $config['base_url'].'?'.http_build_query($_GET);         
+         $config["total_rows"] = $total_rows;
+         $this->pagination->initialize($config);
+         $data['links'] = $this->pagination->create_links();
+         $page = $this->uri->segment(3) ? $this->uri->segment(3) : $page = 0;         
+         $data['jobs'] = $this->job->getAllJobsAdmin($keyword, $jobtype, $category, $status, $config["per_page"], $page);
+         $data['keyword'] = $keyword;
+         $data['jobtype'] = $jobtype;
+         $data['category'] = $category;
+         $data['status'] = $status;
+         $data['page'] = $page;
+      // }else{
+      //    $config = $this->config->item('searchPaginationConfig');
+      //    $data['page'] = 0;
+      //    $data['jobs'] = $this->job->getAllJobsAdmin(null, 0, 0, 2, $config["per_page"], 0);
+      // }
+      //
 		return $this->load->view('admin/jobs', $data);
 	}
 
@@ -100,11 +90,7 @@ class Admin extends CI_Controller {
 	{
       $data['pageN'] = 99;
       if($id && filter_var($id, FILTER_VALIDATE_INT)){
-         $this->load->model('jobtype');
-         $this->load->model('location');
-         $this->load->model('category');
-         $this->load->model('subcategory');
-         $this->load->model('job');
+         $this->load->model(['jobtype', 'location', 'category', 'subcategory', 'job']);
          $data['jobTypes'] = $this->jobtype->getJobTypes();
          $data['locations'] = $this->location->getLocations();
          $data['categories'] = $this->category->getCategories();

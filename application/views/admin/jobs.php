@@ -20,6 +20,46 @@
 <section class="content">
    <div class="container-fluid">
       <div class="card p-2">
+         <div class="card-header">
+            <form method="get" action="<?php echo base_url('admin/jobs?'); ?>">
+               <div class="form-row">                 
+                  <div class="form-group col-md-4">
+                     <input type="text" class="form-control" id="keyword" name="keyword" placeholder="keyword" value="<?php echo isset($keyword)?$keyword:'';?>">
+                  </div>
+                  <div class="form-group col-md-2">
+                     <select id="jobtype" name="jobtype" class="form-control">
+                        <option value="0">-- All job types --</option>
+                        <?php foreach($jobTypes as $jt):?>
+                           <option value="<?php echo $jt->id;?>" <?php echo isset($jobtype)&&$jobtype==$jt->id?'selected':'';?>>
+                              <?php echo $jt->job_type_en;?>
+                           </option>    
+                        <?php endforeach;?>                 
+                     </select>
+                  </div>
+                  <div class="form-group col-md-2">
+                     <select id="category" name="category" class="form-control">
+                        <option value="0">-- All categories --</option>
+                        <?php foreach($categories as $cat):?>                        
+                           <option value="<?php echo $cat->id;?>" <?php echo isset($category)&&$category==$cat->id?'selected':'';?>>
+                              <?php echo $cat->category_en;?>
+                           </option>
+                        <?php endforeach;?>
+                     </select>
+                  </div>
+                  <div class="form-group col-md-2">
+                     <select id="status" name="status" class="form-control">
+                        <option value="0" <?php echo isset($status)&&$status==0?'selected':'';?>>-- All statuses --</option>
+                        <option value="1" <?php echo isset($status)&&$status==1?'selected':'';?>>Inactive</option>
+                        <option value="2" <?php echo isset($status)&&$status==2?'selected':'';?>>Active</option>
+                     </select>
+                  </div>
+                  
+                  <div class="form-group col-md-2">
+                     <button class="btn btn-primary btn-block">Search</button>
+                  </div>
+               </div>
+            </form>
+         </div>
          <div class="card-body p-0 table table-responsive">
             <table class="table table-striped table-sm" id="appsTable">
                <thead>
@@ -38,7 +78,7 @@
                <tbody>
                   <?php foreach($jobs as $index=>$job): ?>
                      <tr>
-                        <td><?php echo $index+1;?></td>
+                        <td><?php echo $page+$index+1;?></td>
                         <td>
                            <span class="text-success"><?php echo $job->fullname;?></span>
                               <br>
@@ -110,9 +150,5 @@
       <?php if (isset($links)) echo $links; ?>
    </div>
 </section>
-<script>
-   $(document).ready(function() {
-      $('#appsTable').DataTable({ "dom": '<"top"lf>rt<"bottom"ip><"clear">' } ); 
-      });
-</script>
+
 <?php $this->load->view('admin/templates/footer');?>
