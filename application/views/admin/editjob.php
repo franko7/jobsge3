@@ -30,16 +30,8 @@
                      </button>
                   </div>
                <?php endif; ?>
-               <?php if ($this->session->flashdata('editJobResult')):?>
-                  <div class="alert alert-<?php echo $this->session->flashdata('editJobResult')['status']?'success':'danger';?> alert-dismissible fade show" role="alert">
-                  <strong><?php echo $this->session->flashdata('editJobResult')['message'];?></strong>
-                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                     <span aria-hidden="true">&times;</span>
-                     </button>
-                  </div>
-               <?php endif; ?>
-
-               <?php echo form_open('admin/editjob/'.$currentJob->id);?>
+               
+               <?php echo form_open_multipart(base_url('admin/editjob/'.$currentJob->id));?>
                   <div class="row">
                      <div class="col-sm-12 col-md-6 mb-3">
                      <label for="fullname">Full name</label>
@@ -200,7 +192,7 @@
                      <?php endfor;?>
                   </div>
                   <div>
-                     <button type="submit" class="btn btn-primary"> Save </button>
+                     <button type="submit" class="btn btn-primary"> <i class="fas fa-save mr-2"></i> Save </button>
                   </div>
                <?php echo form_close();?>
             </div>            
@@ -230,19 +222,19 @@
       tabsize: 3,
       height: 150,
       toolbar: [
-      ['font', ['bold', 'underline', 'clear']],
-      ['color', ['color']],
-      ['para', ['ul', 'ol', 'paragraph']],
-      ['table', ['table']],
-      ['insert', ['link', 'picture', 'video']],
-      ['view', ['fullscreen', 'codeview', 'help']]
+         ['font', ['bold', 'underline', 'clear']],
+         ['color', ['color']],
+         ['para', ['ul', 'ol', 'paragraph']],
+         ['table', ['table']],
+         ['insert', ['link', 'picture', 'video']],
+         ['view', ['fullscreen', 'codeview', 'help']]
       ]
    });
 
 
    function getSubcategories(categoryid){
       $.ajax({
-         url:'<?=base_url()?>home/getSubcategories',
+         url:'<?=base_url()?>admin/getSubcategories',
          method: 'post',
          data: {csrf_token: $('input[name=csrf_token]').val(), categoryid: categoryid},
          dataType: 'json',

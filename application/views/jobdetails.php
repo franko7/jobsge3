@@ -27,11 +27,13 @@
                <div class="col-lg-4">
                   <div class="sticky-top">
                      <div class="row">
-                        <div class="col-lg-12 col-md-6 mb-4">
-                           <div class="m-b30">
-                              <img src="<?php echo base_url($uploadFolder).$jobDetails->imgfilename1;?>" alt="<?php echo $jobDetails->shorttext_en;?>">
+                        <?php if($jobDetails->imgfilename1):?>
+                           <div class="col-lg-12 col-md-6 mb-4">
+                              <div class="m-b30">
+                                 <img src="<?php echo base_url($uploadFolder).$jobDetails->imgfilename1;?>" alt="<?php echo $jobDetails->shorttext_en;?>">
+                              </div>
                            </div>
-                        </div>
+                        <?php endif;?>
                         <div class="col-lg-12 col-md-6">
                            <?php echo str_replace("../", base_url(), $images[6]->filename);?>
                         </div>

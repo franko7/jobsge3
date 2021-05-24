@@ -21,6 +21,24 @@
    <div class="container-fluid">
       <div class="card p-2">
          <div class="card-header">
+            <!-- Alerts -->
+            <?php if ($this->session->flashdata('editJobResult')):?>
+               <div class="alert alert-<?php echo $this->session->flashdata('editJobResult')['status']?'success':'danger';?> alert-dismissible fade show" role="alert">
+                  <strong><?php echo $this->session->flashdata('editJobResult')['message'];?></strong>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+            <?php endif; ?> 
+            <?php if ($this->session->flashdata('deleteJobResult')):?>
+               <div class="alert alert-<?php echo $this->session->flashdata('deleteJobResult')['status']?'success':'danger';?> alert-dismissible fade show" role="alert">
+                  <strong><?php echo $this->session->flashdata('deleteJobResult')['message'];?></strong>
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+            <?php endif; ?> 
+
             <form method="get" action="<?php echo base_url('admin/jobs?'); ?>">
                <div class="form-row">                 
                   <div class="form-group col-md-4">

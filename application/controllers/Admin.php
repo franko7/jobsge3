@@ -102,7 +102,7 @@ class Admin extends CI_Controller {
             $this->form_validation->set_rules('subcategory', 'Subcategory', 'required|integer');
             $this->form_validation->set_rules('phone', 'Phone', 'trim|required|xss_clean');
             $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|xss_clean|min_length[5]|max_length[100]');
-            $this->form_validation->set_rules('website', 'Website', 'trim|required|valid_url|xss_clean|min_length[5]|max_length[200]');
+            $this->form_validation->set_rules('website', 'Website', 'trim|valid_url|xss_clean|min_length[5]|max_length[200]');
             $this->form_validation->set_rules('location', 'Location', 'required|integer');
             $this->form_validation->set_rules('zip', 'Zip code', 'alpha_dash|required|xss_clean');
             $this->form_validation->set_rules('address', 'Address', 'trim|required|xss_clean|min_length[4]|max_length[200]');
@@ -110,13 +110,11 @@ class Admin extends CI_Controller {
             $this->form_validation->set_rules('shorttextru', 'Short text Russian', 'trim|xss_clean|max_length[250]');
             $this->form_validation->set_rules('largetexten', 'Long text English', 'trim|required|xss_clean');
             $this->form_validation->set_rules('largetextru', 'Long text Russian', 'trim|xss_clean');
-            if($this->input->post('jobtype')>1)
-               $this->form_validation->set_rules('company', 'Company', 'xss_clean|min_length[2]|max_length[100]');
-            else
-               $this->form_validation->set_rules('company', 'Company', 'required|xss_clean|min_length[2]|max_length[100]');
+            $this->form_validation->set_rules('company', 'Company', 'xss_clean|min_length[2]|max_length[100]');
                        
             //if validation passed save data to db
             if ($this->form_validation->run()) {
+               
                $jobid = $this->job->editJobAdmin(
                   $id,
                   $this->input->post('jobtype'),
@@ -140,8 +138,10 @@ class Admin extends CI_Controller {
                //if data saved set message
                if($jobid){           
                   $this->session->set_flashdata('editJobResult', array('status' => true, 'message' => "Job updated successfully"));
+                  return redirect('admin/jobs');
                }else{
                   $this->session->set_flashdata('editJobResult', array('status' => false, 'message' => "Could not update job"));
+                  return redirect('admin/jobs');
                }
             }
          }
@@ -152,6 +152,26 @@ class Admin extends CI_Controller {
       }else{
          return redirect('admin/jobs');
       }      
+   }
+
+
+   public function deletejob($id){
+      if($id && filter_var($id, FILTER_VALIDATE_INT)){
+         // Delete files
+         $this->load->model('job');
+         foreach($this->job->getImages($id) as $image){
+            if($image){
+               unlink($this->config->item('uploadFolder') . $image);
+            }
+         }
+         // Then record from DB
+         if($this->job->deleteJob($id)){
+            $this->session->set_flashdata('deleteJobResult', array('status' => true, 'message' => lang('delAppSucc')));
+         }else{
+            $this->session->set_flashdata('deleteJobResult', array('status' => false, 'message' => lang('delAppFail')));
+         }       
+      }
+      return redirect('admin/jobs');
    }
 
 
@@ -708,6 +728,15 @@ class Admin extends CI_Controller {
 			}
 		}
       return redirect('admin/changepassword');
+	}
+
+
+   public function getSubcategories(){      
+      $this->load->model('subcategory');
+      //$data['subcategories'] = $this->subcategory->getSubcategoriesByCategoryId($postData['categoryid']);//
+      $data['subcategories'] = $this->subcategory->getSubcategoriesByCategoryId($_POST['categoryid']);//$postData['categoryid']
+      $data['token']= $this->security->get_csrf_hash();
+      echo json_encode($data);
 	}
 
       

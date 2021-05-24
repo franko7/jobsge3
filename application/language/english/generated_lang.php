@@ -5,3 +5,4 @@
 
 $lang['action'] = "action";
 $lang['form_validation_xss_clean'] = "form_validation_xss_clean";
+$lang['delAppSucc'] = "delAppSucc";
