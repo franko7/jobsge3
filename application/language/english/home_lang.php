@@ -142,3 +142,7 @@ $lang['delAppSucc'] = "Application deleted successfully";
 $lang['delAppFail'] = "Could not delete application";
 $lang['profUpdSucc'] = "Profile updated successfully";
 $lang['errUpdProf'] = "Error updating profile";
+$lang['invUsrPwd'] = "Invalid username or password";
+$lang['accInactive'] = "Your account is inactive";
+$lang['pwdSet'] = "Password has been set successfully";
+$lang['accTerms'] = "Please read and accept our terms and conditions.";

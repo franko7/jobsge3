@@ -55,6 +55,7 @@ class job extends CI_Model
 		$this->db->where('J.category_id = C.id');
 		$this->db->where('J.subcategory_id = SC.id');
 		$this->db->where('J.user_id = U.id');
+		$this->db->order_by('J.created_at DESC');
 		$this->db->limit($limit, $start);
 		return $this->db->get()->result();
 	}

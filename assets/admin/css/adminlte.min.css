@@ -154,5 +154,7 @@ ul.pagination li.active{
 ul.pagination li.active a{
    color:white
 }
-
+.page-link {
+   margin-left: 0px;
+}
 /*005960*/

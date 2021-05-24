@@ -30,7 +30,8 @@
                      <th style="width: 10px">#</th>
                      <th>Fullname</th>
                      <th>Email</th>
-                     <!-- <th style="width: 40px">Label</th> -->
+                     <th>Status</th>
+                     <th>Action</th>
                   </tr>
                </thead>
                <tbody>
@@ -39,7 +40,16 @@
                         <td><?php echo $page+$index+1;?></td>
                         <td><?php echo $user->fullname;?></td>
                         <td><?php echo $user->email;?></td>
-                        <!-- <td><span class="badge bg-danger">55%</span></td> -->
+                        <td>
+                           <?php echo $user->status?'<span class="badge badge-success">Active</span>':'<span class="badge badge-danger">Inactive</span>';?>
+                        </td>
+                        <td>
+                           <?php if($user->status):?>
+                              <a href="<?php echo base_url('admin/deactivateuser/'.$user->id);?>" class="btn btn-danger btn-sm">Make Inactive</button>
+                           <?php else:?>
+                              <a href="<?php echo base_url('admin/activateuser/'.$user->id);?>" class="btn btn-success btn-sm">Make Active</button>
+                           <?php endif;?>
+                        </td>
                      </tr>
                   <?php endforeach; ?>
                </tbody>

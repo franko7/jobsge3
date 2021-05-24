@@ -59,6 +59,11 @@ class user extends CI_Model
 	{
 		return $this->db->update('users', array('recoverystring' => $recstr), array('email' => $email));
 	}
+	
+	public function setStatus($id, $status)
+	{
+		return $this->db->update('users', array('status' => $status), array('id' => $id));
+	}
 
 	public function hasRecoveryString($userid, $recstr)
 	{

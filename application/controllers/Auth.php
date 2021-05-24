@@ -61,7 +61,7 @@ class Auth extends CI_Controller
 			if ($this->form_validation->run()) {
 				$userdata = $this->user->getUserdataByEmail($this->input->post('email'));
 
-				if ($userdata && password_verify($this->input->post('password'), $userdata->password)) {
+				if ($userdata && password_verify($this->input->post('password'), $userdata->password) && $userdata->status) {
 					$sessiondata = array(
 						'user_id'  		=> $userdata->id,
 						'full_name' 	=> $userdata->fullname,
@@ -81,13 +81,18 @@ class Auth extends CI_Controller
 					// 	else redirect ('/admin');
 					// }
 				} else {
+
+					if(!$userdata->status){
+						$this->session->set_flashdata('loginResult', array('status' => false, 'message' => lang('accInactive')));
+						return redirect('/auth/login');
+					}
 					//invalid username or password
-					$this->session->set_flashdata('loginResult', array('status' => false, 'message' => 'Invalid username or password'));
+					$this->session->set_flashdata('loginResult', array('status' => false, 'message' => lang('invUsrPwd')));
 					return redirect('/auth/login');
 				}
 			} else {
 				//validation not passed
-				$this->session->set_flashdata('loginResult', array('status' => false, 'message' => 'Invalid username or password'));
+				$this->session->set_flashdata('loginResult', array('status' => false, 'message' => lang('invUsrPwd')));
 				return redirect('/auth/login');
 			}
 		}
@@ -124,10 +129,10 @@ class Auth extends CI_Controller
 			$username = $userdata->fullname;
 			//Send mail in following format: baseurl()/auth/recover/userid/randomstring
 			if ($this->sendRecoveryMail2($email, $userid, $username, $random_string)){
-				$this->session->set_flashdata('sendRecoveryResult', array('status' => true, 'message' => "Email has been sent"));
+				$this->session->set_flashdata('sendRecoveryResult', array('status' => true, 'message' => lang('messageSent')));
 				return redirect('auth/sendrecovery');
 			}else{
-				$this->session->set_flashdata('sendRecoveryResult', array('status' => false, 'message' => "Could not send email"));
+				$this->session->set_flashdata('sendRecoveryResult', array('status' => false, 'message' => lang('messageNotSent')));
 				return redirect('auth/sendrecovery');
 			}
 		} else {
@@ -158,10 +163,10 @@ class Auth extends CI_Controller
 
 		if ($this->form_validation->run()) {
 			if($this->user->resetPassword($this->input->post('userid'), $this->input->post('recstr'), password_hash($this->input->post('password'), PASSWORD_BCRYPT))){
-				$this->session->set_flashdata('resetResult', array('status' => true, 'message' => "Password has been set successfully"));
+				$this->session->set_flashdata('resetResult', array('status' => true, 'message' => lang('pwdSet')));
 				return redirect('auth/login');
 			}else{
-				$this->session->set_flashdata('resetResult', array('status' => false, 'message' => "Database error"));
+				$this->session->set_flashdata('resetResult', array('status' => false, 'message' => lang('dbErr')));
 				$this->recover($this->input->post('userid'), $this->input->post('recstr'));
 				return redirect('auth/sendrecovery');
 			}
@@ -189,7 +194,7 @@ class Auth extends CI_Controller
 
 	function terms() {
 		if (isset($_POST['terms'])) return true;
-		$this->form_validation->set_message('terms', 'Please read and accept our terms and conditions.');
+		$this->form_validation->set_message('terms', lang('accTerms'));
 		return false;
   }
 

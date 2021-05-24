@@ -693,6 +693,21 @@ class Admin extends CI_Controller {
    }
 
 
+   public function deactivateuser($id){
+      if (filter_var($id, FILTER_VALIDATE_INT)){
+         $this->load->model('user');
+         $this->user->setStatus($id, false);
+         return redirect('admin/users');
+      }
+   }
+
+   public function activateuser($id){
+      if (filter_var($id, FILTER_VALIDATE_INT)){
+         $this->load->model('user');
+         $this->user->setStatus($id, true);
+         return redirect('admin/users');
+      }
+   }
 
 
 

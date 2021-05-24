@@ -14,7 +14,6 @@
 <link rel="stylesheet" href="<?php echo base_url('assets/admin/css/OverlayScrollbars.min.css');?>">
 <link rel="stylesheet" href="<?php echo base_url('assets/admin/css/summernote-bs4.min.css');?>">
 <link rel="stylesheet" href="<?php echo base_url('assets/admin/css/adminlte.min.css');?>">
-<link rel="stylesheet" href="<?php echo base_url('assets/admin/css/dataTables.bootstrap4.min.css');?>">
 <script src="<?php echo base_url('assets/admin/js/jquery.min.js');?>"></script>
 <script src="<?php echo base_url('assets/admin/js/bootstrap.bundle.min.js');?>"></script>
 <script src="<?php echo base_url('assets/admin/js/moment.min.js');?>"></script>

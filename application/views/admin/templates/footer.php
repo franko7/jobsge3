@@ -12,6 +12,5 @@
 <script src="<?php echo base_url('assets/admin/js/demo.js');?>"></script>
 <script src="<?php echo base_url('assets/admin/js/select2.full.min.js');?>"></script>
 <script src="<?php echo base_url('assets/admin/js/dashboard.js');?>"></script>
-<script src="<?php echo base_url('assets/admin/js/jquery.dataTables.min.js');?>"></script>
 </body>
 </html>
