@@ -38,7 +38,7 @@
                               <div class="<?php echo (validation_errors() && $this->input->post('hjobtype')==1)?'displaynone':'col-lg-6 col-md-6';?>" id="jobtypewrapper"><!-- job type -->
                                  <div class="form-group">
                                     <label> <?php echo lang('jobType')?> </label>
-                                    <select name="jobtype" id="jobtype">
+                                    <select name="jobtype" id="jobtype" class="form-control">
                                        <?php foreach($jobTypes as $jobType): ?>
                                           <?php if($jobType->id > 1): ?>
                                              <option value="<?php echo $jobType->id;?>" <?php echo set_value('jobtype')==$jobType->id ? 'selected':'';?> > 
@@ -54,7 +54,7 @@
                               <div class="col-lg-6 col-md-6"><!-- category -->
                                  <div class="form-group">
                                     <label> <?php echo lang('category')?> </label>
-                                    <select name="category" id="category" data-live-search="true">
+                                    <select name="category" id="category"><!-- data-live-search="true" -->
                                        <?php foreach($categories as $category): ?>
                                           <option value="<?php echo $category->id;?>" <?php echo set_value('category')==$category->id ? 'selected':'';?>> 
                                              <?php echo $category->category_en;?> 
@@ -67,7 +67,7 @@
                               <div class="col-lg-6 col-md-6"><!-- subcategory -->
                                  <div class="form-group">
                                     <label> <?php echo lang('subcategory')?> </label>
-                                    <select name="subcategory" id="subcategory" data-live-search="true">                                 
+                                    <select name="subcategory" id="subcategory"> <!-- data-live-search="true" -->                    
                                     </select>
                                     <small style="color:red"><?php echo form_error('subcategory'); ?></small>
                                  </div>
@@ -103,9 +103,11 @@
                               <div class="col-lg-6 col-md-6"><!-- location -->
                                  <div class="form-group">
                                     <label> <?php echo lang('location')?> </label>
-                                    <select name="location" data-live-search="true">
+                                    <select name="location" id="location" ><!-- data-live-search="true" -->
                                        <?php foreach($locations as $location): ?>
-                                          <option value="<?php echo $location->id;?>"> <?php echo $location->location;?> </option>
+                                          <option value="<?php echo $location->id;?>" <?php echo set_value('location')==$location->id ? 'selected':'';?>> 
+                                             <?php echo $location->location;?> 
+                                          </option>
                                        <?php endforeach; ?>
                                     </select>
                                     <small style="color:red"><?php echo form_error('location'); ?></small>
@@ -198,11 +200,6 @@
                                     </div>
                                  </div>
                               </div>
-                              <!-- payment -->
-                              <!-- <div class="col-lg-12 displaynone" id="payment">                                 
-                                 <input type="text" name="paypaltoken" value="abcdefgh123545">
-                                 <button> <?php echo lang('payWithPP')?> </button>
-                              </div> -->
                            </div>
                            <button type="submit" class="site-button m-b30"> <?php echo lang('addApplication')?> </button>
                         <?php echo form_close(); ?>
@@ -246,7 +243,7 @@
       // getInitialPrice($('#jobtype').val());
       getSubcategories($('#category').val());
 
-      $('#category').selectpicker();
+      $('#jobtype, #category, #subcategory, #location').select2();//$('#category').selectpicker();
       
       $('.summernote').summernote({
         tabsize: 3,

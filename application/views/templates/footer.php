@@ -50,6 +50,7 @@
 <script src="<?= base_url('assets/js/venobox.min.js'); ?>" type="text/javascript"></script>
 <script src="<?= base_url('assets/js/bootstrap-select.js'); ?>" type="text/javascript"></script>
 <script src="<?= base_url('assets/js/summernote-bs4.min.js'); ?>" type="text/javascript"></script>
+<script src="<?php echo base_url('assets/admin/js/select2.full.min.js');?>"></script>
 <script>
    intervalToDatetime();
    function intervalToDatetime(){

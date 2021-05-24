@@ -190,11 +190,11 @@ class Profile extends CI_Controller {
          $this->data['locations'] = $this->location->getLocations();
          $this->data['categories'] = $this->category->getCategories();
 
-         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST'){
+         if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST'){            
             $this->form_validation->set_rules('fullname', 'Full name', 'trim|required|xss_clean|min_length[2]|max_length[200]');
             $this->form_validation->set_rules('category', 'Category', 'required|integer');
             $this->form_validation->set_rules('subcategory', 'Subcategory', 'required|integer|greater_than[0]');
-            $this->form_validation->set_rules('jobtype', 'Job type', 'required|integer|less_than['.(count($this->data['jobTypes'])+1).']');
+            //$this->form_validation->set_rules('jobtype', 'Job type', 'required|integer|less_than['.(count($this->data['jobTypes'])+1).']');
             $this->form_validation->set_rules('phone', 'Phone', 'trim|required|xss_clean');
             $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|xss_clean|min_length[5]|max_length[100]');
             $this->form_validation->set_rules('website', 'Website', 'trim|valid_url|xss_clean|min_length[5]|max_length[200]');
@@ -211,7 +211,7 @@ class Profile extends CI_Controller {
                $this->form_validation->set_rules('company', 'Company', 'required|xss_clean|min_length[2]|max_length[100]');
 
             // if selected jobtype has initial_price
-//            $appPrice = $this->data['jobTypes'][$this->input->post('jobtype')-1]->initial_price;echo $appPrice;exit;
+            // $appPrice = $this->data['jobTypes'][$this->input->post('jobtype')-1]->initial_price;echo $appPrice;exit;
 
             
             //if validation passed save data to db

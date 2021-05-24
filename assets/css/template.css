@@ -2578,6 +2578,46 @@ div.dropdown-menu.show input{
 }
 
 /* ===== overrides =====*/
+/* select2 */
+span.select2-container{
+	width: 100%!important;
+	box-shadow: 0 0 4px 0 rgb(0 24 128 / 10%) !important;
+	border-radius: 4px;
+	height: 42px;
+}
+body>span.select2-container--open{
+	width: auto!important;
+}
+body>span.select2-container--open>span.select2-dropdown--below,
+body>span.select2-container--open>span.select2-dropdown--below>span.select2-search>input{
+	border: 1px solid #e1e6eb;
+	font-size: 14px;
+}
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+	background-color: #005960;
+	color: white;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+	color: #444;
+	height: 42px;
+	line-height: 40px;
+	font-size: 14px;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+	top: 7px;
+	right: 2px;
+}
+.select2-container .select2-selection--single {
+	border: 1px solid #e1e6eb;
+	height: 42px;
+}
+.select2-container .select2-selection--single:active,
+.select2-container .select2-selection--single:focus, 
+body>span.select2-container--open>span.select2-dropdown--below>span.select2-search>input:active, 
+body>span.select2-container--open>span.select2-dropdown--below>span.select2-search>input:focus {
+	outline: none;
+}
+
 /* bootstrap select */
 .dropdown-item.active, .dropdown-item:active {
 	background-color: #3f8e94;

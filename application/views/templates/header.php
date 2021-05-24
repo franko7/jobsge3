@@ -7,12 +7,12 @@
    <link rel="stylesheet" href="<?= base_url('assets/css/bootstrap413.min.css');?>">
    <link rel="stylesheet" href="<?= base_url('assets/css/owl.carousel.min.css');?>">
    <link rel="stylesheet" href="<?= base_url('assets/css/bootstrap-select.min.css');?>">
+   <link rel="stylesheet" href="<?php echo base_url('assets/admin/css/select2.min.css');?>">
    <link rel="stylesheet" href="<?= base_url('assets/css/summernote-bs4.min.css');?>">
    <link rel="stylesheet" href="<?= base_url('assets/css/style.css');?>">
    <link rel="stylesheet" href="<?= base_url('assets/css/template.css');?>">
    <link rel="stylesheet" href="<?= base_url('assets/css/venobox.min.css');?>">
    <link rel="stylesheet" href="<?= base_url('assets/css/skin.css');?>">
-   <!-- <link rel="stylesheet" href="<?= base_url('assets/css/font-awesome.min.css');?>"> -->
    <link rel="shortcut icon" type="image/jpg" href="<?php echo $bgPath.$images[2]->filename;?>">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
    <link rel="preconnect" href="https://fonts.gstatic.com">   
@@ -69,16 +69,37 @@
                            <a href="#" class="site-button"><?php echo lang('profile');?><i class="fa fa-chevron-down"></i></a>
                            <ul class="sub-menu">
                               <?php if ($this->session->userdata('logged_in')): ?>
-                                 <li><a href="<?php echo site_url('profile/myjobs');?>" class="dez-page"><?php echo lang('myApplications');?></a></li>
-                                 <li><a href="<?php echo site_url('profile/addjob');?>" class="dez-page"><?php echo lang('addApplication');?></a></li>
-                                 <li><a href="<?php echo site_url('auth/logout');?>" class="dez-page"><?php echo lang('signOut');?></a></li>
+                                 <li>
+                                    <a href="<?php echo site_url('profile/myjobs');?>" title="My applications" class="dez-page">
+                                    <!-- <i class="fas fa-file-medical"></i> -->
+                                       <?php echo lang('myApplications');?>
+                                    </a>
+                                 </li>
+                                 <li>
+                                    <a href="<?php echo site_url('profile/addjob');?>" title="Add application" class="dez-page">
+                                       <!-- <i class="fas fa-file-medical"></i> -->
+                                       <?php echo lang('addApplication');?>
+                                    </a>
+                                 </li>
+                                 <li>
+                                    <a href="<?php echo site_url('auth/logout');?>" title="Log out" class="dez-page">
+                                       <!-- <i class="fa fa-sign-out-alt"></i> -->
+                                       <?php echo lang('signOut');?>
+                                    </a>
+                                 </li>
                               <?php else: ?>
-                              <li>
-                                 <a href="<?php echo site_url('auth/register');?>" title="Sign up" class="dez-page"><i class="fas fa-user-plus mr-2"></i><?php echo lang('register')?></a>
-                              </li>
-                              <li>
-                                 <a href="<?php echo site_url('auth/login');?>" title="Log in" class="dez-page"><i class="fas fa-user mr-2"></i><?php echo lang('login')?></a>
-                              </li>
+                                 <li>
+                                    <a href="<?php echo site_url('auth/register');?>" title="Sign up" class="dez-page">
+                                       <i class="fas fa-user-plus mr-2"></i>
+                                       <?php echo lang('register')?>
+                                    </a>
+                                 </li>
+                                 <li>
+                                    <a href="<?php echo site_url('auth/login');?>" title="Log in" class="dez-page">
+                                       <i class="fas fa-user mr-2"></i>
+                                       <?php echo lang('login')?>
+                                    </a>
+                                 </li>                                 
                               <?php endif; ?>
                            </ul>
                         </li>

@@ -317,6 +317,8 @@
       displayImageFields();
       //getInitialPrice($('#jobtype').val());
 
+      $('#jobtype, #category, #subcategory, #location').select2();
+
       $('.summernote').summernote({
         tabsize: 3,
         height: 150,
