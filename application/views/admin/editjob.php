@@ -208,7 +208,7 @@
    $(document).ready(function(){
       $('#jobtype, #category, #subcategory, #location').select2();
       //getInitialPrice($('#jobtype').val());
-      getSubcategories($('#category').val());
+      //getSubcategories($('#category').val());
       $('#category').change(function(){
          getSubcategories($('#category').val());
       });
