@@ -32,7 +32,7 @@
                <div class="form-group row">
                   <div class="col-sm-3"></div>
                   <div class="col-sm-9">
-                     <button type="submit" class="btn btn-success mt-3"> Add location </button>
+                     <button type="submit" class="btn btn-success mt-3"> <i class="fas fa-save mr-2"></i> Add location </button>
                   </div>
                </div>
                <?php echo form_close();?>

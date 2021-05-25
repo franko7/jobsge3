@@ -73,7 +73,7 @@
                   </div>
                   
                   <div class="form-group col-md-2">
-                     <button class="btn btn-primary btn-block">Search</button>
+                     <button class="btn btn-primary btn-block"><i class="fas fa-search mr-2"></i> Search</button>
                   </div>
                </div>
             </form>

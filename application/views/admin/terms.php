@@ -51,7 +51,7 @@
                   </div>
 
                   <div class="form-group row">
-                     <button type="submit" class="btn btn-success mt-3"> Save </button>
+                     <button type="submit" class="btn btn-success mt-3"> <i class="fas fa-save mr-2"></i> Save </button>
                   </div>
 
                <?php echo form_close();?>

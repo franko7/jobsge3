@@ -50,7 +50,7 @@
                   </div>
                </div>               
                <div class="form-group row">
-                  <button type="submit" class="btn btn-success mt-3"> Add subcategory </button>
+                  <button type="submit" class="btn btn-success mt-3"> <i class="fas fa-save mr-2"></i> Add subcategory </button>
                   </div>
                </div>
                <?php echo form_close();?>
