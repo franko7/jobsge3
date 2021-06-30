@@ -30,13 +30,22 @@ class user extends CI_Model
 		return $this->db->select('*')->from('users')->where('email', $email)->count_all_results();
 	}
 
-	public function getNonAdminUsersCount()
+	// public function getNonAdminUsersCount()
+	// {
+	// 	return $this->db->select('*')->from('users')->where('role !=', 1)->count_all_results();
+	// }
+	// public function getNonAdminUsers($limit, $start)
+	// {
+	// 	return $this->db->select('*')->from('users')->where('role !=', 1)->limit($limit, $start)->get()->result();
+	// }
+	
+	public function getAllUsersCount()
 	{
-		return $this->db->select('*')->from('users')->where('role !=', 1)->count_all_results();
+		return $this->db->select('*')->from('users')->count_all_results();
 	}
-	public function getNonAdminUsers($limit, $start)
+	public function getAllUsers($limit, $start)
 	{
-		return $this->db->select('*')->from('users')->where('role !=', 1)->limit($limit, $start)->get()->result();
+		return $this->db->select('*')->from('users')->limit($limit, $start)->get()->result();
 	}
 
 	public function updateNamePassword($id, $fullname, $password)
@@ -63,6 +72,11 @@ class user extends CI_Model
 	public function setStatus($id, $status)
 	{
 		return $this->db->update('users', array('status' => $status), array('id' => $id));
+	}
+
+	public function setUserRole($userId, $role)
+	{
+		return $this->db->update('users', array('role' => $role), array('id' => $userId));
 	}
 
 	public function hasRecoveryString($userid, $recstr)

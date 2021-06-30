@@ -6,7 +6,8 @@ class Admin extends CI_Controller {
    public function __construct() {
 
       parent::__construct();
-      if (!$this->session->userdata('logged_in') || $this->session->userdata('user_role') != 1) redirect('/');
+      $this->load->model('user');
+      if (!$this->session->userdata('logged_in') || $this->user->getUserdataById($this->session->userdata('user_id'))->role!=1) redirect('/');
       $this->load->library('form_validation');
       $this->load->helper("security");
       $this->load->library('pagination');      
@@ -26,26 +27,24 @@ class Admin extends CI_Controller {
 	// }
 
 
-   public function users()
-	{
+   public function users(){
       $data['pageN'] = 2;
       $this->load->model('user');
 
       $config = $this->config->item('adminPaginationConfig');
       $config['base_url'] = base_url('admin/users');
-      $config['total_rows'] =  $this->user->getNonAdminUsersCount();
+      $config['total_rows'] =  $this->user->getAllUsersCount();
       $this->pagination->initialize($config);
       $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
        
       $data['links'] = $this->pagination->create_links();
       $data['page'] = $page;
-      $data['users'] = $this->user->getNonAdminUsers($config["per_page"], $page);
+      $data['users'] = $this->user->getAllUsers($config["per_page"], $page);
 		return $this->load->view('admin/users', $data);
 	}
 
 
-   public function jobs()
-	{      
+   public function jobs(){	      
       $data['pageN'] = 3;
       $this->load->model(['jobtype', 'category', 'job']);
       $data['jobTypes'] = $this->jobtype->getJobTypes();
@@ -86,8 +85,7 @@ class Admin extends CI_Controller {
 		return $this->load->view('admin/jobs', $data);
 	}
 
-   public function editjob($id)
-	{
+   public function editjob($id){
       $data['pageN'] = 99;
       if($id && filter_var($id, FILTER_VALIDATE_INT)){
          $this->load->model(['jobtype', 'location', 'category', 'subcategory', 'job']);
@@ -196,16 +194,14 @@ class Admin extends CI_Controller {
    }
 
 
-   public function categories()
-	{
+   public function categories(){
       $data['pageN'] = 4;
 		$this->load->model('category');
 		$data['categories'] = $this->category->getCategorySubcategory();
       $this->load->view('admin/categories', $data);      
    }
 
-   public function addcategory()
-	{
+   public function addcategory(){
       $data['pageN'] = 5;      
       if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST'){     
          $this->form_validation->set_rules('category_en', 'Category English', 'trim|required|xss_clean|min_length[2]|max_length[200]|is_unique[categories.category_en]');
@@ -246,8 +242,7 @@ class Admin extends CI_Controller {
    }
 
 
-   public function editcategory($id=0)
-	{
+   public function editcategory($id=0){
       $data['pageN'] = 99;
       if($id && filter_var($id, FILTER_VALIDATE_INT)){
          $this->load->model('category');
@@ -299,8 +294,7 @@ class Admin extends CI_Controller {
    }
 
 
-   public function deletecategory($id=0)
-	{
+   public function deletecategory($id=0){
       $data['pageN'] = 99;
       if($id && filter_var($id, FILTER_VALIDATE_INT)){
          $this->load->model(['category', 'subcategory']);
@@ -318,8 +312,7 @@ class Admin extends CI_Controller {
    }
 
    
-   public function addsubcategory($id=0)
-	{
+   public function addsubcategory($id=0){
       $data['pageN'] = 6;
       $data['id'] = filter_var($id, FILTER_VALIDATE_INT) ? $id : 0;
       $this->load->model('category');      
@@ -346,8 +339,7 @@ class Admin extends CI_Controller {
    }
 
 
-   public function editsubcategory($id=0)
-	{
+   public function editsubcategory($id=0){
       $data['pageN'] = 99;
       if($id && filter_var($id, FILTER_VALIDATE_INT)){
          $this->load->model('category');
@@ -378,8 +370,7 @@ class Admin extends CI_Controller {
       }      
    }
 
-   public function deletesubcategory($id=0)
-	{
+   public function deletesubcategory($id=0){	
       $data['pageN'] = 99;
       if($id && filter_var($id, FILTER_VALIDATE_INT)){
          $this->load->model('subcategory');
@@ -396,16 +387,14 @@ class Admin extends CI_Controller {
    }
 
 
-   public function locations()
-	{
+   public function locations(){
       $data['pageN'] = 7;      
       $this->load->model('location');
 		$data['locations'] = $this->location->getLocations();
       $this->load->view('admin/locations', $data);      
    }
 
-   public function addlocation($id=0)
-	{
+   public function addlocation($id=0){
       $data['pageN'] = 8;
       $data['id'] = filter_var($id, FILTER_VALIDATE_INT) ? $id : 0; 
       if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST'){  
@@ -423,8 +412,7 @@ class Admin extends CI_Controller {
       $this->load->view('admin/addlocation', $data);
    }
 
-   public function editlocation($id=0)
-	{
+   public function editlocation($id=0){
       $data['pageN'] = 99;
       if($id && filter_var($id, FILTER_VALIDATE_INT)){
          $this->load->model('location');         
@@ -453,8 +441,7 @@ class Admin extends CI_Controller {
       }      
    }
 
-   public function deletelocation($id=0)
-	{
+   public function deletelocation($id=0){
       $data['pageN'] = 99;
       if($id && filter_var($id, FILTER_VALIDATE_INT)){
          $this->load->model('location');         
@@ -469,8 +456,7 @@ class Admin extends CI_Controller {
    }
 
 
-   public function editimages()
-	{
+   public function editimages(){
       $data['pageN'] = 9;      
       $this->load->model('image'); 
       if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST'){
@@ -536,8 +522,7 @@ class Admin extends CI_Controller {
    }
 
 
-   public function socials()
-	{
+   public function socials(){
       $data['pageN'] = 10;
       $this->load->model('social');
       if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST'){
@@ -567,8 +552,7 @@ class Admin extends CI_Controller {
    }
 
 
-   public function jobtypes()
-	{
+   public function jobtypes(){
       $data['pageN'] = 11;
       $this->load->model('jobtype');
       if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST'){
@@ -709,6 +693,14 @@ class Admin extends CI_Controller {
       }
    }
 
+
+   public function setUserRole($userId, $role){
+      if (filter_var($userId, FILTER_VALIDATE_INT) && ($role==1 || $role==2)){
+         $this->load->model('user');
+         $this->user->setUserRole($userId, $role);
+         return redirect('admin/users');
+      }
+   }
 
 
 

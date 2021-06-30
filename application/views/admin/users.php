@@ -30,8 +30,8 @@
                      <th style="width: 10px">#</th>
                      <th>Fullname</th>
                      <th>Email</th>
-                     <th>Status</th>
-                     <th>Action</th>
+                     <th colspan="2">Status/Change Status</th>
+                     <th colspan="2">Role/Change Role</th>
                   </tr>
                </thead>
                <tbody>
@@ -48,6 +48,16 @@
                               <a href="<?php echo base_url('admin/deactivateuser/'.$user->id);?>" class="btn btn-danger btn-sm">Make Inactive</button>
                            <?php else:?>
                               <a href="<?php echo base_url('admin/activateuser/'.$user->id);?>" class="btn btn-success btn-sm">Make Active</button>
+                           <?php endif;?>
+                        </td>
+                        <td>
+                           <?php echo $user->role==1?'<span class="badge badge-primary">Admin</span>':'<span class="badge badge-secondary">Normal User</span>';?>
+                        </td>
+                        <td>
+                           <?php if($user->role==1):?>
+                              <a href="<?php echo base_url('admin/setUserRole/'.$user->id.'/2');?>" class="btn btn-secondary btn-sm">Set Normal User</button>
+                           <?php else:?>
+                              <a href="<?php echo base_url('admin/setUserRole/'.$user->id.'/1');?>" class="btn btn-primary btn-sm">Set Admin</button>
                            <?php endif;?>
                         </td>
                      </tr>
