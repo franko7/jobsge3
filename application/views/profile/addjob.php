@@ -54,7 +54,7 @@
                               <div class="col-lg-6 col-md-6"><!-- category -->
                                  <div class="form-group">
                                     <label> <?php echo lang('category')?> </label>
-                                    <select name="category" id="category"><!-- data-live-search="true" -->
+                                    <select name="category" id="category" class="selectpicker" data-live-search="true"><!-- data-live-search="true" -->
                                        <?php foreach($categories as $category): ?>
                                           <option value="<?php echo $category->id;?>" <?php echo set_value('category')==$category->id ? 'selected':'';?>> 
                                              <?php echo $category->category_en;?> 
@@ -67,7 +67,7 @@
                               <div class="col-lg-6 col-md-6"><!-- subcategory -->
                                  <div class="form-group">
                                     <label> <?php echo lang('subcategory')?> </label>
-                                    <select name="subcategory" id="subcategory"> <!-- data-live-search="true" -->                    
+                                    <select name="subcategory" id="subcategory" class="selectpicker" data-live-search="true"> <!-- data-live-search="true" -->                    
                                     </select>
                                     <small style="color:red"><?php echo form_error('subcategory'); ?></small>
                                  </div>
@@ -103,7 +103,7 @@
                               <div class="col-lg-6 col-md-6"><!-- location -->
                                  <div class="form-group">
                                     <label> <?php echo lang('location')?> </label>
-                                    <select name="location" id="location" ><!-- data-live-search="true" -->
+                                    <select name="location" id="location" class="selectpicker" data-live-search="true"><!-- data-live-search="true" -->
                                        <?php foreach($locations as $location): ?>
                                           <option value="<?php echo $location->id;?>" <?php echo set_value('location')==$location->id ? 'selected':'';?>> 
                                              <?php echo $location->location;?> 
@@ -243,7 +243,8 @@
       // getInitialPrice($('#jobtype').val());
       getSubcategories($('#category').val());
 
-      $('#jobtype, #category, #subcategory, #location').select2();//$('#category').selectpicker();
+      // $('#jobtype, #category, #subcategory, #location').select2();
+      $('#jobtype, #category, #subcategory, #location').selectpicker();
       
       $('.summernote').summernote({
         tabsize: 3,

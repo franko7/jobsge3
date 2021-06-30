@@ -42,7 +42,7 @@
                         <div class="col-lg-6"><!-- category -->
                            <div class="form-group">
                               <label><?php echo lang('category')?></label>
-                              <select name="category" id="category">
+                              <select name="category" id="category" class="selectpicker" data-live-search="true">
                                  <?php foreach($categories as $category): ?>
                                     <option value="<?php echo $category->id;?>" <?php echo $currentJob->category_id==$category->id ? 'selected':'';?>> 
                                        <?php echo $category->category_en;?> 
@@ -55,7 +55,7 @@
                         <div class="col-lg-6"><!-- subcategory -->
                            <div class="form-group">
                               <label><?php echo lang('subcategory')?></label>
-                              <select name="subcategory" id="subcategory">
+                              <select name="subcategory" id="subcategory" class="selectpicker" data-live-search="true">
                                  <?php foreach($subcategories as $subcategory): ?>
                                     <option value="<?php echo $subcategory->id;?>" <?php echo $currentJob->subcategory_id==$subcategory->id ? 'selected':'';?>> 
                                        <?php echo $subcategory->subcategory_en;?> 
@@ -96,7 +96,7 @@
                         <div class="col-lg-6"><!-- location -->
                            <div class="form-group">
                               <label><?php echo lang('location')?></label>
-                              <select name="location">
+                              <select name="location" class="selectpicker" data-live-search="true">
                                  <?php foreach($locations as $location): ?>
                                     <option value="<?php echo $location->id;?>" <?php echo $currentJob->location==$location->id ? 'selected':'';?>> 
                                        <?php echo $location->location;?>
@@ -317,7 +317,7 @@
       displayImageFields();
       //getInitialPrice($('#jobtype').val());
 
-      $('#jobtype, #category, #subcategory, #location').select2();
+      $('#jobtype, #category, #subcategory, #location').selectpicker();
 
       $('.summernote').summernote({
         tabsize: 3,

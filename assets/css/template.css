@@ -2618,6 +2618,9 @@ body>span.select2-container--open>span.select2-dropdown--below>span.select2-sear
 	outline: none;
 }
 
+
+
+
 /* bootstrap select */
 .dropdown-item.active, .dropdown-item:active {
 	background-color: #3f8e94;

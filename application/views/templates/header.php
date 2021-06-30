@@ -4,10 +4,11 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">	
 	<title><?php echo lang('site_title') . (isset($title)?' | '.$title:''); ?></title>
-   <link rel="stylesheet" href="<?= base_url('assets/css/bootstrap413.min.css');?>">
+   <link rel="stylesheet" href="<?= base_url('assets/css/bootstrap460.min.css');?>">
    <link rel="stylesheet" href="<?= base_url('assets/css/owl.carousel.min.css');?>">
    <link rel="stylesheet" href="<?= base_url('assets/css/bootstrap-select.min.css');?>">
-   <link rel="stylesheet" href="<?php echo base_url('assets/admin/css/select2.min.css');?>">
+   <link rel="stylesheet" href="<?= base_url('assets/css/select2.min.css');?>">
+   <!-- <link rel="stylesheet" href="<?php echo base_url('assets/admin/css/select2.min.css');?>"> -->
    <link rel="stylesheet" href="<?= base_url('assets/css/summernote-bs4.min.css');?>">
    <link rel="stylesheet" href="<?= base_url('assets/css/style.css');?>">
    <link rel="stylesheet" href="<?= base_url('assets/css/template.css');?>">
