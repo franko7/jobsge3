@@ -1,40 +1,76 @@
 <?php
 
-class subcategory extends CI_Model
+class category extends CI_Model
 {
-   public function getSubcategoriesByCategoryId($id)
+
+   public function getCategories()
 	{
-		return $this->db->select('*')->from('subcategories')->where('category_id', $id)->get()->result();
+		return $this->db->select('*')
+		->from('categories')
+		->order_by('sort', 'DESC')
+		->order_by('id', 'ASC')
+		->get()
+		->result();
 	}
 
-	public function getSubcategoryById($id)
+	public function getCategoryById($id)
 	{
-		return $this->db->select('*')->from('subcategories')->where('id', $id)->get()->row();
+		return $this->db->select('*')
+		->from('categories')
+		->where('id', $id)
+		->get()
+		->row();
 	}
 
-	public function getSubcategories()
+	public function addCategory($category_en, $category_ru, $sort)
 	{
-		return $this->db->select('*')->from('subcategories')->get()->result();
-	}
-
-	public function addSubcategory($category_id, $subcategory_en, $subcategory_ru)
-	{
-		$data = array('category_id' => $category_id, 'subcategory_en' => $subcategory_en, 'subcategory_ru' => $subcategory_ru);
-		$this->db->insert('subcategories', $data);
+		$data = array('category_en' => $category_en, 'category_ru' => $category_ru, 'sort' => $sort);
+		$this->db->insert('categories', $data);
 		return $this->db->insert_id();
 	}
 
-	public function editSubcategory($id, $category_id, $subcategory_en, $subcategory_ru)
+	public function editCategory($id, $category_en, $category_ru, $sort)
 	{
 		$this->db->where('id', $id);
-		return $this->db->update('subcategories', array('category_id' => $category_id, 'subcategory_en' => $subcategory_en, 'subcategory_ru' => $subcategory_ru));
+		return $this->db->update('categories', array('category_en' => $category_en, 'category_ru' => $category_ru, 'sort' => $sort));
 	}
 
-	public function deleteSubcategory($id){
-		return $this->db->where('id', $id)->delete('subcategories');
+	public function deleteCategory($id){
+		return $this->db->where('id', $id)->delete('categories');
 	}
 
-	public function deleteSubcategoryByCategoryId($id){
-		return $this->db->where('category_id', $id)->delete('subcategories');
+	public function updateImage($id, $filename)
+	{
+		$this->db->where('id', $id);
+		return $this->db->update('categories', array('filename' => $filename));
 	}
+
+	public function getCategorySubcategory()
+	{
+		// $categories = $this->db->select('*')->from('categories')->order_by('sort', 'ASC')->get()->result_array();
+		// foreach($categories as $i=>$category) {
+		// 	$this->db->where('category_id', $category['id'])->order_by('sort', 'ASC');
+		// 	$subcategories = $this->db->get('subcategories')->result_array();
+		// 	$categories[$i]['subcategories'] = $subcategories;
+		// }
+		// return $categories;
+
+		$categories = $this->db->select('*')->from('categories')->order_by('sort', 'ASC')->get()->result_array();
+		$subcategories = $this->db->order_by('sort', 'ASC')->get('subcategories')->result_array();
+		$c = array();
+		// Set categories array index to id
+		foreach($categories as $ct){
+			$c[$ct['id']] = $ct;
+		}
+		// Append subcategories to categories
+		foreach($subcategories as $sc){
+			$c[$sc['category_id']]['subcategories'][] = $sc;
+		}
+		// Sort array by 'sort' key
+		usort($c, function($a, $b){
+			return $a['sort'] <=> $b['sort'];
+		});
+		return $c;
+	}
+
 }
